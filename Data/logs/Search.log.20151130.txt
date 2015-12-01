@@ -1,0 +1,3 @@
+﻿13076 22:49:44 INFO  Warming and Caching your search indexes
+13076 22:49:44 INFO  /******* Warming Queries ********/
+13076 22:49:44 INFO  /*************************/

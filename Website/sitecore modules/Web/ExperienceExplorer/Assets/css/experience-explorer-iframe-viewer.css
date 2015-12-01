@@ -1,0 +1,96 @@
+﻿.experience-explorer-iframe .font-xlarge {
+    color: #fff;
+    font-size: 24px;
+    line-height: 52px;
+    margin-left: 5px;
+}
+
+.experience-explorer-iframe .font-small {
+    font-size: .6em;
+    float: left;
+}
+
+.viewer-header {
+    background-color: #474747;
+}
+
+/********** ICONS  ***********/
+.experience-explorer-iframe-viewer .icon-th {
+    background-image: url("/sitecore modules/Web/ExperienceExplorer/Assets/images/views.png");
+}
+
+.experience-explorer-iframe-viewer .icon-heart {
+    background-image: url("/sitecore modules/Web/ExperienceExplorer/Assets/images/star.png");
+}
+
+/********** HEADER STYLES **********/
+
+.experience-explorer-iframe .visit-counters td {
+  font-size: 1.2em;
+  line-height: 0.85;
+  text-transform: lowercase;
+  font-weight: bold;
+}
+
+.experience-explorer-iframe .visit-counters .inline-flex {
+    display: inline-block;
+    float: left;
+    margin-right: 15px;
+}
+
+/*********************************
+************ TABS ***************
+*********************************/
+
+/********** RULES TAB ***************/
+
+.experience-explorer-iframe-viewer .rules {
+    line-height: 28px;
+}
+
+.experience-explorer-iframe-viewer .rules li {
+    margin-bottom: 10px;
+}
+
+.experience-explorer-iframe-viewer .rules .conditions {
+    display: block;
+    margin: 0 0 0 10px;
+}
+
+.experience-explorer-iframe-viewer .conditions:hover {
+    background-color: #eee;
+}
+
+.red-indication {
+    background: url('/sitecore modules/web/experienceExplorer/assets/images/bullet_circle_red.png') no-repeat scroll transparent;
+}
+
+.yellow-indication {
+    background: url('/sitecore modules/web/experienceExplorer/assets/images/bullet_circle_yellow.png') no-repeat scroll transparent;
+}
+
+.green-indication {
+    background: url('/sitecore modules/web/experienceExplorer/assets/images/bullet_circle_green.png') no-repeat scroll transparent;
+}
+
+.red-indication,
+.yellow-indication,
+.green-indication {
+    background-position: 0 0;
+    float: left;
+    margin: 0;
+    height: 17px;
+    width: 18px;
+    margin-right: 5px;
+    margin-top: 2px;
+}
+
+/********** PRESET TAB ***************/
+.experience-explorer-iframe-viewer .preset-icon img {
+    max-width: 128px;
+}
+
+/********** PRESET TAB ***************/
+.experience-explorer-iframe-viewer .visit-icon {
+    max-width: 128px;
+}

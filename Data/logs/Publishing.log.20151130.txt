@@ -1,0 +1,17 @@
+﻿13076 22:49:44 INFO  [Recovery]: Setting default publish recovery strategy.
+13076 22:49:44 INFO  [Recovery]: Publish Recovery Enabled - False
+13076 22:49:44 INFO  [Recovery]: Publish Recovery Strategy - DatabasePublishRecoveryStrategy
+13076 22:49:44 INFO  Settings.Publishing.AutoScheduleSmartPublish:True
+13076 22:49:44 INFO  Settings.Publishing.CheckSecurity:False
+13076 22:49:44 INFO  Settings.Publishing.CompareRevisions:True
+13076 22:49:44 INFO  Settings.Publishing.DisableDatabaseCaches:False
+13076 22:49:44 INFO  Settings.Publishing.ExecuteInManagedThreadPool:False
+13076 22:49:44 INFO  Settings.Publishing.LogInterval:0
+13076 22:49:44 INFO  Settings.Publishing.MaxDegreeOfParallelism:1
+13076 22:49:44 INFO  Settings.Publishing.PublishDialogPollingInterval:500
+13076 22:49:44 INFO  Settings.Publishing.PublishEmptyItems:False
+13076 22:49:44 INFO  Settings.Publishing.PublishingInstance:CLDBHPRBH1-shrink
+13076 22:49:44 INFO  Settings.Publishing.RequireTargetDeleteRightWhenCheckingSecurity:True
+13076 22:49:44 INFO  Settings.Publishing.StatusUpdateInterval:00:00:02
+13076 22:49:44 INFO  Settings.Publishing.ThreadPriority:BelowNormal
+13076 22:49:44 INFO  Settings.Publishing.TimeBeforeStatusExpires:02:00:00

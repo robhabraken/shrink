@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<xamlControls
+  xmlns:x="http://www.sitecore.net/xaml"
+  xmlns:ajax="http://www.sitecore.net/ajax"
+  xmlns:rest="http://www.sitecore.net/rest"
+  xmlns:javascript="http://www.sitecore.net/javascript"
+  xmlns:r="http://www.sitecore.net/renderings"
+  xmlns:xmlcontrol="http://www.sitecore.net/xmlcontrols"
+  xmlns:p="http://schemas.sitecore.net/Visual-Studio-Intellisense"
+  xmlns:asp="http://www.sitecore.net/microsoft/webcontrols"
+  xmlns:html="http://www.sitecore.net/microsoft/htmlcontrols"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+  <ExperienceExplorer.SelectUser x:inherits="Sitecore.ExperienceExplorer.Web.Dialogs.SelectUserPage,Sitecore.ExperienceExplorer.Web">
+    <Sitecore.Controls.DialogPage Header="Associated Sitecore User" Text="Select a Sitecore user" Icon="Network/16x16/id_card.png" runat="server">
+      <x:register assembly="ComponentArt.Web.UI" namespace="ComponentArt.Web.UI"/>
+
+      <Stylesheet Src="Grid.css" DeviceDependant="true" runat="server" />
+
+      <AjaxScriptManager runat="server"/>
+      <ContinuationManager runat="server" />
+
+      <script type="text/javascript" language="javascript" runat="server" x:placeholder="Scripts">
+        <![CDATA[
+        function onUsersDoubleClick(sender, eventArgs)
+        {
+         scForm.postRequest('','','','OK_Click');
+        }
+        
+        function SetHeight()
+        {
+         var gridRows = $("ctl00_ctl00_ctl00_ctl00_ctl04_Users_dom");
+         if (gridRows != null)
+          gridRows.style.height = '100%';
+        }
+
+        window.onresize = SetHeight;
+        ]]>
+      </script>
+
+      <GridPanel ID="MainPanel" Height="100%" Width="100%" runat="server">
+        <Border ID="GridContainer" Height="99%" Width="100%" runat="server">
+          <Grid id="Users"
+              AutoFocusSearchBox="false"
+              RunningMode="Callback"
+              CssClass="Grid"
+                
+              AllowMultipleSelect="false"
+
+              ShowHeader="true"
+              HeaderCssClass="GridHeader"
+            
+              FooterCssClass="GridFooter"
+                
+              ManualPaging="true"
+
+              GroupByCssClass="GroupByCell"
+              GroupByTextCssClass="GroupByText"
+              GroupBySortAscendingImageUrl="group_asc.gif"
+              GroupBySortDescendingImageUrl="group_desc.gif"
+              GroupBySortImageWidth="10"
+              GroupBySortImageHeight="10"
+
+              GroupingNotificationTextCssClass="GridHeaderText"
+              GroupingPageSize="5"
+            
+              PageSize="15"
+              PagerStyle="Slider"
+              PagerTextCssClass="GridFooterText"
+              PagerButtonWidth="41"
+              PagerButtonHeight="22"
+              PagerImagesFolderUrl="/sitecore/shell/themes/standard/componentart/grid/pager/"
+            
+              ShowSearchBox="true"
+              SearchTextCssClass="GridHeaderText"
+              SearchBoxCssClass="SearchBox"
+      	    
+              SliderHeight="20"
+              SliderWidth="150"
+              SliderGripWidth="9"
+              SliderPopupOffsetX="20"
+              SliderPopupClientTemplateId="SliderTemplate"
+            
+              TreeLineImagesFolderUrl="/sitecore/shell/themes/standard/componentart/grid/lines/"
+              TreeLineImageWidth="22"
+              TreeLineImageHeight="19"
+            
+              PreExpandOnGroup="false"
+              ImagesBaseUrl="/sitecore/shell/themes/standard/componentart/grid/"
+              IndentCellWidth="22"
+
+              LoadingPanelClientTemplateId="LoadingFeedbackTemplate"
+              LoadingPanelPosition="MiddleCenter"
+            
+              Width="100%" Height="100%" runat="server">
+
+            <Levels>
+              <GridLevel
+                DataKeyField="scGridID"
+                ShowTableHeading="false"
+                ShowSelectorCells="false"
+                RowCssClass="Row"
+                ColumnReorderIndicatorImageUrl="reorder.gif"
+                DataCellCssClass="DataCell"
+                HeadingCellCssClass="HeadingCell"
+                HeadingCellHoverCssClass="HeadingCellHover"
+                HeadingCellActiveCssClass="HeadingCellActive"
+                HeadingRowCssClass="HeadingRow"
+                HeadingTextCssClass="HeadingCellText"
+                SelectedRowCssClass="SelectedRow"
+                GroupHeadingCssClass="GroupHeading"
+                SortAscendingImageUrl="asc.gif"
+                SortDescendingImageUrl="desc.gif"
+                SortImageWidth="13"
+                SortImageHeight="13" runat="server">
+                <Columns>
+                  <GridColumn DataField="scGridID" Visible="false" runat="server" />
+                  <GridColumn DataField="Name" HeadingText="Name" AllowGrouping="false" IsSearchable="true" SortedDataCellCssClass="SortedDataCell" runat="server" />
+                </Columns>
+              </GridLevel>
+            </Levels>
+
+            <ClientTemplates>
+              <ClientTemplate Id="LoadingFeedbackTemplate" runat="server">
+                <table cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td style="font-size:10px;">
+                      <Literal Text="Loading..." runat="server" />;
+                    </td>
+                    <td>
+                      <img src="/sitecore/shell/themes/standard/componentart/grid/spinner.gif" width="16" height="16" border="0" />
+                    </td>
+                  </tr>
+                </table>
+              </ClientTemplate>
+
+              <ClientTemplate Id="SliderTemplate" runat="server">
+                <table class="SliderPopup" cellspacing="0" cellpadding="0" border="0">
+                  <tr>
+                    <td>
+                      <div style="padding:4px;font:8pt tahoma;white-space:nowrap;overflow:hidden">## DataItem.GetMember('Name').Value ##</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="height:14px;background-color:#666666;padding:1px 8px 1px 8px;color:white">
+                      ## DataItem.PageIndex + 1 ## / ## Users.PageCount ##
+                    </td>
+                  </tr>
+                </table>
+              </ClientTemplate>
+            </ClientTemplates>
+          </Grid>
+        </Border>
+
+      </GridPanel>
+
+      <script type="text/javascript" language="javascript" runat="server">
+        <![CDATA[  
+         var gridRows = $("ctl00_ctl00_ctl00_ctl00_ctl04_Users_dom");
+         if (gridRows != null)
+          gridRows.style.backgroundColor = '#FFFFFF';
+        ]]>
+      </script>
+
+    </Sitecore.Controls.DialogPage>
+  </ExperienceExplorer.SelectUser>
+
+</xamlControls>

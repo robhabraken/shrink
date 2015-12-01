@@ -1,0 +1,219 @@
+﻿/******** COMMON STYLES ***********/
+
+input[type='checkbox'] {
+    vertical-align: middle;
+}
+
+.experience-explorer-iframe-editor .input-tiny {
+    width: 55px;
+    float: right;
+}
+
+.experience-explorer-iframe-editor .table-condensed td {
+    padding: 1px;
+}
+
+/******** WIDGET STYLES ***********/
+.ui-widget {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.42857143;
+    color: #131313;
+    max-width: none !important;
+}
+
+.control {
+    margin: 0;
+}
+
+    .control label {
+        border-color: transparent;
+    }
+
+    .control small {
+        margin-left: 4px;
+        font-size: 95%;
+        font-family: "Segoe UI","Segoe WP","Helvetica Neue",sans-serif;
+        line-height: 25px;
+        color: #333;
+        vertical-align: sub;
+        font-weight: normal;
+    }
+
+    .control img {
+        margin: 4px 0 0 4px;
+    }
+
+/*********************************
+************ TABS ***************
+*********************************/
+
+/*********** PRESET TAB **************/
+.experience-explorer-iframe-editor .jcarousel-skin-tango {
+    list-style: none;
+    margin: 0;
+}
+
+    .experience-explorer-iframe-editor .jcarousel-skin-tango.presets-list {
+        padding-left: 20px;
+    }
+
+    .experience-explorer-iframe-editor .jcarousel-skin-tango .jcarousel-container-horizontal {
+        padding: 0 20px;
+    }
+
+    .experience-explorer-iframe-editor .jcarousel-skin-tango .jcarousel-clip {
+        overflow: hidden;
+    }
+
+    .experience-explorer-iframe-editor .jcarousel-skin-tango .jcarousel-clip-horizontal {
+        width: 275px;
+        height: 77px;
+    }
+
+    .experience-explorer-iframe-editor .jcarousel-skin-tango .jcarousel-prev-horizontal,
+    .experience-explorer-iframe-editor .jcarousel-skin-tango .jcarousel-next-horizontal {
+        position: absolute;
+        top: 20px;
+        width: 25px;
+        height: 25px;
+        cursor: pointer;
+        line-height: 16px;
+        font-size: 30px;
+    }
+
+    .experience-explorer-iframe-editor .jcarousel-skin-tango .jcarousel-next-horizontal {
+        right: 0;
+        left: auto;
+    }
+
+    .experience-explorer-iframe-editor .jcarousel-skin-tango .jcarousel-prev-horizontal {
+        left: 0;
+        right: auto;
+    }
+
+    .experience-explorer-iframe-editor .jcarousel-skin-tango .item {
+        display: block;
+        float: left;
+        width: 75px;
+        height: 77px;
+        margin-left: 0;
+        margin-right: 5px;
+        position: relative;
+    }
+
+        .experience-explorer-iframe-editor .jcarousel-skin-tango .item .item-inner {
+            display: block;
+            width: 50px;
+            height: 50px;
+            margin: 12px auto 0 auto;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #fff;
+            color: #2e8bcc;
+            text-decoration: none;
+        }
+
+            .experience-explorer-iframe-editor .jcarousel-skin-tango .item .item-inner .tick {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            .experience-explorer-iframe-editor .jcarousel-skin-tango .item .item-inner .name {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background-color: #fff;
+                font-size: 9px;
+                line-height: 12px;
+                padding: 1px 2px;
+            }
+
+        .experience-explorer-iframe-editor .jcarousel-skin-tango .item.active .item-inner {
+            width: 73px;
+            height: 73px;
+            margin: 0;
+            border-width: 2px;
+        }
+
+        .experience-explorer-iframe-editor .jcarousel-skin-tango .item .item-inner.selected {
+            border-color: #2E8BCC;
+        }
+
+            .experience-explorer-iframe-editor .jcarousel-skin-tango .item .item-inner.selected .tick {
+                display: block;
+            }
+
+        .experience-explorer-iframe-editor .jcarousel-skin-tango .item.active .item-inner.selected .tick {
+            width: 20px;
+            height: 20px;
+        }
+
+        .experience-explorer-iframe-editor .jcarousel-skin-tango .item.active .item-inner .name {
+            font-size: 11px;
+            line-height: 14px;
+            padding: 3px 5px;
+        }
+
+/********* DEVICE TAB ************/
+.experience-explorer-iframe-editor .device-dropdown .icon {
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
+
+/********* GEO IP TAB ************/
+.experience-explorer-iframe-editor .geo-ip {
+    max-height: 300px;
+}
+
+.experience-explorer-iframe-editor .geo-ip-data .sc-combobox,
+.experience-explorer-iframe-editor .geo-ip-data .sc-textbox {
+    width: 98%;
+}
+
+.experience-explorer-iframe-editor .geo-ip-data label {
+    margin-top: 10px;
+}
+
+.experience-explorer-iframe-editor .link_testgeo {
+    color: #2e8bcc;
+    text-decoration: none;
+}
+
+.experience-explorer-iframe-editor .type-switch .links {
+    margin-bottom: 10px;
+}
+
+.experience-explorer-iframe-editor .type-switch .type-switch-data {
+    margin-bottom: 10px;
+}
+
+.experience-explorer-iframe-editor .type-switch .links .btn {
+    color: #131313;
+    min-width: 60px;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+    .experience-explorer-iframe-editor .type-switch .links .btn:hover {
+        background-color: #eee;
+    }
+
+    .experience-explorer-iframe-editor .type-switch .links .btn.active,
+    .experience-explorer-iframe-editor .type-switch .links .btn:active {
+        -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.15),0 1px 2px rgba(0,0,0,.05);
+        -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.15),0 1px 2px rgba(0,0,0,.05);
+        box-shadow: inset 0 2px 4px rgba(0,0,0,.15),0 1px 2px rgba(0,0,0,.05);
+        background: rgba(0, 0, 0, 0.125);
+    }
+
+.experience-explorer-iframe-editor .type-switch .geo-ip-data.collpase-geo {
+    overflow: hidden;
+    height: 0;
+}

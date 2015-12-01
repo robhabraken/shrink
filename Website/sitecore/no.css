@@ -1,0 +1,42 @@
+body
+{
+	font: 8pt Tahoma;
+	color:#333a4a;
+	margin:0px;
+}
+
+a, td
+{
+	font: 8pt Tahoma;
+	color:#333a4a;
+}
+
+.scTop
+{
+  background:#4b4b4b;
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#4b4b4b', EndColorStr='#595959');
+}
+
+.scBody
+{
+  background: #ebecf1 url(/sitecore/login/steel.png) repeat-x;
+  height:599px;
+}
+
+.scBottom
+{
+  color:White;
+  padding:0px 8px 8px 0px;
+  background:#4b4b4b;
+	filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#595959', EndColorStr='#4b4b4b');
+}
+
+.scHeadline
+{
+  font: 18pt verdana;
+}
+
+.scTasks
+{
+  font: 14pt verdana;
+}
