@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shrink", "Website\shrink.csproj", "{8F643DB0-76C8-40A7-8207-B8443319FBB5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "robhabraken.Sitecore.Shrink", "robhabraken.Sitecore.Shrink\robhabraken.Sitecore.Shrink.csproj", "{2C5C2D1C-5A20-451C-AB8F-F3155B4B7572}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8F643DB0-76C8-40A7-8207-B8443319FBB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F643DB0-76C8-40A7-8207-B8443319FBB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F643DB0-76C8-40A7-8207-B8443319FBB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C5C2D1C-5A20-451C-AB8F-F3155B4B7572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C5C2D1C-5A20-451C-AB8F-F3155B4B7572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C5C2D1C-5A20-451C-AB8F-F3155B4B7572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C5C2D1C-5A20-451C-AB8F-F3155B4B7572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
