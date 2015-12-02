@@ -33,7 +33,7 @@ namespace robhabraken.Sitecore.Shrink
             var descendants = root.Axes.GetDescendants();
             foreach (var item in descendants)
             {
-                if (!item.Template.ID.ToString().Equals(workinprogress.MEDIA_FOLDER_ID))
+                if (!item.Template.ID.ToString().Equals(MediaItemUsage.MEDIA_FOLDER_ID))
                 {
                     // count all items that are actually media items (not folders)
                     this.MediaItemCount++;
