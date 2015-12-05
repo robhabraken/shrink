@@ -1431,6 +1431,9 @@
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery-ui\js\jquery-ui-1.10.3.custom.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery-ui\js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery-ui\js\jquery-ui-culture.js" />
+    <Content Include="App_Config\Include\Shrink\Shrink.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="sitecore\shell\Applications\Buckets\libs\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery\jquery-1.10.2.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery\jquery-1.10.2.min.js" />
@@ -6561,9 +6564,9 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\robhabraken.Sitecore.Shrink\robhabraken.Sitecore.Shrink.csproj">
+    <ProjectReference Include="..\robhabraken.SitecoreShrink\robhabraken.SitecoreShrink.csproj">
       <Project>{2c5c2d1c-5a20-451c-ab8f-f3155b4b7572}</Project>
-      <Name>robhabraken.Sitecore.Shrink</Name>
+      <Name>robhabraken.SitecoreShrink</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

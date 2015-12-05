@@ -1,12 +1,12 @@
-﻿using Sitecore;
-using Sitecore.Configuration;
-using Sitecore.Data.Items;
-using Sitecore.Data.Archiving;
-using Sitecore.SecurityModel;
-
-namespace robhabraken.Sitecore.Shrink
+﻿
+namespace robhabraken.SitecoreShrink
 {
-    using global::Sitecore.Resources.Media;
+    using Sitecore;
+    using Sitecore.Configuration;
+    using Sitecore.Data.Items;
+    using Sitecore.Data.Archiving;
+    using Sitecore.SecurityModel;
+    using Sitecore.Resources.Media;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -16,8 +16,9 @@ namespace robhabraken.Sitecore.Shrink
 
     public class TidyUp
     {
+        //TODO: auto publish after clean up? Or should I make this optional?
 
-        public void Download(List<Item> items)
+        public void Download(List<Item> items, string targetPath)
         {
             //TODO: make master database configurable?
             var database = Factory.GetDatabase("master");
@@ -27,8 +28,13 @@ namespace robhabraken.Sitecore.Shrink
                 var mediaItem = (MediaItem)item;
                 var media = MediaManager.GetMedia(mediaItem);
                 var stream = media.GetStream();
-                var path = Path.Combine("D:\\", string.Format("{0}.{1}", mediaItem.MediaPath, mediaItem.Extension));   //TODO: create folders that do not yet exist
-                using (var targetStream = File.OpenWrite(path))
+
+                var mediaPath = mediaItem.MediaPath.Replace("/", "\\"); //TODO: make function of this
+                var directory = Path.Combine(targetPath, mediaPath.Substring(0, mediaPath.LastIndexOf("\\")));
+                var fullPath = Path.Combine(targetPath, string.Format("{0}.{1}", mediaPath, mediaItem.Extension));
+
+                Directory.CreateDirectory(directory);
+                using (var targetStream = File.OpenWrite(fullPath))
                 {
                     stream.CopyTo(targetStream);
                     targetStream.Flush();

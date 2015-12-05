@@ -1,10 +1,10 @@
-﻿using Sitecore;
-using Sitecore.Configuration;
-using Sitecore.Data.Items;
-using Sitecore.Data.Archiving;
-
-namespace robhabraken.Sitecore.Shrink
+﻿
+namespace robhabraken.SitecoreShrink
 {
+    using Sitecore;
+    using Sitecore.Configuration;
+    using Sitecore.Data.Items;
+    using Sitecore.Data.Archiving;
     using System;
     using System.Collections.Generic;
     using System.Linq;

@@ -7,8 +7,8 @@
     <ProjectGuid>{2C5C2D1C-5A20-451C-AB8F-F3155B4B7572}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>robhabraken.Sitecore.Shrink</RootNamespace>
-    <AssemblyName>robhabraken.Sitecore.Shrink</AssemblyName>
+    <RootNamespace>robhabraken.SitecoreShrink</RootNamespace>
+    <AssemblyName>robhabraken.SitecoreShrink</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -46,7 +46,11 @@
     <Compile Include="PublishingHelper.cs" />
     <Compile Include="MediaItemUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShrinkApplicationPipelineProcessor.cs" />
     <Compile Include="TidyUp.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="files.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
