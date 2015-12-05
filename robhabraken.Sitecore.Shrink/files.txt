@@ -1,0 +1,2 @@
+﻿List of files (and items) that should be included in this module, but are not present in this namespace / project:
+- App_Config/Include/Shrink/.
