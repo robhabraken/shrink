@@ -93,6 +93,11 @@ namespace robhabraken.SitecoreShrink
             }
         }
         
+
+        /// <summary>
+        /// Deletes all versions of all languages except the latest version of each language and the current valid version of that language.
+        /// </summary>
+        /// <param name="items">A list of items to delete the old versions of</param>
         public void DeleteOldVersions(List<Item> items)
         {
             using (new SecurityDisabler())
@@ -106,7 +111,7 @@ namespace robhabraken.SitecoreShrink
                         
                         foreach(var version in languageItem.Versions.GetVersions())
                         {
-                            // do not delete the latest version or the current valid version
+                            // delete everything but the latest version and the current valid version for this language
                             if(!version.Versions.IsLatestVersion() && version.Version.Number != validVersion.Version.Number)
                             {
                                 version.Versions.RemoveVersion();
