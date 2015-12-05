@@ -18,6 +18,7 @@ namespace robhabraken.SitecoreShrink
     public class TidyUp
     {
         //TODO: auto publish after clean up? Or should I make this optional?
+        //TODO: test recycle and delete with multi language items
 
         // advise to run orphan clean up after deleting items but before recycling, also warn that orphan method invalidates recycled items (or could do so)
 
@@ -57,7 +58,7 @@ namespace robhabraken.SitecoreShrink
             return Path.Combine(targetPath, string.Format("{0}.{1}", mediaPath, extension));
         }
 
-        public void Archive(List<Item> items)
+        public void Archive(List<Item> items) //TODO: test!!!!!!!!!!!!!!!
         {
             var archive = ArchiveManager.GetArchive("archive", database);
 
@@ -91,18 +92,25 @@ namespace robhabraken.SitecoreShrink
                 }
             }
         }
-
-        public void DeleteOldVersions(List<Item> items) // also test multilingual ++ AND WHAT IF OLDER VERSION IS THE ONE CURRENTLY BEING PUBLISHED OR publish restrictions
+        
+        public void DeleteOldVersions(List<Item> items)
         {
             using (new SecurityDisabler())
             {
                 foreach (var item in items)
                 {
-                    foreach(var version in item.Versions.GetVersions())
+                    foreach (var language in item.Languages)
                     {
-                        if(!version.Versions.IsLatestVersion())
+                        var languageItem = database.GetItem(item.ID, language);
+                        var validVersion = languageItem.Publishing.GetValidVersion(DateTime.Now, true); // should this be publishing target sensitive?
+                        
+                        foreach(var version in languageItem.Versions.GetVersions())
                         {
-                            version.Versions.RemoveVersion();
+                            // do not delete the latest version or the current valid version
+                            if(!version.Versions.IsLatestVersion() && version.Version.Number != validVersion.Version.Number)
+                            {
+                                version.Versions.RemoveVersion();
+                            }
                         }
                     }
                 }
