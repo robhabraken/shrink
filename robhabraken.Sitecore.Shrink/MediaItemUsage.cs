@@ -25,8 +25,8 @@ namespace robhabraken.Sitecore.Shrink
             //TODO: check if type is a good choice (could be item list as well)
             this.OldVersions = new List<Version>();
 
+            //TODO: make master database configurable?
             var database = Factory.GetDatabase("master");
-            var archive = ArchiveManager.GetArchive("archive", database);
             var publishingHelper = new PublishingHelper();
 
             var root = database.Items["/sitecore/media library"];
