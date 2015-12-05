@@ -29,17 +29,25 @@ namespace robhabraken.SitecoreShrink
                 var media = MediaManager.GetMedia(mediaItem);
                 var stream = media.GetStream();
 
-                var mediaPath = mediaItem.MediaPath.Replace("/", "\\"); //TODO: make function of this
-                var directory = Path.Combine(targetPath, mediaPath.Substring(0, mediaPath.LastIndexOf("\\")));
-                var fullPath = Path.Combine(targetPath, string.Format("{0}.{1}", mediaPath, mediaItem.Extension));
+                var fullPath = this.MediaToFilePath(targetPath, mediaItem.MediaPath, mediaItem.Extension);
 
-                Directory.CreateDirectory(directory);
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
                 using (var targetStream = File.OpenWrite(fullPath))
                 {
                     stream.CopyTo(targetStream);
                     targetStream.Flush();
                 }
             }
+        }
+
+        private string MediaToFilePath(string targetPath, string mediaPath, string extension)
+        {
+            if(mediaPath.StartsWith("/"))
+            {
+                mediaPath = mediaPath.Substring(1);
+            }
+            
+            return Path.Combine(targetPath, string.Format("{0}.{1}", mediaPath, extension));
         }
 
         public void Archive(List<Item> items)
