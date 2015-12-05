@@ -13,16 +13,21 @@ namespace robhabraken.SitecoreShrink
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using Sitecore.Data;
 
     public class TidyUp
     {
         //TODO: auto publish after clean up? Or should I make this optional?
 
+        private Database database;
+
+        public TidyUp(string databaseName)
+        {
+            this.database = Factory.GetDatabase(databaseName);
+        }
+
         public void Download(List<Item> items, string targetPath)
         {
-            //TODO: make master database configurable?
-            var database = Factory.GetDatabase("master");
-
             foreach (var item in items)
             {
                 var mediaItem = (MediaItem)item;
@@ -52,8 +57,6 @@ namespace robhabraken.SitecoreShrink
 
         public void Archive(List<Item> items)
         {
-            //TODO: make master database configurable?
-            var database = Factory.GetDatabase("master");
             var archive = ArchiveManager.GetArchive("archive", database);
 
             if (archive != null)
