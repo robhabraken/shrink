@@ -19,6 +19,8 @@ namespace robhabraken.SitecoreShrink
     {
         //TODO: auto publish after clean up? Or should I make this optional?
 
+        // advise to run orphan clean up after deleting items but before recycling, also warn that orphan method invalidates recycled items (or could do so)
+
         private Database database;
 
         public TidyUp(string databaseName)
@@ -72,7 +74,7 @@ namespace robhabraken.SitecoreShrink
         {
             using (new SecurityDisabler()) // or just don't do this and let the user log in and determine if he has the right rights?
             {
-                foreach (var item in items) // check for children first?
+                foreach (var item in items) // check for children first? or recycle children first
                 {
                     item.Recycle(); 
                 }
@@ -83,17 +85,28 @@ namespace robhabraken.SitecoreShrink
         {
             using (new SecurityDisabler()) // or just don't do this and let the user log in and determine if he has the right rights?
             {
-                foreach (var item in items) // check for children first?
+                foreach (var item in items) // check for children first? or delete children first
                 {
                     item.Delete();
                 }
             }
         }
 
-        public void DeleteOldVersions()
+        public void DeleteOldVersions(List<Item> items) // also test multilingual ++ AND WHAT IF OLDER VERSION IS THE ONE CURRENTLY BEING PUBLISHED OR publish restrictions
         {
-            // item.Versions.RemoveVersion();
-            throw new NotImplementedException();
+            using (new SecurityDisabler())
+            {
+                foreach (var item in items)
+                {
+                    foreach(var version in item.Versions.GetVersions())
+                    {
+                        if(!version.Versions.IsLatestVersion())
+                        {
+                            version.Versions.RemoveVersion();
+                        }
+                    }
+                }
+            }
         }
 
         public void CleanUpOrphanedBlobs()
