@@ -70,34 +70,29 @@ namespace robhabraken.SitecoreShrink
 
         public void Recycle(List<Item> items)
         {
-            using (new SecurityDisabler())
+            using (new SecurityDisabler()) // or just don't do this and let the user log in and determine if he has the right rights?
             {
                 foreach (var item in items) // check for children first?
                 {
-                    item.Editing.BeginEdit(); // do I need to do this?
-                    item.Recycle();
-                    // to recycle an individual version: item.RecycleVersion();
-                    // to bypass the recycle bin for a version: item.Versions.RemoveVersion();
-                    item.Editing.EndEdit(); // do I need to do this?
+                    item.Recycle(); 
                 }
             }            
         }
 
         public void Delete(List<Item> items)
         {
-            using (new SecurityDisabler())
+            using (new SecurityDisabler()) // or just don't do this and let the user log in and determine if he has the right rights?
             {
                 foreach (var item in items) // check for children first?
                 {
-                    item.Editing.BeginEdit();
                     item.Delete();
-                    item.Editing.EndEdit();
                 }
             }
         }
 
         public void DeleteOldVersions()
         {
+            // item.Versions.RemoveVersion();
             throw new NotImplementedException();
         }
 
