@@ -1,20 +1,15 @@
 ﻿
 namespace robhabraken.SitecoreShrink
 {
-    using Sitecore;
     using Sitecore.Configuration;
-    using Sitecore.Data.Items;
+    using Sitecore.Data;
     using Sitecore.Data.Archiving;
-    using Sitecore.SecurityModel;
+    using Sitecore.Data.Items;
     using Sitecore.Resources.Media;
+    using Sitecore.SecurityModel;
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Sitecore.Data;
-    using Sitecore.Diagnostics;
 
     /// <summary>
     /// Utility class that offers multiple ways of cleaning up unused items.

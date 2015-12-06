@@ -4,13 +4,12 @@ namespace robhabraken.SitecoreShrink
     using Sitecore;
     using Sitecore.Configuration;
     using Sitecore.Data.Items;
-    using Sitecore.Data.Archiving;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
+    /// <summary>
+    /// Utility class that is able to scan the media library for unused items.
+    /// </summary>
     public class MediaItemUsage
     {
         public const string MEDIA_FOLDER_TEMPLATE_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
