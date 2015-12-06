@@ -92,11 +92,19 @@ namespace robhabraken.SitecoreShrink
                 }
             }
         }
-        
+
 
         /// <summary>
         /// Deletes all versions of all languages except the latest version of each language and the current valid version of that language.
         /// </summary>
+        /// <remarks>
+        /// For most items the latest version of an item will be the current valid version as well, but when cleaning up old versions,
+        /// you wouldn't want to delete a valid version if you are working on a newer but not yet publishable version.
+        /// 
+        /// Note that publishing target settings are shared across both versions and languages, so an item is either publishable to a specific target, or not.
+        /// Getting the valid version can be done without consulting each separate publishing target, because if there _is_ a valid version for one of more targets,
+        /// we do not want to delete it, and if there isn't a valid version _at all_ we can ignore the publishing settings and delete all versions but the last.
+        /// </remarks>
         /// <param name="items">A list of items to delete the old versions of</param>
         public void DeleteOldVersions(List<Item> items)
         {
@@ -107,7 +115,7 @@ namespace robhabraken.SitecoreShrink
                     foreach (var language in item.Languages)
                     {
                         var languageItem = database.GetItem(item.ID, language);
-                        var validVersion = languageItem.Publishing.GetValidVersion(DateTime.Now, true, false); // should this be publishing target sensitive?
+                        var validVersion = languageItem.Publishing.GetValidVersion(DateTime.Now, true, false);
                         
                         foreach(var version in languageItem.Versions.GetVersions())
                         {
