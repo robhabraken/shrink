@@ -17,8 +17,7 @@ namespace robhabraken.SitecoreShrink
 
         public void Scan()
         {
-            this.UsedItemCount = 0;
-            this.PublishedItemCount = 0;
+            this.MediaItemCount = 0;
             this.UnusedItems = new List<Item>();
             this.UnpublishedItems = new List<Item>();
 
@@ -55,23 +54,13 @@ namespace robhabraken.SitecoreShrink
                             }
                         }
                     }
-
-                    // process usage results
-                    if (used)
-                    {
-                        this.UsedItemCount++;
-                    }
-                    else
+                    
+                    if (!used)
                     {
                         this.UnusedItems.Add(item);
                     }
-
-                    // count targets that this item is actually published to and process results
-                    if (publishingHelper.ListPublishedTargets(item).Count > 0)
-                    {
-                        this.PublishedItemCount++;
-                    }
-                    else
+                    
+                    if (publishingHelper.ListPublishedTargets(item).Count == 0)
                     {
                         this.UnpublishedItems.Add(item);
                     }
@@ -83,32 +72,9 @@ namespace robhabraken.SitecoreShrink
 
         public int MediaItemCount { get; set; }
 
-        public int UsedItemCount { get; set; }
-
-        public int UnusedItemCount
-        {
-            get
-            {
-                return this.MediaItemCount - this.UsedItemCount;
-            }
-        }
-
         public List<Item> UnusedItems { get; set; }
 
-        public int PublishedItemCount { get; set; }
-
-        public int UnpublishedItemCount
-        {
-            get
-            {
-                return this.MediaItemCount - this.PublishedItemCount;
-            }
-        }
-
         public List<Item> UnpublishedItems { get; set;  }
-
-        //TODO: use this (or just count size of OldVersions list?
-        public int OldVersionsItemCount { get; set; }
 
         //TODO: fill this list
         public List<Version> OldVersions { get; set; }
