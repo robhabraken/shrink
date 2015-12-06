@@ -156,7 +156,7 @@ namespace robhabraken.SitecoreShrink
         /// <param name="item">The item to change to a folder.</param>
         private void ChangeToFolder(Item item)
         {
-            var mediaFolderGuid = new ID(MediaItemUsage.MEDIA_FOLDER_ID);
+            var mediaFolderGuid = new ID(MediaItemUsage.MEDIA_FOLDER_TEMPLATE_ID);
             var mediaFolder = database.GetItem(mediaFolderGuid);
 
             item.Editing.BeginEdit();

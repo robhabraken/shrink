@@ -13,7 +13,7 @@ namespace robhabraken.SitecoreShrink
 
     public class MediaItemUsage
     {
-        public const string MEDIA_FOLDER_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
+        public const string MEDIA_FOLDER_TEMPLATE_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
 
         public void Scan()
         {
@@ -32,7 +32,7 @@ namespace robhabraken.SitecoreShrink
             var descendants = root.Axes.GetDescendants();
             foreach (var item in descendants)
             {
-                if (!item.Template.ID.ToString().Equals(MediaItemUsage.MEDIA_FOLDER_ID))
+                if (!item.Template.ID.ToString().Equals(MediaItemUsage.MEDIA_FOLDER_TEMPLATE_ID))
                 {
                     // count all items that are actually media items (not folders)
                     this.MediaItemCount++;
