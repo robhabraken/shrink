@@ -129,6 +129,7 @@ namespace robhabraken.SitecoreShrink
                     {
                         if (!item.HasChildren || recycleChildren)
                         {
+                            item.RecycleChildren();
                             item.Recycle();
                         }
                     }
