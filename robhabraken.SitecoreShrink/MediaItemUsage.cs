@@ -13,7 +13,7 @@ namespace robhabraken.SitecoreShrink
 
     public class MediaItemUsage
     {
-        private const string MEDIA_FOLDER_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
+        public const string MEDIA_FOLDER_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
 
         public void Scan()
         {

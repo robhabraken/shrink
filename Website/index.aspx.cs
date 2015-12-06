@@ -19,6 +19,7 @@ namespace shrink
             var exampleItem2 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{6AA5AA9F-071A-4808-91AC-709FAAFFB310}"));
             var exampleItem3 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{9775973B-91D8-4FEF-A130-A774C61CA4AE}"));
             var exampleItem4 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{8E158CC2-5F5D-426E-8897-F9573EBA976E}"));
+            var exampleItem5 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{5FDB5F8B-4D4D-4B29-AD0B-4E4F7F2460CC}"));
 
             var tidyUp = new TidyUp("master");
             //works: tidyUp.Download(new List<Item>() { exampleItem1, exampleItem2, exampleItem3 }, "D:/");

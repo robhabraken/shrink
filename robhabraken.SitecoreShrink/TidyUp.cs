@@ -149,6 +149,24 @@ namespace robhabraken.SitecoreShrink
             }
         }
 
+        /// <summary>
+        /// Changes a media item into a media folder by changing the template of the item.
+        /// This orphans the media blob, being able to clean it, without breaking the path to underlying items.
+        /// </summary>
+        /// <param name="item">The item to change to a folder.</param>
+        private void ChangeToFolder(Item item)
+        {
+            var mediaFolderGuid = new ID(MediaItemUsage.MEDIA_FOLDER_ID);
+            var mediaFolder = database.GetItem(mediaFolderGuid);
+
+            item.Editing.BeginEdit();
+            item.ChangeTemplate(mediaFolder);
+            if (item.Fields["__Icon"] != null)
+            {
+                item.Fields["__Icon"].Reset();
+            }
+            item.Editing.EndEdit();
+        }
 
         /// <summary>
         /// Deletes all versions of all languages except the latest version of each language and the current valid version of that language.
