@@ -107,7 +107,7 @@ namespace robhabraken.SitecoreShrink
                     foreach (var language in item.Languages)
                     {
                         var languageItem = database.GetItem(item.ID, language);
-                        var validVersion = languageItem.Publishing.GetValidVersion(DateTime.Now, true); // should this be publishing target sensitive?
+                        var validVersion = languageItem.Publishing.GetValidVersion(DateTime.Now, true, false); // should this be publishing target sensitive?
                         
                         foreach(var version in languageItem.Versions.GetVersions())
                         {
