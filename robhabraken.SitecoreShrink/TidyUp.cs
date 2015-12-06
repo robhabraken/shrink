@@ -20,6 +20,7 @@ namespace robhabraken.SitecoreShrink
         //TODO: auto publish after clean up? Or should I make this optional?
         //TODO: test recycle and delete with multi language items
         //TODO: decide if security disabler is a good choice, or should we arrange security on page level
+        //TODO: add item null checks?
 
         // advise to run orphan clean up after deleting items but before recycling, also warn that orphan method invalidates recycled items (or could do so)
 
@@ -71,15 +72,18 @@ namespace robhabraken.SitecoreShrink
             return Path.Combine(targetPath, string.Format("{0}.{1}", mediaPath, extension));
         }
 
-        public void Archive(List<Item> items) //TODO: test!!!!!!!!!!!!!!!
+        public void Archive(List<Item> items)
         {
             var archive = ArchiveManager.GetArchive("archive", database);
 
             if (archive != null)
             {
-                foreach (var item in items) // check for children first?
+                using (new SecurityDisabler())
                 {
-                    archive.ArchiveItem(item);
+                    foreach (var item in items) // check for children first? or archive children first
+                    {
+                        archive.ArchiveItem(item);
+                    }
                 }
             }
         }
