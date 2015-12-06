@@ -14,6 +14,7 @@ namespace robhabraken.SitecoreShrink
     using System.Text;
     using System.Threading.Tasks;
     using Sitecore.Data;
+    using Sitecore.Diagnostics;
 
     public class TidyUp
     {
@@ -45,17 +46,20 @@ namespace robhabraken.SitecoreShrink
         {
             foreach (var item in items)
             {
-                var mediaItem = (MediaItem)item;
-                var media = MediaManager.GetMedia(mediaItem);
-                var stream = media.GetStream();
-
-                var fullPath = this.MediaToFilePath(targetPath, mediaItem.MediaPath, mediaItem.Extension);
-
-                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-                using (var targetStream = File.OpenWrite(fullPath))
+                if (item != null)
                 {
-                    stream.CopyTo(targetStream);
-                    targetStream.Flush();
+                    var mediaItem = (MediaItem)item;
+                    var media = MediaManager.GetMedia(mediaItem);
+                    var stream = media.GetStream();
+
+                    var fullPath = this.MediaToFilePath(targetPath, mediaItem.MediaPath, mediaItem.Extension);
+
+                    Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+                    using (var targetStream = File.OpenWrite(fullPath))
+                    {
+                        stream.CopyTo(targetStream);
+                        targetStream.Flush();
+                    }
                 }
             }
         }
@@ -94,7 +98,10 @@ namespace robhabraken.SitecoreShrink
                 {
                     foreach (var item in items) // check for children first? or archive children first
                     {
-                        archive.ArchiveItem(item);
+                        if (item != null)
+                        {
+                            archive.ArchiveItem(item);
+                        }
                     }
                 }
             }
@@ -113,7 +120,10 @@ namespace robhabraken.SitecoreShrink
             {
                 foreach (var item in items) // check for children first? or recycle children first
                 {
-                    item.Recycle(); 
+                    if (item != null)
+                    {
+                        item.Recycle();
+                    }
                 }
             }            
         }
@@ -131,7 +141,10 @@ namespace robhabraken.SitecoreShrink
             {
                 foreach (var item in items) // check for children first? or delete children first
                 {
-                    item.Delete();
+                    if (item != null)
+                    {
+                        item.Delete();
+                    }
                 }
             }
         }
@@ -155,19 +168,34 @@ namespace robhabraken.SitecoreShrink
             {
                 foreach (var item in items)
                 {
-                    foreach (var language in item.Languages)
+                    if (item != null)
                     {
-                        var languageItem = database.GetItem(item.ID, language);
-                        var validVersion = languageItem.Publishing.GetValidVersion(DateTime.Now, true, false);
-                        
-                        foreach(var version in languageItem.Versions.GetVersions())
-                        {
-                            // delete everything but the latest version and the current valid version for this language
-                            if(!version.Versions.IsLatestVersion() && version.Version.Number != validVersion.Version.Number)
-                            {
-                                version.Versions.RemoveVersion();
-                            }
-                        }
+                        this.DeleteOldVersions(item);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Deletes all versions of all languages except the latest version of each language and the current valid version of that language.
+        /// </summary>
+        /// <remarks>
+        /// This is the equivalent to item.Archive, item.Recycle and item.Delete method, so it works on a single item only and does not handle security.
+        /// </remarks>
+        /// <param name="item">The item to delete the old versions of.</param>
+        private void DeleteOldVersions(Item item)
+        {
+            foreach (var language in item.Languages)
+            {
+                var languageItem = database.GetItem(item.ID, language);
+                var validVersion = languageItem.Publishing.GetValidVersion(DateTime.Now, true, false);
+
+                foreach (var version in languageItem.Versions.GetVersions())
+                {
+                    // delete everything but the latest version and the current valid version for this language
+                    if (!version.Versions.IsLatestVersion() && version.Version.Number != validVersion.Version.Number)
+                    {
+                        version.Versions.RemoveVersion();
                     }
                 }
             }
