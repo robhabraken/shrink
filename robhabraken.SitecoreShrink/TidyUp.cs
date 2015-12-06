@@ -16,18 +16,18 @@ namespace robhabraken.SitecoreShrink
     using Sitecore.Data;
     using Sitecore.Diagnostics;
 
+    /// <summary>
+    /// Utility class that offers multiple ways of cleaning up unused items.
+    /// </summary>
     public class TidyUp
     {
-        //TODO: auto publish after clean up? Or should I make this optional? it is needed for archived, recycled and deleted items
-        //TODO: test recycle and delete with multi language items
-        //TODO: decide if security disabler is a good choice, or should we arrange security on page level
-        //TODO: add item null checks?
-
-        // advise to run orphan clean up after deleting items but before recycling, also warn that orphan method invalidates recycled items (or could do so)
+        //TODO: auto publish after clean up? Or should I make this optional? it is needed for archived, recycled and deleted items 
 
         /*
         Archive data that you want to keep (for example, for audit purposes); recycle data that you may want to restore; delete data that you want to remove. For optimal performance and usability, recycle or remove as much data as you can, and archive whatever else you do not need in the Master database.
         http://www.sitecore.net/learn/blogs/technical-blogs/john-west-sitecore-blog/posts/2013/08/archiving-recycling-restoring-and-deleting-items-and-versions-in-the-sitecore-aspnet-cms.aspx
+        
+        advise to run orphan clean up after deleting items but before archiving or recycling, thus also warn that orphan method invalidates recycled items   
         */
 
         private Database database;
