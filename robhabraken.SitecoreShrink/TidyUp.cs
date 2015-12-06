@@ -88,7 +88,8 @@ namespace robhabraken.SitecoreShrink
         /// This applies to all versions and all languages of these items.
         /// </remarks>
         /// <param name="items">A list of items to archive.</param>
-        public void Archive(List<Item> items)
+        /// <param name="archiveChildren">If set to true, child items will be archived as well; if set to false, items with children will be left untouched.</param>
+        public void Archive(List<Item> items, bool archiveChildren)
         {
             var archive = ArchiveManager.GetArchive("archive", database);
 
@@ -96,11 +97,14 @@ namespace robhabraken.SitecoreShrink
             {
                 using (new SecurityDisabler())
                 {
-                    foreach (var item in items) // check for children first? or archive children first
+                    foreach (var item in items)
                     {
                         if (item != null)
                         {
-                            archive.ArchiveItem(item);
+                            if (!item.HasChildren || archiveChildren)
+                            {
+                                archive.ArchiveItem(item);
+                            }
                         }
                     }
                 }
