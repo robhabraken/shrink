@@ -19,6 +19,7 @@ namespace robhabraken.SitecoreShrink
     {
         //TODO: auto publish after clean up? Or should I make this optional?
         //TODO: test recycle and delete with multi language items
+        //TODO: decide if security disabler is a good choice, or should we arrange security on page level
 
         // advise to run orphan clean up after deleting items but before recycling, also warn that orphan method invalidates recycled items (or could do so)
 
@@ -29,6 +30,11 @@ namespace robhabraken.SitecoreShrink
             this.database = Factory.GetDatabase(databaseName);
         }
 
+        /// <summary>
+        /// Saves the media files of the given items to disk, using the folder structure of the media library.
+        /// </summary>
+        /// <param name="items">A list of items to download.</param>
+        /// <param name="targetPath">The target location for the items to be downloaded to.</param>
         public void Download(List<Item> items, string targetPath)
         {
             foreach (var item in items)
@@ -48,6 +54,13 @@ namespace robhabraken.SitecoreShrink
             }
         }
 
+        /// <summary>
+        /// Returns the file path to be used by the OS that corresponds to the location in the media library, starting at the given target path.
+        /// </summary>
+        /// <param name="targetPath">The starting path to store the media item in.</param>
+        /// <param name="mediaPath">The Sitecore media path of the media item.</param>
+        /// <param name="extension">The extensions of the Sitecore media item.</param>
+        /// <returns></returns>
         private string MediaToFilePath(string targetPath, string mediaPath, string extension)
         {
             if(mediaPath.StartsWith("/"))
@@ -71,9 +84,16 @@ namespace robhabraken.SitecoreShrink
             }
         }
 
+        /// <summary>
+        /// Deletes items by moving them to the recycle bin.
+        /// </summary>
+        /// <remarks>
+        /// This applies to all versions and all languages of these items.
+        /// </remarks>
+        /// <param name="items">A list of items to recycle.</param>
         public void Recycle(List<Item> items)
         {
-            using (new SecurityDisabler()) // or just don't do this and let the user log in and determine if he has the right rights?
+            using (new SecurityDisabler())
             {
                 foreach (var item in items) // check for children first? or recycle children first
                 {
@@ -82,9 +102,16 @@ namespace robhabraken.SitecoreShrink
             }            
         }
 
+        /// <summary>
+        /// Deletes items permanently, bypassing the recycle bin.
+        /// </summary>
+        /// <remarks>
+        /// This applies to all versions and all languages of these items.
+        /// </remarks>
+        /// <param name="items">A list of items to delete.</param>
         public void Delete(List<Item> items)
         {
-            using (new SecurityDisabler()) // or just don't do this and let the user log in and determine if he has the right rights?
+            using (new SecurityDisabler())
             {
                 foreach (var item in items) // check for children first? or delete children first
                 {
@@ -105,7 +132,7 @@ namespace robhabraken.SitecoreShrink
         /// Getting the valid version can be done without consulting each separate publishing target, because if there _is_ a valid version for one of more targets,
         /// we do not want to delete it, and if there isn't a valid version _at all_ we can ignore the publishing settings and delete all versions but the last.
         /// </remarks>
-        /// <param name="items">A list of items to delete the old versions of</param>
+        /// <param name="items">A list of items to delete the old versions of.</param>
         public void DeleteOldVersions(List<Item> items)
         {
             using (new SecurityDisabler())
