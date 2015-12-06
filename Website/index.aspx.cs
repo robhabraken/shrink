@@ -22,10 +22,13 @@ namespace shrink
 
             var tidyUp = new TidyUp("master");
             //works: tidyUp.Download(new List<Item>() { exampleItem1, exampleItem2, exampleItem3 }, "D:/");
-            tidyUp.Archive(new List<Item>() { exampleItem4 });
+            //works: tidyUp.Archive(new List<Item>() { exampleItem4 });
             //works: tidyUp.Recycle(new List<Item>() { exampleItem4 });
             //works: tidyUp.Delete(new List<Item>() { exampleItem4 });
             //works: tidyUp.DeleteOldVersions(new List<Item>() { exampleItem4 });
+
+            //TODO: test items if they are null (build in check first)
+            //TODO: test update for chosing deleting children as well, or prevent deleting items with children, or make a folder for it?
         }
     }
 }
