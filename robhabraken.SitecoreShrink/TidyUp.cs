@@ -114,15 +114,19 @@ namespace robhabraken.SitecoreShrink
         /// This applies to all versions and all languages of these items.
         /// </remarks>
         /// <param name="items">A list of items to recycle.</param>
-        public void Recycle(List<Item> items)
+        /// <param name="recycleChildren">If set to true, child items will be recycled as well; if set to false, items with children will be left untouched.</param>
+        public void Recycle(List<Item> items, bool recycleChildren)
         {
             using (new SecurityDisabler())
             {
-                foreach (var item in items) // check for children first? or recycle children first
+                foreach (var item in items)
                 {
                     if (item != null)
                     {
-                        item.Recycle();
+                        if (!item.HasChildren || recycleChildren)
+                        {
+                            item.Recycle();
+                        }
                     }
                 }
             }            
