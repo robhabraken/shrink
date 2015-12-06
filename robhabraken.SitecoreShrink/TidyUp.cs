@@ -17,12 +17,17 @@ namespace robhabraken.SitecoreShrink
 
     public class TidyUp
     {
-        //TODO: auto publish after clean up? Or should I make this optional?
+        //TODO: auto publish after clean up? Or should I make this optional? it is needed for archived, recycled and deleted items
         //TODO: test recycle and delete with multi language items
         //TODO: decide if security disabler is a good choice, or should we arrange security on page level
         //TODO: add item null checks?
 
         // advise to run orphan clean up after deleting items but before recycling, also warn that orphan method invalidates recycled items (or could do so)
+
+        /*
+        Archive data that you want to keep (for example, for audit purposes); recycle data that you may want to restore; delete data that you want to remove. For optimal performance and usability, recycle or remove as much data as you can, and archive whatever else you do not need in the Master database.
+        http://www.sitecore.net/learn/blogs/technical-blogs/john-west-sitecore-blog/posts/2013/08/archiving-recycling-restoring-and-deleting-items-and-versions-in-the-sitecore-aspnet-cms.aspx
+        */
 
         private Database database;
 
@@ -72,6 +77,13 @@ namespace robhabraken.SitecoreShrink
             return Path.Combine(targetPath, string.Format("{0}.{1}", mediaPath, extension));
         }
 
+        /// <summary>
+        /// Archives items to the archive of the current database, if an archive is configured and available.
+        /// </summary>
+        /// <remarks>
+        /// This applies to all versions and all languages of these items.
+        /// </remarks>
+        /// <param name="items">A list of items to archive.</param>
         public void Archive(List<Item> items)
         {
             var archive = ArchiveManager.GetArchive("archive", database);
