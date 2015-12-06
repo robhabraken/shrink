@@ -133,17 +133,36 @@ namespace robhabraken.SitecoreShrink
         /// </summary>
         /// <remarks>
         /// This applies to all versions and all languages of these items.
+        /// 
+        /// Note that deleting an item without deleting its children will result in the item being transformed to a media folder;
+        /// this orphans the media blob (which was the goal of deleting the item), without breaking the path to underlying items.
         /// </remarks>
         /// <param name="items">A list of items to delete.</param>
-        public void Delete(List<Item> items)
+        /// <param name="deleteChildren">If set to true, the underlying child items of each item will be deleted too.</param>
+        public void Delete(List<Item> items, bool deleteChildren)
         {
             using (new SecurityDisabler())
             {
-                foreach (var item in items) // check for children first? or delete children first
+                foreach (var item in items)
                 {
                     if (item != null)
                     {
-                        item.Delete();
+                        if (item.HasChildren && deleteChildren)
+                        {
+                            // if the item has children and they should be deleted, do so
+                            item.DeleteChildren();
+                            item.Delete();
+                        }
+                        else if (item.HasChildren && !deleteChildren)
+                        {
+                            // if the item has children that should not be deleted, change the item to a folder
+                            this.ChangeToFolder(item);
+                        }
+                        else
+                        {
+                            // if the item doesn't have children, the deleteChildren parameter isn't relevant, just delete the item
+                            item.Delete();
+                        }
                     }
                 }
             }
@@ -151,7 +170,7 @@ namespace robhabraken.SitecoreShrink
 
         /// <summary>
         /// Changes a media item into a media folder by changing the template of the item.
-        /// This orphans the media blob, being able to clean it, without breaking the path to underlying items.
+        /// This orphans the media blob so we can clean it afterwards, without breaking the path to underlying items.
         /// </summary>
         /// <param name="item">The item to change to a folder.</param>
         private void ChangeToFolder(Item item)
