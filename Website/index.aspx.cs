@@ -27,6 +27,10 @@ namespace shrink
             {
                 Response.Write(item.ID + " " + item.Name + "<br/>");
             }
+            Response.Write("total: " + mediaItemUsage.MediaItemCount.ToString() + "<br />");
+            Response.Write("unused: " + mediaItemUsage.UnusedItems.Count.ToString() + "<br />");
+            Response.Write("unpublished: " + mediaItemUsage.UnpublishedItems.Count.ToString() + "<br />");
+            Response.Write("old versions: " + mediaItemUsage.OldVersions.Count.ToString() + "<br />");
 
             var tidyUp = new TidyUp("master");
             //works: tidyUp.Download(new List<Item>() { exampleItem1, exampleItem2, exampleItem3 }, "D:/");
