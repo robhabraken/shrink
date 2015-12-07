@@ -21,12 +21,16 @@ namespace shrink
             var exampleItem4 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{8E158CC2-5F5D-426E-8897-F9573EBA976E}"));
             var exampleItem5 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{5FDB5F8B-4D4D-4B29-AD0B-4E4F7F2460CC}"));
 
+            var mediaItemUsage = new MediaItemUsage("master");
+            mediaItemUsage.Scan(); // this should be automated or should be handled internally
+            foreach (var item in mediaItemUsage.UnusedItems)
+            {
+                Response.Write(item.ID + " " + item.Name + "<br/>");
+            }
+
             var tidyUp = new TidyUp("master");
             //works: tidyUp.Download(new List<Item>() { exampleItem1, exampleItem2, exampleItem3 }, "D:/");
             //works: tidyUp.Archive(new List<Item>() { exampleItem4 }, false);
-
-            // A VERY BIG AND IMPORTANT TO DO: ARE ITEM REFERENCES MULTILINGUAL?????????????? in other words, do I need to switch languages when scanning items for referrers and referrals?
-            // or does an item pick up referrenced items cross language? otherwise I would need to refactor the scanner
 
             //TODO: implement orphaned blobs method
         }
