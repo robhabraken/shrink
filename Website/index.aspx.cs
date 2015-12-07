@@ -22,15 +22,15 @@ namespace shrink
             var exampleItem5 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{5FDB5F8B-4D4D-4B29-AD0B-4E4F7F2460CC}"));
 
             var mediaItemUsage = new MediaItemUsage("master");
-            mediaItemUsage.Scan(); // this should be automated or should be handled internally
-            foreach (var item in mediaItemUsage.UnusedItems)
+            var itemReport = mediaItemUsage.ScanMediaLibrary(); // this should be automated or should be handled internally
+            foreach (var item in itemReport.UnusedItems)
             {
                 Response.Write(item.ID + " " + item.Name + "<br/>");
             }
-            Response.Write("total: " + mediaItemUsage.MediaItemCount.ToString() + "<br />");
-            Response.Write("unused: " + mediaItemUsage.UnusedItems.Count.ToString() + "<br />");
-            Response.Write("unpublished: " + mediaItemUsage.UnpublishedItems.Count.ToString() + "<br />");
-            Response.Write("old versions: " + mediaItemUsage.OldVersions.Count.ToString() + "<br />");
+            Response.Write("total: " + itemReport.MediaItemCount.ToString() + "<br />");
+            Response.Write("unused: " + itemReport.UnusedItems.Count.ToString() + "<br />");
+            Response.Write("unpublished: " + itemReport.UnpublishedItems.Count.ToString() + "<br />");
+            Response.Write("old versions: " + itemReport.OldVersions.Count.ToString() + "<br />");
 
             var tidyUp = new TidyUp("master");
             //works: tidyUp.Download(new List<Item>() { exampleItem1, exampleItem2, exampleItem3 }, "D:/");

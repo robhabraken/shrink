@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="DatabaseUsage.cs" />
     <Compile Include="DatabaseReport.cs" />
+    <Compile Include="MediaItemReport.cs" />
     <Compile Include="PublishingHelper.cs" />
     <Compile Include="MediaItemUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

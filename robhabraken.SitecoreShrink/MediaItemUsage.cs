@@ -22,12 +22,9 @@ namespace robhabraken.SitecoreShrink
             this.database = Factory.GetDatabase(databaseName);
         }
 
-        public void Scan()
+        public MediaItemReport ScanMediaLibrary()
         {
-            this.MediaItemCount = 0;
-            this.UnusedItems = new List<Item>();
-            this.UnpublishedItems = new List<Item>();
-            this.OldVersions = new List<Item>();
+            var itemReport = new MediaItemReport();
             
             var publishingHelper = new PublishingHelper();
 
@@ -38,7 +35,7 @@ namespace robhabraken.SitecoreShrink
                 if (!item.Template.ID.ToString().Equals(MediaItemUsage.MEDIA_FOLDER_TEMPLATE_ID))
                 {
                     // count all items that are actually media items (not folders)
-                    this.MediaItemCount++;
+                    itemReport.MediaItemCount++;
 
                     // update and get referrers
                     Globals.LinkDatabase.UpdateReferences(item);
@@ -61,20 +58,22 @@ namespace robhabraken.SitecoreShrink
                     // add the item to the appropriate collections based on its state (used, published or multiple versions)
                     if (!used)
                     {
-                        this.UnusedItems.Add(item);
+                        itemReport.UnusedItems.Add(item);
                     }
                     
                     if (publishingHelper.ListPublishedTargets(item).Count == 0)
                     {
-                        this.UnpublishedItems.Add(item);
+                        itemReport.UnpublishedItems.Add(item);
                     }
 
                     if (this.HasMultipleVersions(item))
                     {
-                        this.OldVersions.Add(item);
+                        itemReport.OldVersions.Add(item);
                     }
                 }
             }
+
+            return itemReport;
         }
         
         /// <summary>
@@ -98,14 +97,6 @@ namespace robhabraken.SitecoreShrink
             }
             return false;
         }
-
-        public int MediaItemCount { get; set; }
-
-        public List<Item> UnusedItems { get; set; }
-
-        public List<Item> UnpublishedItems { get; set;  }
-        
-        public List<Item> OldVersions { get; set; }
 
     }
 }
