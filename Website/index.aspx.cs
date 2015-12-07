@@ -24,10 +24,11 @@ namespace shrink
             var tidyUp = new TidyUp("master");
             //works: tidyUp.Download(new List<Item>() { exampleItem1, exampleItem2, exampleItem3 }, "D:/");
             //works: tidyUp.Archive(new List<Item>() { exampleItem4 }, false);
-            //works: tidyUp.Recycle(new List<Item>() { exampleItem4 }, false);
-            //works: tidyUp.Delete(new List<Item>() { exampleItem4 }, false);
-            //works: tidyUp.DeleteOldVersions(new List<Item>() { exampleItem4 }, false);
-            //works: tidyUp.Recycle(new List<Item>() { exampleItem4 }, true);
+
+            // A VERY BIG AND IMPORTANT TO DO: ARE ITEM REFERENCES MULTILINGUAL?????????????? in other words, do I need to switch languages when scanning items for referrers and referrals?
+            // or does an item pick up referrenced items cross language? otherwise I would need to refactor the scanner
+
+            //TODO: implement orphaned blobs method
         }
     }
 }
