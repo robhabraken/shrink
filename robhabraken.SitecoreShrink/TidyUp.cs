@@ -16,7 +16,6 @@ namespace robhabraken.SitecoreShrink
     /// </summary>
     public class TidyUp
     {
-
         private Database database;
 
         public TidyUp(string databaseName)
