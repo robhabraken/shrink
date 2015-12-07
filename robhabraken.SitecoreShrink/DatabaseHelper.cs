@@ -2,14 +2,12 @@
 namespace robhabraken.SitecoreShrink
 {
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
     using System.Data.SqlClient;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Web.Configuration;
 
+    /// <summary>
+    /// Utility class that runs multiple queries for cleaning up a Sitecore database.
+    /// </summary>
     public class DatabaseHelper
     {
         private const string CLEAN_BLOBS_QUERY = @"
@@ -46,16 +44,33 @@ namespace robhabraken.SitecoreShrink
             this.connectionStringSettings = ConfigurationManager.ConnectionStrings[databaseName];
         }
 
+        /// <summary>
+        /// Cleans up orphaned blobs (blob data of archived, recycled and deleted Sitecore media items).
+        /// </summary>
+        /// <remarks>
+        /// If Sitecore users delete media items, Sitecore keeps the blob data to be able to restore the items later on.
+        /// This method removes this obsolete data, but you should note it also invalidates archived and recycled media items!
+        /// </remarks>
         public void CleanUpOrphanedBlobs()
         {
             this.ExecuteNonQuery(DatabaseHelper.CLEAN_BLOBS_QUERY);
-        }   
+        }
 
+        /// <summary>
+        /// Shrinks the current database. This needs admin rights and should be used with care (because index maintenance is necessary afterwards).
+        /// </summary>
+        /// <remarks>
+        /// Calling CleanUpOrphanedBlobs can remove gigabytes of data from a very large database and this method will free up this data on disk.
+        /// </remarks>
         public void ShrinkDatabase()
         {
             this.ExecuteNonQuery(DatabaseHelper.SHRINK_DATABASE_QUERY);
         }
 
+        /// <summary>
+        /// Returns a report of the current size and disk space allocation of the current database.
+        /// </summary>
+        /// <returns>A DatabaseReport object containing all values from the space used stored procedure.</returns>
         public DatabaseReport GetSpaceUsed()
         {
             DatabaseReport report = null;
@@ -102,6 +117,10 @@ namespace robhabraken.SitecoreShrink
             return report;
         }
 
+        /// <summary>
+        /// Generic method to execute a non query on the current database, to remove duplicate code from this class.
+        /// </summary>
+        /// <param name="query">The (non) query to execute.</param>
         private void ExecuteNonQuery(string query)
         {
             using (var connection = new SqlConnection(this.connectionStringSettings.ConnectionString))

@@ -5,8 +5,6 @@ namespace robhabraken.SitecoreShrink
     using Sitecore.Configuration;
     using Sitecore.Data;
     using Sitecore.Data.Items;
-    using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Utility class that is able to scan the media library for unused items.
