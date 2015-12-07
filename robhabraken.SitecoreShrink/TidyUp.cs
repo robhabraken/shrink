@@ -232,10 +232,5 @@ namespace robhabraken.SitecoreShrink
                 }
             }
         }
-
-        public void CleanUpOrphanedBlobs()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

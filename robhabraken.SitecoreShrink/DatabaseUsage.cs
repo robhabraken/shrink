@@ -10,7 +10,7 @@ namespace robhabraken.SitecoreShrink
     using System.Threading.Tasks;
     using System.Web.Configuration;
 
-    public class DatabaseHelper
+    public class DatabaseUsage
     {
         private const string CLEAN_BLOBS_QUERY = @"
             DECLARE @UsableBlobs TABLE(ID UNIQUEIDENTIFIER);
@@ -41,28 +41,28 @@ namespace robhabraken.SitecoreShrink
 
         private ConnectionStringSettings connectionStringSettings;
 
-        public DatabaseHelper(string databaseName)
+        public DatabaseUsage(string databaseName)
         {
             this.connectionStringSettings = ConfigurationManager.ConnectionStrings[databaseName];
         }
 
-        public void CleanBlobs()
+        public void CleanUpOrphanedBlobs()
         {
-            this.ExecuteNonQuery(DatabaseHelper.CLEAN_BLOBS_QUERY);
+            this.ExecuteNonQuery(DatabaseUsage.CLEAN_BLOBS_QUERY);
         }   
 
         public void ShrinkDatabase()
         {
-            this.ExecuteNonQuery(DatabaseHelper.SHRINK_DATABASE_QUERY);
+            this.ExecuteNonQuery(DatabaseUsage.SHRINK_DATABASE_QUERY);
         }
 
-        public DatabaseReport GetDatabaseSizes()
+        public DatabaseReport GetSpaceUsed()
         {
             DatabaseReport report = null;
 
             using (var connection = new SqlConnection(this.connectionStringSettings.ConnectionString))
             {
-                var command = new SqlCommand(DatabaseHelper.SPACE_USED_QUERY, connection);
+                var command = new SqlCommand(DatabaseUsage.SPACE_USED_QUERY, connection);
 
                 try
                 {
