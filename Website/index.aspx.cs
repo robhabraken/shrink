@@ -22,7 +22,7 @@ namespace shrink
             var exampleItem5 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{5FDB5F8B-4D4D-4B29-AD0B-4E4F7F2460CC}"));
 
             var mediaItemUsage = new MediaItemUsage("master");
-            var itemReport = mediaItemUsage.ScanMediaLibrary(); // this should be automated or should be handled internally
+            var itemReport = mediaItemUsage.ScanMediaLibrary();
             foreach (var item in itemReport.UnusedItems)
             {
                 Response.Write(item.ID + " " + item.Name + "<br/>");
@@ -36,7 +36,7 @@ namespace shrink
             //works: tidyUp.Download(new List<Item>() { exampleItem1, exampleItem2, exampleItem3 }, "D:/");
             //works: tidyUp.Archive(new List<Item>() { exampleItem4 }, false);
 
-            var databaseUsage = new DatabaseUsage("master");
+            var databaseUsage = new DatabaseHelper("master");
             var report = databaseUsage.GetSpaceUsed();
         }
     }

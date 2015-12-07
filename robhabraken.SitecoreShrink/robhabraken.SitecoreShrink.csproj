@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseUsage.cs" />
+    <Compile Include="DatabaseHelper.cs" />
     <Compile Include="DatabaseReport.cs" />
     <Compile Include="MediaItemReport.cs" />
     <Compile Include="PublishingHelper.cs" />
