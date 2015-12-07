@@ -49,6 +49,7 @@ namespace robhabraken.SitecoreShrink
                             if (referencedItem != null)
                             {
                                 used = true;
+                                break;
                             }
                         }
                     }
