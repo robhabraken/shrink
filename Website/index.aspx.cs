@@ -37,6 +37,9 @@ namespace shrink
             //works: tidyUp.Archive(new List<Item>() { exampleItem4 }, false);
 
             //TODO: implement orphaned blobs method
+
+            var databaseHelper = new DatabaseHelper("master");
+            var report = databaseHelper.GetDatabaseSizes();
         }
     }
 }
