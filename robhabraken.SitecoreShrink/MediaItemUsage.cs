@@ -44,7 +44,7 @@ namespace robhabraken.SitecoreShrink
                     Globals.LinkDatabase.UpdateReferences(item);
                     var itemReferrers = Globals.LinkDatabase.GetReferrers(item);
 
-                    // find all valid referrers
+                    // check validity of all referrers
                     var used = false;
                     foreach (var itemLink in itemReferrers)
                     {
