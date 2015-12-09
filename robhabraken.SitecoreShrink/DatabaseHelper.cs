@@ -10,24 +10,32 @@ namespace robhabraken.SitecoreShrink
     /// </summary>
     public class DatabaseHelper
     {
+        private const string BLOBS_REPORT_QUERY = @"
+            DECLARE @UsableBlobs TABLE(ID UNIQUEIDENTIFIER);
+            DECLARE @VersionedBlobField VARCHAR(36) = '40E50ED9-BA07-4702-992E-A912738D32DC';
+            DECLARE @UnversionedBlobField VARCHAR(36) = 'DBBE7D99-1388-4357-BB34-AD71EDF18ED3';
+
+            INSERT INTO @UsableBlobs
+            SELECT CONVERT(UNIQUEIDENTIFIER, [Value]) AS EmpID
+            FROM [Fields] WHERE [Value] != '' AND(FieldId = @VersionedBlobField OR FieldId = @UnversionedBlobField)
+
+            SELECT SUM(CAST(DATALENGTH(Data) AS BIGINT)) / 1048576.0 AS usedBlobs FROM [Blobs] 
+            WHERE [BlobId] IN (SELECT * FROM @UsableBlobs)
+
+            SELECT SUM(CAST(DATALENGTH(Data) AS BIGINT)) / 1048576.0 AS unusedBlobs FROM [Blobs] 
+            WHERE [BlobId] NOT IN (SELECT * FROM @UsableBlobs)
+                ";
+
         private const string CLEAN_BLOBS_QUERY = @"
             DECLARE @UsableBlobs TABLE(ID UNIQUEIDENTIFIER);
             DECLARE @VersionedBlobField VARCHAR(36) = '40E50ED9-BA07-4702-992E-A912738D32DC';
             DECLARE @UnversionedBlobField VARCHAR(36) = 'DBBE7D99-1388-4357-BB34-AD71EDF18ED3';
 
-            INSERT INTO
-                @UsableBlobs
-            SELECT
-                CONVERT(UNIQUEIDENTIFIER, [Value]) AS EmpID
-            FROM
-                [Fields]
-            WHERE
-                [Value] != '' AND(FieldId = @VersionedBlobField OR FieldId = @UnversionedBlobField)
+            INSERT INTO @UsableBlobs
+            SELECT CONVERT(UNIQUEIDENTIFIER, [Value]) AS EmpID
+            FROM [Fields] WHERE [Value] != '' AND(FieldId = @VersionedBlobField OR FieldId = @UnversionedBlobField)
 
-            DELETE FROM
-                [Blobs]
-            WHERE
-                [BlobId] NOT IN(SELECT * FROM @UsableBlobs)
+            DELETE FROM [Blobs] WHERE [BlobId] NOT IN(SELECT * FROM @UsableBlobs)
                 ";
 
         private const string SHRINK_DATABASE_QUERY = @"
