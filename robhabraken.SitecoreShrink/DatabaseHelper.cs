@@ -79,6 +79,49 @@ namespace robhabraken.SitecoreShrink
         /// Returns a report of the current size and disk space allocation of the current database.
         /// </summary>
         /// <returns>A DatabaseReport object containing all values from the space used stored procedure.</returns>
+        public void GetOrphanedBlobsSize()
+        {
+
+            using (var connection = new SqlConnection(this.connectionStringSettings.ConnectionString))
+            {
+                var command = new SqlCommand(DatabaseHelper.BLOBS_REPORT_QUERY, connection);
+
+                try
+                {
+                    connection.Open();
+                    var reader = command.ExecuteReader();
+
+                    while (reader.HasRows)
+                    {
+                        // the blobs report query only returns one row per result set
+                        if (reader.Read())
+                        {
+                            if (reader.GetName(0).Equals("usedBlobs", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var used = reader.GetDecimal(0);
+                            }
+                            else if (reader.GetName(0).Equals("unusedBlobs", StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var unused = reader.GetDecimal(0);
+                            }
+                        }
+
+                        reader.NextResult();
+                    }
+                }
+                catch (SqlException exception)
+                {
+                    var x = exception.Message;
+                }
+            }
+
+            return;
+        }
+
+        /// <summary>
+        /// Returns a report of the current size and disk space allocation of the current database.
+        /// </summary>
+        /// <returns>A DatabaseReport object containing all values from the space used stored procedure.</returns>
         public DatabaseReport GetSpaceUsed()
         {
             DatabaseReport report = null;
