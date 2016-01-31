@@ -8,3 +8,8 @@ Remarks:
 	http://www.sitecore.net/learn/blogs/technical-blogs/john-west-sitecore-blog/posts/2013/08/archiving-recycling-restoring-and-deleting-items-and-versions-in-the-sitecore-aspnet-cms.aspx
 - advise to run orphan clean up after deleting items but before archiving or recycling, thus also warn that orphan method invalidates recycled items
 - test on large databases and see if I need to make a few operations scheduled tasks
+
+
+Ideas:
+- You now have 2951 MB of unallocated space, you might want to shrink your database files to release this unused space. (Display if more than 500 MB)
+- You will need db_owner rights (?) for this operation. Please login with your admin account first or skip this step if you gave your site account this permission (note that this is not recommended).
