@@ -1,6 +1,7 @@
 ﻿
 namespace robhabraken.SitecoreShrink
 {
+    using Sitecore.Diagnostics;
     using System;
     using System.Configuration;
     using System.Data.SqlClient;
@@ -61,7 +62,7 @@ namespace robhabraken.SitecoreShrink
         /// </remarks>
         public void CleanUpOrphanedBlobs()
         {
-            this.ExecuteNonQuery(DatabaseHelper.CLEAN_BLOBS_QUERY);
+            this.ExecuteNonQuery(DatabaseHelper.CLEAN_BLOBS_QUERY, "cleaning up orphaned blobs");
         }
 
         /// <summary>
@@ -72,7 +73,7 @@ namespace robhabraken.SitecoreShrink
         /// </remarks>
         public void ShrinkDatabase()
         {
-            this.ExecuteNonQuery(DatabaseHelper.SHRINK_DATABASE_QUERY);
+            this.ExecuteNonQuery(DatabaseHelper.SHRINK_DATABASE_QUERY, "shrinking the database");
         }
 
         /// <summary>
@@ -120,7 +121,7 @@ namespace robhabraken.SitecoreShrink
                 }
                 catch (SqlException exception)
                 {
-                    var x = exception.Message;
+                    Log.Error("Shrink: SqlException during querying for the blob sizes", exception, this);
                 }
             }
         }
@@ -171,7 +172,7 @@ namespace robhabraken.SitecoreShrink
                 }
                 catch (SqlException exception)
                 {
-                    var x = exception.Message;
+                    Log.Error("Shrink: SqlException during querying for space used", exception, this);
                 }
             }
         }
@@ -180,7 +181,8 @@ namespace robhabraken.SitecoreShrink
         /// Generic method to execute a non query on the current database, to remove duplicate code from this class.
         /// </summary>
         /// <param name="query">The (non) query to execute.</param>
-        private void ExecuteNonQuery(string query)
+        /// <param name="description">A description of what the (non) query does, used for logging if an exception might occur.</param>
+        private void ExecuteNonQuery(string query, string description)
         {
             using (var connection = new SqlConnection(this.connectionStringSettings.ConnectionString))
             {
@@ -193,7 +195,7 @@ namespace robhabraken.SitecoreShrink
                 }
                 catch (SqlException exception)
                 {
-                    var x = exception.Message;
+                    Log.Error(string.Format("Shrink: SqlException during {0}", description), exception, this);
                 }
             }
         }
