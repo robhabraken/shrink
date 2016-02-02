@@ -28,7 +28,8 @@ namespace robhabraken.SitecoreShrink
         /// </summary>
         /// <param name="items">A list of items to download.</param>
         /// <param name="targetPath">The target location for the items to be downloaded to.</param>
-        public void Download(List<Item> items, string targetPath)
+        /// <param name="deleteAfterwards">If set to true, the items will be deleted from the Sitecore database after the download is completed.</param>
+        public void Download(List<Item> items, string targetPath, bool deleteAfterwards)
         {
             foreach (var item in items)
             {
@@ -48,6 +49,8 @@ namespace robhabraken.SitecoreShrink
                     }
                 }
             }
+
+            this.Delete(items, false);
         }
 
         /// <summary>
