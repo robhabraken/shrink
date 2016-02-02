@@ -10,6 +10,10 @@ namespace robhabraken.SitecoreShrink
         public string Reserved { get; set; }
         public string Data { get; set; }
         public string IndexSize { get; set; }
-        public string Unused { get; set; }
+        public string UnusedData { get; set; }
+
+        // stored in MB
+        public decimal UsedBlobs { get; set; }
+        public decimal UnusedBlobs { get; set; }
     }
 }

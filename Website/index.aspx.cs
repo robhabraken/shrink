@@ -15,12 +15,6 @@ namespace shrink
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var exampleItem1 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{04DAD0FD-DB66-4070-881F-17264CA257E1}"));
-            var exampleItem2 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{6AA5AA9F-071A-4808-91AC-709FAAFFB310}"));
-            var exampleItem3 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{9775973B-91D8-4FEF-A130-A774C61CA4AE}"));
-            var exampleItem4 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{8E158CC2-5F5D-426E-8897-F9573EBA976E}"));
-            var exampleItem5 = Factory.GetDatabase("master").GetItem(new Sitecore.Data.ID("{5FDB5F8B-4D4D-4B29-AD0B-4E4F7F2460CC}"));
-
             var mediaItemUsage = new MediaItemUsage("master");
             var itemReport = mediaItemUsage.ScanMediaLibrary();
             foreach (var item in itemReport.UnusedItems)
@@ -30,14 +24,32 @@ namespace shrink
             Response.Write("total: " + itemReport.MediaItemCount.ToString() + "<br />");
             Response.Write("unused: " + itemReport.UnusedItems.Count.ToString() + "<br />");
             Response.Write("unpublished: " + itemReport.UnpublishedItems.Count.ToString() + "<br />");
-            Response.Write("old versions: " + itemReport.OldVersions.Count.ToString() + "<br />");
+            Response.Write("old versions: " + itemReport.OldVersions.Count.ToString() + "<br /><br />");
 
             var tidyUp = new TidyUp("master");
-            //works: tidyUp.Download(new List<Item>() { exampleItem1, exampleItem2, exampleItem3 }, "D:/");
-            //works: tidyUp.Archive(new List<Item>() { exampleItem4 }, false);
+            //tidyUp.Archive();
+            //tidyUp.Delete();
+            //tidyUp.DeleteOldVersions();
+            //tidyUp.Download();
+            //tidyUp.Recycle();
 
             var databaseUsage = new DatabaseHelper("master");
-            var report = databaseUsage.GetSpaceUsed();
+            var dbReport = new DatabaseReport();
+            databaseUsage.GetSpaceUsed(ref dbReport);
+            Response.Write("database name: " + dbReport.DatabaseName + "<br />");
+            Response.Write("database size: " + dbReport.DatabaseSize + "<br />");
+            Response.Write("unallocated space: " + dbReport.UnallocatedSpace + "<br />");
+            Response.Write("reserved: " + dbReport.Reserved + "<br />");
+            Response.Write("data: " + dbReport.Data + "<br />");
+            Response.Write("index size: " + dbReport.IndexSize + "<br />");
+            Response.Write("unused: " + dbReport.UnusedData + "<br /><br />");
+
+            databaseUsage.GetOrphanedBlobsSize(ref dbReport);
+            Response.Write("used blobs: " + dbReport.UsedBlobs + " MB<br />");
+            Response.Write("unused blobs: " + dbReport.UnusedBlobs + " MB<br /><br />");
+
+            //databaseUsage.CleanUpOrphanedBlobs();
+            //databaseUsage.ShrinkDatabase();
         }
     }
 }

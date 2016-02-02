@@ -76,11 +76,15 @@ namespace robhabraken.SitecoreShrink
         }
 
         /// <summary>
-        /// Returns a report of the current size and disk space allocation of the current database.
+        /// Populates the report data regarding the blob sizes within the current database.
         /// </summary>
-        /// <returns>A DatabaseReport object containing all values from the space used stored procedure.</returns>
-        public void GetOrphanedBlobsSize()
+        /// <param name="report">The report object to populate.</param>
+        public void GetOrphanedBlobsSize(ref DatabaseReport report)
         {
+            if (report == null)
+            {
+                report = new DatabaseReport();
+            }
 
             using (var connection = new SqlConnection(this.connectionStringSettings.ConnectionString))
             {
@@ -96,13 +100,18 @@ namespace robhabraken.SitecoreShrink
                         // the blobs report query only returns one row per result set
                         if (reader.Read())
                         {
-                            if (reader.GetName(0).Equals("usedBlobs", StringComparison.InvariantCultureIgnoreCase))
+                            // if there is no unused data, the reader with return a SQL null value, which cannot be assigned to a decimal
+                            if (!reader.IsDBNull(0))
                             {
-                                var used = reader.GetDecimal(0);
-                            }
-                            else if (reader.GetName(0).Equals("unusedBlobs", StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                var unused = reader.GetDecimal(0);
+                                // the result contains two result set, so we're detecting which result set this is by the first column name
+                                if (reader.GetName(0).Equals("usedBlobs", StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    report.UsedBlobs = reader.GetDecimal(0);
+                                }
+                                else if (reader.GetName(0).Equals("unusedBlobs", StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    report.UnusedBlobs = reader.GetDecimal(0);
+                                }
                             }
                         }
 
@@ -114,17 +123,18 @@ namespace robhabraken.SitecoreShrink
                     var x = exception.Message;
                 }
             }
-
-            return;
         }
 
         /// <summary>
-        /// Returns a report of the current size and disk space allocation of the current database.
+        /// Populates the report data regarding the current size and disk space allocation of the current database.
         /// </summary>
-        /// <returns>A DatabaseReport object containing all values from the space used stored procedure.</returns>
-        public DatabaseReport GetSpaceUsed()
+        /// <param name="report">The report object to populate.</param>
+        public void GetSpaceUsed(ref DatabaseReport report)
         {
-            DatabaseReport report = null;
+            if(report == null)
+            {
+                report = new DatabaseReport();
+            }
 
             using (var connection = new SqlConnection(this.connectionStringSettings.ConnectionString))
             {
@@ -152,7 +162,7 @@ namespace robhabraken.SitecoreShrink
                                 report.Reserved = reader.GetString(0);
                                 report.Data = reader.GetString(1);
                                 report.IndexSize = reader.GetString(2);
-                                report.Unused = reader.GetString(3);
+                                report.UnusedData = reader.GetString(3);
                             }
                         }
 
@@ -164,8 +174,6 @@ namespace robhabraken.SitecoreShrink
                     var x = exception.Message;
                 }
             }
-
-            return report;
         }
 
         /// <summary>
