@@ -912,6 +912,10 @@
     <Content Include="layouts\system\VisitorIdentificationCss.aspx" />
     <Content Include="layouts\xmlcontrol.aspx" />
     <Content Include="packages.config" />
+    <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\index.aspx" />
+    <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\ivh-treeview-theme-basic.css" />
+    <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\ivh-treeview.css" />
+    <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\ivh-treeview.js" />
     <Content Include="webedit.css" />
     <Content Include="xsl\sample rendering.xslt" />
     <Content Include="xsl\system\WebEdit\Hidden Rendering.xslt" />
@@ -5759,6 +5763,13 @@
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="sitecore modules\Shell\robhabraken\SitecoreShrink\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sitecore modules\Shell\robhabraken\SitecoreShrink\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="sitecore\shell\Templates\CSharp.cs" />
     <Compile Include="sitecore\shell\Templates\layout.aspx.cs">
       <DependentUpon>layout.aspx</DependentUpon>
@@ -5775,7 +5786,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="sitecore modules\Shell\" />
     <Folder Include="sitecore\samples\Quick Action Bar\" />
     <Folder Include="sitecore\shell\Applications\Analytics\AuthoringFeedback\" />
     <Folder Include="sitecore\shell\Applications\Analytics\Personalization\Cards\" />
