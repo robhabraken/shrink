@@ -1,6 +1,7 @@
 ﻿
 namespace robhabraken.SitecoreShrink
 {
+    using Sitecore;
     using Sitecore.Configuration;
     using Sitecore.Data;
     using Sitecore.Data.Archiving;
@@ -14,7 +15,7 @@ namespace robhabraken.SitecoreShrink
     /// <summary>
     /// Utility class that offers multiple ways of cleaning up unused items.
     /// </summary>
-    public class TidyUp
+    public class TidyUp : ITidy
     {
         private Database database;
 
@@ -31,10 +32,21 @@ namespace robhabraken.SitecoreShrink
         /// <param name="deleteAfterwards">If set to true, the items will be deleted from the Sitecore database after the download is completed.</param>
         public void Download(List<Item> items, string targetPath, bool deleteAfterwards)
         {
+            if (Context.Job != null)
+            {
+                Context.Job.Status.Total = items.Count;
+            }
+
             foreach (var item in items)
             {
                 if (item != null)
                 {
+                    if (Context.Job != null)
+                    {
+                        Context.Job.Status.Messages.Add(string.Format("Downloading media of item ", item.Paths.FullPath));
+                        Context.Job.Status.Processed++;
+                    }
+
                     var mediaItem = (MediaItem)item;
                     var media = MediaManager.GetMedia(mediaItem);
                     var stream = media.GetStream();
@@ -85,6 +97,10 @@ namespace robhabraken.SitecoreShrink
         public void Archive(List<Item> items, bool archiveChildren)
         {
             var archive = ArchiveManager.GetArchive("archive", database);
+            if (Context.Job != null)
+            {
+                Context.Job.Status.Total = items.Count;
+            }
 
             if (archive != null)
             {
@@ -94,6 +110,12 @@ namespace robhabraken.SitecoreShrink
                     {
                         if (item != null)
                         {
+                            if (Context.Job != null)
+                            {
+                                Context.Job.Status.Messages.Add(string.Format("Archiving item ", item.Paths.FullPath));
+                                Context.Job.Status.Processed++;
+                            }
+
                             if (!item.HasChildren || archiveChildren)
                             {
                                 archive.ArchiveItem(item);
@@ -114,12 +136,23 @@ namespace robhabraken.SitecoreShrink
         /// <param name="recycleChildren">If set to true, child items will be recycled as well; if set to false, items with children will be left untouched.</param>
         public void Recycle(List<Item> items, bool recycleChildren)
         {
+            if (Context.Job != null)
+            {
+                Context.Job.Status.Total = items.Count;
+            }
+
             using (new SecurityDisabler())
             {
                 foreach (var item in items)
                 {
                     if (item != null)
                     {
+                        if (Context.Job != null)
+                        {
+                            Context.Job.Status.Messages.Add(string.Format("Recycling item ", item.Paths.FullPath));
+                            Context.Job.Status.Processed++;
+                        }
+
                         if (!item.HasChildren || recycleChildren)
                         {
                             item.RecycleChildren();
@@ -143,12 +176,23 @@ namespace robhabraken.SitecoreShrink
         /// <param name="deleteChildren">If set to true, the underlying child items of each item will be deleted too.</param>
         public void Delete(List<Item> items, bool deleteChildren)
         {
+            if (Context.Job != null)
+            {
+                Context.Job.Status.Total = items.Count;
+            }
+
             using (new SecurityDisabler())
             {
                 foreach (var item in items)
                 {
                     if (item != null)
                     {
+                        if (Context.Job != null)
+                        {
+                            Context.Job.Status.Messages.Add(string.Format("Deleting item ", item.Paths.FullPath));
+                            Context.Job.Status.Processed++;
+                        }
+
                         if (item.HasChildren && deleteChildren)
                         {
                             // if the item has children and they should be deleted, do so
@@ -203,12 +247,23 @@ namespace robhabraken.SitecoreShrink
         /// <param name="items">A list of items to delete the old versions of.</param>
         public void DeleteOldVersions(List<Item> items)
         {
+            if (Context.Job != null)
+            {
+                Context.Job.Status.Total = items.Count;
+            }
+
             using (new SecurityDisabler())
             {
                 foreach (var item in items)
                 {
                     if (item != null)
                     {
+                        if (Context.Job != null)
+                        {
+                            Context.Job.Status.Messages.Add(string.Format("Deleting old versions of item ", item.Paths.FullPath));
+                            Context.Job.Status.Processed++;
+                        }
+
                         this.DeleteOldVersions(item);
                     }
                 }
