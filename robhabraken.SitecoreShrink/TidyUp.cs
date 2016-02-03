@@ -50,7 +50,11 @@ namespace robhabraken.SitecoreShrink
                 }
             }
 
-            this.Delete(items, false);
+            // TODO: move this out of here, shouldn't belong here but in calling actual job from user interface
+            if (deleteAfterwards)
+            {
+                this.Delete(items, false);
+            }
         }
 
         /// <summary>
