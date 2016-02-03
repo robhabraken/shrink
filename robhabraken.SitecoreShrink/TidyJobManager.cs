@@ -22,34 +22,34 @@ namespace robhabraken.SitecoreShrink
         public void Archive(List<Item> items, bool archiveChildren)
         {
             var args = new object[] { items, archiveChildren };
-            this.doSomething("Archive", args);
+            this.StartJob("Archive", args);
         }
 
         public void Delete(List<Item> items, bool deleteChildren)
         {
             var args = new object[] { items, deleteChildren };
-            this.doSomething("Delete", args);
+            this.StartJob("Delete", args);
         }
 
         public void DeleteOldVersions(List<Item> items)
         {
             var args = new object[] { items };
-            this.doSomething("DeleteOldVersions", args);
+            this.StartJob("DeleteOldVersions", args);
         }
 
         public void Download(List<Item> items, string targetPath, bool deleteAfterwards)
         {
             var args = new object[] { items, targetPath, deleteAfterwards };
-            this.doSomething("Download", args);
+            this.StartJob("Download", args);
         }
 
         public void Recycle(List<Item> items, bool recycleChildren)
         {
             var args = new object[] { items, recycleChildren };
-            this.doSomething("Recycle", args);
+            this.StartJob("Recycle", args);
         }
 
-        public void doSomething(string action, object[] args)
+        private void StartJob(string action, object[] args)
         {
             var jobName = string.Format("{0}_{1}_Media", tidyUp.GetType(), action);
 
