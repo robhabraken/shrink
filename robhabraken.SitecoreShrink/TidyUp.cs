@@ -59,13 +59,12 @@ namespace robhabraken.SitecoreShrink
                         stream.CopyTo(targetStream);
                         targetStream.Flush();
                     }
-                }
-            }
 
-            // TODO: move this out of here, shouldn't belong here but in calling actual job from user interface
-            if (deleteAfterwards)
-            {
-                this.Delete(items, false);
+                    if(deleteAfterwards)
+                    {
+                        this.DeleteItem(item, false);
+                    }
+                }
             }
         }
 
@@ -193,24 +192,38 @@ namespace robhabraken.SitecoreShrink
                             Context.Job.Status.Processed++;
                         }
 
-                        if (item.HasChildren && deleteChildren)
-                        {
-                            // if the item has children and they should be deleted, do so
-                            item.DeleteChildren();
-                            item.Delete();
-                        }
-                        else if (item.HasChildren && !deleteChildren)
-                        {
-                            // if the item has children that should not be deleted, change the item to a folder
-                            this.ChangeToFolder(item);
-                        }
-                        else
-                        {
-                            // if the item doesn't have children, the deleteChildren parameter isn't relevant, just delete the item
-                            item.Delete();
-                        }
+                        this.DeleteItem(item, deleteChildren);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Helper method used by Download and Delete methods of this class, to delete items child-aware.
+        /// </summary>
+        /// <remarks>
+        /// Note that if deleteChildren is set to false, and the item does have children, the item will be changed to a folder only.
+        /// The philosophy behind this is that it will still free up database space (which was the initial goal), but it won't break the item hierarchy.
+        /// </remarks>
+        /// <param name="item">The item to delete.</param>
+        /// <param name="deleteChildren">If set to true, the children of the item will be deleted as well.</param>
+        private void DeleteItem(Item item, bool deleteChildren)
+        {
+            if (item.HasChildren && deleteChildren)
+            {
+                // if the item has children and they should be deleted, do so
+                item.DeleteChildren();
+                item.Delete();
+            }
+            else if (item.HasChildren && !deleteChildren)
+            {
+                // if the item has children that should not be deleted, change the item to a folder
+                this.ChangeToFolder(item);
+            }
+            else
+            {
+                // if the item doesn't have children, the deleteChildren parameter isn't relevant, just delete the item
+                item.Delete();
             }
         }
 
