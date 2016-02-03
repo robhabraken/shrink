@@ -26,16 +26,16 @@ namespace shrink
             Response.Write("unpublished: " + itemReport.UnpublishedItems.Count.ToString() + "<br />");
             Response.Write("old versions: " + itemReport.OldVersions.Count.ToString() + "<br /><br />");
 
-            var tidyUp = new TidyUp("master");
-            //tidyUp.Archive();
-            //tidyUp.Delete();
-            //tidyUp.DeleteOldVersions();
-            //tidyUp.Download();
-            //tidyUp.Recycle();
+            var tidyJM = new TidyJobManager("master");
+            //tidyJM.Archive();
+            //tidyJM.Delete();
+            //tidyJM.DeleteOldVersions();
+            //tidyJM.Download();
+            //tidyJM.Recycle();
 
-            var databaseUsage = new DatabaseHelper("master");
+            var databaseHelper = new DatabaseHelper("master");
             var dbReport = new DatabaseReport();
-            databaseUsage.GetSpaceUsed(ref dbReport);
+            databaseHelper.GetSpaceUsed(ref dbReport);
             Response.Write("database name: " + dbReport.DatabaseName + "<br />");
             Response.Write("database size: " + dbReport.DatabaseSize + "<br />");
             Response.Write("unallocated space: " + dbReport.UnallocatedSpace + "<br />");
@@ -44,12 +44,12 @@ namespace shrink
             Response.Write("index size: " + dbReport.IndexSize + "<br />");
             Response.Write("unused: " + dbReport.UnusedData + "<br /><br />");
 
-            databaseUsage.GetOrphanedBlobsSize(ref dbReport);
+            databaseHelper.GetOrphanedBlobsSize(ref dbReport);
             Response.Write("used blobs: " + dbReport.UsedBlobs + " MB<br />");
             Response.Write("unused blobs: " + dbReport.UnusedBlobs + " MB<br /><br />");
 
-            //databaseUsage.CleanUpOrphanedBlobs();
-            //databaseUsage.ShrinkDatabase();
+            //databaseHelper.CleanUpOrphanedBlobs();
+            //databaseHelper.ShrinkDatabase();
         }
     }
 }

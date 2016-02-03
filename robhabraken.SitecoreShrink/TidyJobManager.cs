@@ -7,6 +7,9 @@ namespace robhabraken.SitecoreShrink
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Utility class that offers multiple ways of cleaning up unused items, executed as a Sitecore job.
+    /// </summary>
     public class TidyJobManager : ITidy
     {
         private TidyUp tidyUp;
