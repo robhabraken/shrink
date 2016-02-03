@@ -27,6 +27,7 @@ namespace shrink
             Response.Write("old versions: " + itemReport.OldVersions.Count.ToString() + "<br /><br />");
 
             var tidyJM = new TidyJobManager("master");
+            tidyJM.Download(new List<Item>() { itemReport.UnusedItems[0] }, @"D:\", false);
             //tidyJM.Archive();
             //tidyJM.Delete();
             //tidyJM.DeleteOldVersions();
