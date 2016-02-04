@@ -916,6 +916,7 @@
     <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\ivh-treeview-theme-basic.css" />
     <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\ivh-treeview.css" />
     <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\ivh-treeview.js" />
+    <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\job.aspx" />
     <Content Include="webedit.css" />
     <Content Include="xsl\sample rendering.xslt" />
     <Content Include="xsl\system\WebEdit\Hidden Rendering.xslt" />

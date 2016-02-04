@@ -51,13 +51,16 @@ namespace robhabraken.SitecoreShrink
                     var media = MediaManager.GetMedia(mediaItem);
                     var stream = media.GetStream();
 
-                    var fullPath = this.MediaToFilePath(targetPath, mediaItem.MediaPath, mediaItem.Extension);
-
-                    Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-                    using (var targetStream = File.OpenWrite(fullPath))
+                    if (stream != null)
                     {
-                        stream.CopyTo(targetStream);
-                        targetStream.Flush();
+                        var fullPath = this.MediaToFilePath(targetPath, mediaItem.MediaPath, mediaItem.Extension);
+
+                        Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+                        using (var targetStream = File.OpenWrite(fullPath))
+                        {
+                            stream.CopyTo(targetStream);
+                            targetStream.Flush();
+                        }
                     }
 
                     if(deleteAfterwards)
