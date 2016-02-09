@@ -1,7 +1,9 @@
 ﻿
 namespace robhabraken.SitecoreShrink
 {
+    using Sitecore;
     using Sitecore.Diagnostics;
+    using Sitecore.Jobs;
     using System;
     using System.Configuration;
     using System.Data.SqlClient;
@@ -62,7 +64,18 @@ namespace robhabraken.SitecoreShrink
         /// </remarks>
         public void CleanUpOrphanedBlobs()
         {
-            this.ExecuteNonQuery(DatabaseHelper.CLEAN_BLOBS_QUERY, "cleaning up orphaned blobs");
+            var jobName = string.Format("{0}_{1}", this.GetType(), "Clean_up_orphaned_media_blobs");
+            var args = new object[] { DatabaseHelper.CLEAN_BLOBS_QUERY, "cleaning up orphaned blobs" };
+
+            var jobOptions = new JobOptions(
+                jobName,
+                "Database clean up",
+                Context.Site.Name,
+                this,
+                "ExecuteNonQuery",
+                args);
+
+            var job = JobManager.Start(jobOptions);
         }
 
         /// <summary>
@@ -184,6 +197,11 @@ namespace robhabraken.SitecoreShrink
         /// <param name="description">A description of what the (non) query does, used for logging if an exception might occur.</param>
         private void ExecuteNonQuery(string query, string description)
         {
+            if (Context.Job != null)
+            {
+                Context.Job.Status.Total = 1; // indivisible task
+            }
+
             using (var connection = new SqlConnection(this.connectionStringSettings.ConnectionString))
             {
                 var command = new SqlCommand(query, connection);
@@ -192,6 +210,11 @@ namespace robhabraken.SitecoreShrink
                 {
                     connection.Open();
                     command.ExecuteNonQuery();
+
+                    if (Context.Job != null)
+                    {
+                        Context.Job.Status.Processed++;
+                    }
                 }
                 catch (SqlException exception)
                 {

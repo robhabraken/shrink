@@ -26,15 +26,13 @@ namespace shrink
             Response.Write("unpublished: " + itemReport.UnpublishedItems.Count.ToString() + "<br />");
             Response.Write("old versions: " + itemReport.OldVersions.Count.ToString() + "<br /><br />");
 
-            var tidyJM = new TidyJobManager("master");
-            tidyJM.Download(itemReport.UnusedItems, @"D:\test\", false);
+            //var tidyJM = new TidyJobManager("master");
+            //tidyJM.Download(itemReport.UnusedItems, @"D:\test\", false);
             //tidyJM.Archive();
             //tidyJM.Delete();
             //tidyJM.DeleteOldVersions();
             //tidyJM.Download();
             //tidyJM.Recycle();
-
-            return;
 
             var databaseHelper = new DatabaseHelper("master");
             var dbReport = new DatabaseReport();
@@ -51,7 +49,7 @@ namespace shrink
             Response.Write("used blobs: " + dbReport.UsedBlobs + " MB<br />");
             Response.Write("unused blobs: " + dbReport.UnusedBlobs + " MB<br /><br />");
 
-            //databaseHelper.CleanUpOrphanedBlobs();
+            databaseHelper.CleanUpOrphanedBlobs();
             //databaseHelper.ShrinkDatabase();
         }
     }
