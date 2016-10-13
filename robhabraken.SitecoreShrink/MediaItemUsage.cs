@@ -5,6 +5,9 @@ namespace robhabraken.SitecoreShrink
     using Sitecore.Configuration;
     using Sitecore.Data;
     using Sitecore.Data.Items;
+    using Sitecore.Links;
+    using System;
+    using Sitecore.Jobs;
 
     /// <summary>
     /// Utility class that is able to scan the media library for unused items.
@@ -30,15 +33,32 @@ namespace robhabraken.SitecoreShrink
             }
         }
 
+        private void ScanMediaLibraryOptimizedJob()
+        {
+            var action = "ScanMediaLibraryOptimized";
+            var jobName = string.Format("{0}_{1}", this.GetType(), action);
+
+            var jobOptions = new JobOptions(
+                jobName,
+                "Scanning media",
+                Context.Site.Name,
+                this,
+                action,
+                new object[0])
+            {
+                AfterLife = TimeSpan.FromMinutes(30)
+            };
+
+            var job = JobManager.Start(jobOptions);
+        }
+
         // because original scan function was too slow and bulky using the Descendants call, I'm working on a recursive method ATM
-        public MediaItemReport ScanMediaLibraryOptimized()
+        public void ScanMediaLibraryOptimized()
         {
             this.itemReport = new MediaItemReport();
 
             var root = database.Items["/sitecore/media library"];
             this.ScanItemsOf(root);
-
-            return this.itemReport;
         }
 
         private void ScanItemsOf(Item item)
@@ -63,7 +83,17 @@ namespace robhabraken.SitecoreShrink
 
                 // update and get referrers
                 Globals.LinkDatabase.UpdateReferences(item);
-                var itemReferrers = Globals.LinkDatabase.GetReferrers(item);
+
+                ItemLink[] itemReferrers = null;
+                try
+                {
+                    itemReferrers = Globals.LinkDatabase.GetReferrers(item);
+                }
+                catch(Exception exception)
+                {
+                    this.report(string.Format("Skipping this item because retrieving referrers failed due to {0}", exception.Message));
+                    return;
+                }
 
                 // check validity of all referrers
                 var used = false;
