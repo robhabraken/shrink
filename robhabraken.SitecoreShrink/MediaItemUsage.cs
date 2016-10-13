@@ -20,6 +20,14 @@ namespace robhabraken.SitecoreShrink
             this.database = Factory.GetDatabase(databaseName);
         }
 
+        private void report(string line)
+        {
+            using (var file = new System.IO.StreamWriter(@"D:\report.txt", true))
+            {
+                file.WriteLine(line);
+            }
+        }
+
         public MediaItemReport ScanMediaLibrary()
         {
             var itemReport = new MediaItemReport();
@@ -28,6 +36,9 @@ namespace robhabraken.SitecoreShrink
 
             var root = database.Items["/sitecore/media library"];
             var descendants = root.Axes.GetDescendants();
+
+            this.report(string.Format("Startig scanning {0} media library descendants", descendants.Length));
+
             foreach (var item in descendants)
             {
                 if (!item.Template.ID.ToString().Equals(MediaItemUsage.MEDIA_FOLDER_TEMPLATE_ID))
@@ -69,8 +80,15 @@ namespace robhabraken.SitecoreShrink
                     {
                         itemReport.OldVersions.Add(item);
                     }
+
+                    this.report(string.Format("Items processed: {0}, items unused: {1}, items unpublished: {2}, items with old versions: {3}", itemReport.MediaItemCount, itemReport.UnusedItems.Count, itemReport.UnpublishedItems.Count, itemReport.OldVersions.Count));
+                }
+                else
+                {
+                    this.report("This is a media folder, so we will skip this item");
                 }
             }
+            this.report("Ready scanning media library");
 
             return itemReport;
         }
