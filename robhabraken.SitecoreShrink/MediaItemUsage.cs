@@ -65,6 +65,11 @@ namespace robhabraken.SitecoreShrink
         {
             this.Evaluate(item);
 
+            if (Context.Job != null)
+            {
+                Context.Job.Status.Processed++;
+            }
+
             if (item.HasChildren)
             {
                 foreach (Item child in item.Children)
