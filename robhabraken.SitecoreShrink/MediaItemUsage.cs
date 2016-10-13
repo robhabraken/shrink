@@ -14,17 +14,89 @@ namespace robhabraken.SitecoreShrink
         public const string MEDIA_FOLDER_TEMPLATE_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
 
         private Database database;
+        private MediaItemReport itemReport;
 
         public MediaItemUsage(string databaseName)
         {
             this.database = Factory.GetDatabase(databaseName);
         }
 
+        // temp file log (unoptimized)
         private void report(string line)
         {
             using (var file = new System.IO.StreamWriter(@"D:\report.txt", true))
             {
                 file.WriteLine(line);
+            }
+        }
+
+        // because original scan function was too slow and bulky using the Descendants call, I'm working on a recursive method ATM
+        public MediaItemReport ScanMediaLibraryOptimized()
+        {
+            this.itemReport = new MediaItemReport();
+
+            var root = database.Items["/sitecore/media library"];
+            this.ScanItemsOf(root);
+
+            return this.itemReport;
+        }
+
+        private void ScanItemsOf(Item item)
+        {
+            this.Evaluate(item);
+
+            if (item.HasChildren)
+            {
+                foreach (Item child in item.Children)
+                {
+                    this.ScanItemsOf(child);
+                }
+            }
+        }
+
+        private void Evaluate(Item item)
+        {
+            if (!item.Template.ID.ToString().Equals(MediaItemUsage.MEDIA_FOLDER_TEMPLATE_ID))
+            {
+                // count all items that are actually media items (not folders)
+                this.itemReport.MediaItemCount++;
+
+                // update and get referrers
+                Globals.LinkDatabase.UpdateReferences(item);
+                var itemReferrers = Globals.LinkDatabase.GetReferrers(item);
+
+                // check validity of all referrers
+                var used = false;
+                foreach (var itemLink in itemReferrers)
+                {
+                    if (itemLink != null)
+                    {
+                        var referencedItem = itemLink.GetSourceItem();
+                        if (referencedItem != null)
+                        {
+                            used = true;
+                            break;
+                        }
+                    }
+                }
+
+                // add the item to the appropriate collections based on its state (used, published or multiple versions)
+                if (!used)
+                {
+                    this.itemReport.UnusedItems.Add(item);
+                }
+
+                if (new PublishingHelper().ListPublishedTargets(item).Count == 0)
+                {
+                    this.itemReport.UnpublishedItems.Add(item);
+                }
+
+                if (this.HasMultipleVersions(item))
+                {
+                    this.itemReport.OldVersions.Add(item);
+                }
+
+                this.report(string.Format("Items processed: {0}, items unused: {1}, items unpublished: {2}, items with old versions: {3}", this.itemReport.MediaItemCount, this.itemReport.UnusedItems.Count, this.itemReport.UnpublishedItems.Count, this.itemReport.OldVersions.Count));
             }
         }
 

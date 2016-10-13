@@ -20,7 +20,7 @@ namespace shrink
         protected void Button1_Click(object sender, EventArgs e)
         {
             var mediaItemUsage = new MediaItemUsage("master");
-            var itemReport = mediaItemUsage.ScanMediaLibrary();
+            var itemReport = mediaItemUsage.ScanMediaLibraryOptimized();
             foreach (var item in itemReport.UnusedItems)
             {
                 Response.Write(item.ID + " " + item.Name + "<br/>");
