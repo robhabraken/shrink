@@ -15,6 +15,10 @@ namespace shrink
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
             var mediaItemUsage = new MediaItemUsage("master");
             var itemReport = mediaItemUsage.ScanMediaLibrary();
             foreach (var item in itemReport.UnusedItems)
@@ -45,11 +49,11 @@ namespace shrink
             Response.Write("index size: " + dbReport.IndexSize + "<br />");
             Response.Write("unused: " + dbReport.UnusedData + "<br /><br />");
 
-            databaseHelper.GetOrphanedBlobsSize(ref dbReport);
-            Response.Write("used blobs: " + dbReport.UsedBlobs + " MB<br />");
-            Response.Write("unused blobs: " + dbReport.UnusedBlobs + " MB<br /><br />");
+            //databaseHelper.GetOrphanedBlobsSize(ref dbReport);
+            //Response.Write("used blobs: " + dbReport.UsedBlobs + " MB<br />");
+            //Response.Write("unused blobs: " + dbReport.UnusedBlobs + " MB<br /><br />");
 
-            databaseHelper.CleanUpOrphanedBlobs();
+            //databaseHelper.CleanUpOrphanedBlobs();
             //databaseHelper.ShrinkDatabase();
         }
     }
