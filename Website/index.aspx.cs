@@ -23,7 +23,7 @@ namespace shrink
             //var itemReport = mediaItemUsage.ScanMediaLibraryOptimized();
 
             MediaItemReport itemReport = null; // not populated yet in this version
-            mediaItemUsage.ScanMediaLibraryOptimized();
+            mediaItemUsage.ScanMediaLibraryOptimizedJob();
             Response.Write("Job started");
             return;
 

@@ -33,7 +33,7 @@ namespace robhabraken.SitecoreShrink
             }
         }
 
-        private void ScanMediaLibraryOptimizedJob()
+        public void ScanMediaLibraryOptimizedJob()
         {
             var action = "ScanMediaLibraryOptimized";
             var jobName = string.Format("{0}_{1}", this.GetType(), action);
