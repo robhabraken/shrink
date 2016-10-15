@@ -119,6 +119,12 @@ namespace robhabraken.SitecoreShrink
                 if (!used)
                 {
                     this.itemReport.UnusedItems.Add(item);
+
+                    if (item.Paths.IsMediaItem)
+                    {
+                        var mediaItem = (MediaItem)item;
+                        this.itemReport.UnusedSize += mediaItem.Size;
+                    }
                 }
 
                 if (new PublishingHelper().ListPublishedTargets(item).Count == 0)
@@ -131,7 +137,7 @@ namespace robhabraken.SitecoreShrink
                     this.itemReport.OldVersions.Add(item);
                 }
 
-                this.report(string.Format("Items processed: {0}, items unused: {1}, items unpublished: {2}, items with old versions: {3}", this.itemReport.MediaItemCount, this.itemReport.UnusedItems.Count, this.itemReport.UnpublishedItems.Count, this.itemReport.OldVersions.Count));
+                this.report(string.Format("Items processed: {0}, items unused: {1}, items unpublished: {2}, items with old versions: {3}, total size of unused items: {4}", this.itemReport.MediaItemCount, this.itemReport.UnusedItems.Count, this.itemReport.UnpublishedItems.Count, this.itemReport.OldVersions.Count, this.itemReport.UnusedSize));
             }
         }
 
