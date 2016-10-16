@@ -7,9 +7,14 @@
     {
         public MediaItem()
         {
+            this.ID = Guid.Empty;
             this.Name = string.Empty;
             this.Children = new List<MediaItem>();
             this.Size = 0;
+            this.IsMediaFolder = null;
+            this.IsReferenced = null;
+            this.IsPublished = null;
+            this.HasOldVersions = null;
         }
 
         public Guid ID { get; set; }
@@ -23,15 +28,15 @@
         /// </summary>
         public long Size { get; set; }
         
-        public bool IsMediaFolder { get; set; }
+        public bool? IsMediaFolder { get; set; }
 
-        public bool IsReferenced { get; set; }
+        public bool? IsReferenced { get; set; }
 
         /// <summary>
         /// True if this item is published to at least one of the configured publishing targets.
         /// </summary>
-        public bool IsPublished { get; set; }
+        public bool? IsPublished { get; set; }
 
-        public bool HasOldVersions { get; set; }
+        public bool? HasOldVersions { get; set; }
     }
 }
