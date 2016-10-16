@@ -7,7 +7,7 @@
     using Analyzing;
 
     [DataContract]
-    public class MediaItemX : IExtensibleDataObject
+    public class MediaItemX
     {
         public const string MEDIA_FOLDER_TEMPLATE_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
 
@@ -40,16 +40,16 @@
 
         public Guid ID { get; set; }
         
-        [DataMember(Name = "name")]
+        [DataMember(Name = "name", Order = 1)]
         public string Name { get; set; }
 
-        [DataMember(Name = "children")]
+        [DataMember(Name = "children", EmitDefaultValue = false, Order = 2)]
         public List<MediaItemX> Children { get; set; }
 
         /// <summary>
         /// Only applicable for media items, defaults to 0 when IsMediaFolder is true.
         /// </summary>
-        [DataMember(Name = "size", EmitDefaultValue = false)]
+        [DataMember(Name = "size", EmitDefaultValue = false, Order = 3)]
         public long Size { get; set; }
         
         public bool? IsMediaFolder { get; set; }
