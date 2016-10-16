@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="DatabaseHelper.cs" />
     <Compile Include="DatabaseReport.cs" />
+    <Compile Include="Entities\MediaItem.cs" />
     <Compile Include="ITidy.cs" />
     <Compile Include="MediaItemReport.cs" />
     <Compile Include="PublishingHelper.cs" />
