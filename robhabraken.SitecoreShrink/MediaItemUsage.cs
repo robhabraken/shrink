@@ -8,6 +8,7 @@ namespace robhabraken.SitecoreShrink
     using Sitecore.Links;
     using System;
     using Sitecore.Jobs;
+    using System.Diagnostics;
 
     /// <summary>
     /// Utility class that is able to scan the media library for unused items.
@@ -27,10 +28,10 @@ namespace robhabraken.SitecoreShrink
         // temp file log (unoptimized)
         private void report(string line)
         {
-            using (var file = new System.IO.StreamWriter(@"D:\report.txt", true))
-            {
-                file.WriteLine(line);
-            }
+            //using (var file = new System.IO.StreamWriter(@"D:\report.txt", true))
+            //{
+            //    file.WriteLine(line);
+            //}
         }
 
         public void ScanMediaLibraryOptimizedJob()
@@ -55,10 +56,22 @@ namespace robhabraken.SitecoreShrink
         // because original scan function was too slow and bulky using the Descendants call, I'm working on a recursive method ATM
         public void ScanMediaLibraryOptimized()
         {
+            var stopwatch = Stopwatch.StartNew();
+
             this.itemReport = new MediaItemReport();
 
             var root = database.Items["/sitecore/media library"];
             this.ScanItemsOf(root);
+
+            stopwatch.Stop();
+            var elapsedTime = stopwatch.Elapsed.ToString(@"hh\:mm\:ss\.fffff");
+
+            // TEMP TEMP TEMP TEMP TEMP
+            using (var file = new System.IO.StreamWriter(@"D:\report.txt", true))
+            {
+                file.WriteLine(string.Format("Items processed: {0}, items unused: {1}, items unpublished: {2}, items with old versions: {3}, total size of unused items: {4}", this.itemReport.MediaItemCount, this.itemReport.UnusedItems.Count, this.itemReport.UnpublishedItems.Count, this.itemReport.OldVersions.Count, this.itemReport.UnusedSize));
+                file.WriteLine(elapsedTime);
+            }
         }
 
         private void ScanItemsOf(Item item)
@@ -128,7 +141,7 @@ namespace robhabraken.SitecoreShrink
                 }
 
                 if (new PublishingHelper().ListPublishedTargets(item).Count == 0)
-                {
+                {   
                     this.itemReport.UnpublishedItems.Add(item);
                 }
 
@@ -136,8 +149,6 @@ namespace robhabraken.SitecoreShrink
                 {
                     this.itemReport.OldVersions.Add(item);
                 }
-
-                this.report(string.Format("Items processed: {0}, items unused: {1}, items unpublished: {2}, items with old versions: {3}, total size of unused items: {4}", this.itemReport.MediaItemCount, this.itemReport.UnusedItems.Count, this.itemReport.UnpublishedItems.Count, this.itemReport.OldVersions.Count, this.itemReport.UnusedSize));
             }
         }
 
