@@ -43,8 +43,8 @@
         [DataMember(Name = "name", Order = 1)]
         public string Name { get; set; }
 
-        [DataMember(Name = "children", EmitDefaultValue = false, Order = 2)]
-        public List<MediaItemX> Children { get; set; }
+        [DataMember(Name = "children", Order = 2)]
+        public List<MediaItemX> Children { get; set; } = null;
 
         /// <summary>
         /// Only applicable for media items, defaults to 0 when IsMediaFolder is true.
