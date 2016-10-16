@@ -28,14 +28,3 @@ namespace robhabraken.SitecoreShrink
 
     }
 }
-
-
-/**
- * 
- *  item ID + bool used + bool published + bool oldversions + size
- * 
- * 
- * 
- * 
- * 
- */

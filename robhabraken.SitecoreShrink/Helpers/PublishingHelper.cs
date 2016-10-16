@@ -1,5 +1,5 @@
 ﻿
-namespace robhabraken.SitecoreShrink
+namespace robhabraken.SitecoreShrink.Helpers
 {
     using Sitecore.Configuration;
     using Sitecore.Data;

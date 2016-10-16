@@ -1,5 +1,5 @@
 ﻿
-namespace robhabraken.SitecoreShrink
+namespace robhabraken.SitecoreShrink.Deprecated
 {
     public class DatabaseReport
     {

@@ -47,17 +47,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analyzing\MediaScanner.cs" />
-    <Compile Include="DatabaseHelper.cs" />
-    <Compile Include="DatabaseReport.cs" />
+    <Compile Include="Deprecated\DatabaseHelper.cs" />
+    <Compile Include="Deprecated\DatabaseReport.cs" />
     <Compile Include="Entities\MediaItemX.cs" />
     <Compile Include="IO\SomethingJSON.cs" />
-    <Compile Include="ITidy.cs" />
+    <Compile Include="Tasks\ITidy.cs" />
     <Compile Include="MediaItemReport.cs" />
-    <Compile Include="PublishingHelper.cs" />
+    <Compile Include="Helpers\PublishingHelper.cs" />
     <Compile Include="MediaItemUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TidyJobManager.cs" />
-    <Compile Include="TidyUp.cs" />
+    <Compile Include="Tasks\TidyJobManager.cs" />
+    <Compile Include="Tasks\TidyUp.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="files.txt" />

@@ -9,6 +9,7 @@
     using Sitecore.Jobs;
     using System.Diagnostics;
     using Entities;
+    using Helpers;
 
     /// <summary>
     /// Utility class that is able to scan the media library to analyze item usage and space consumption. (RECOMPOSE THIS DESCRIPTION)

@@ -1,5 +1,5 @@
 ﻿
-namespace robhabraken.SitecoreShrink
+namespace robhabraken.SitecoreShrink.Tasks
 {
     using Sitecore;
     using Sitecore.Configuration;

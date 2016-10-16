@@ -9,6 +9,7 @@ namespace robhabraken.SitecoreShrink
     using System;
     using Sitecore.Jobs;
     using System.Diagnostics;
+    using Helpers;
 
     /// <summary>
     /// Utility class that is able to scan the media library for unused items.
