@@ -9,6 +9,9 @@ using robhabraken.SitecoreShrink;
 using Sitecore.Configuration;
 using Sitecore.Data.Items;
 using robhabraken.SitecoreShrink.Analyzing;
+using System.Diagnostics;
+using System.Threading;
+using robhabraken.SitecoreShrink.IO;
 
 namespace shrink
 {
@@ -23,6 +26,31 @@ namespace shrink
             var mediaScanner = new MediaScanner("master");
             mediaScanner.ScanMediaLibraryJob();
             Response.Write("Job started");
+
+            var stopwatch = Stopwatch.StartNew();
+            while(true)
+            {
+                if (stopwatch.ElapsedMilliseconds > 180000)
+                {
+                    mediaScanner.Stop();
+
+                    var stopwatch2 = Stopwatch.StartNew();
+                    while(true)
+                    {
+                        if(stopwatch2.ElapsedMilliseconds > 180000)
+                        {
+
+                            var json = new SomethingJSON();
+                            json.Serialize(mediaScanner.MediaItemRoot);
+
+                            return;
+                        }
+                        Thread.Sleep(500);
+                    }
+
+                }
+                Thread.Sleep(500);
+            }
 
             //foreach (var item in itemReport.UnusedItems)
             //{

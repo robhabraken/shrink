@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,6 +50,7 @@
     <Compile Include="DatabaseHelper.cs" />
     <Compile Include="DatabaseReport.cs" />
     <Compile Include="Entities\MediaItemX.cs" />
+    <Compile Include="IO\SomethingJSON.cs" />
     <Compile Include="ITidy.cs" />
     <Compile Include="MediaItemReport.cs" />
     <Compile Include="PublishingHelper.cs" />

@@ -16,12 +16,16 @@
     public class MediaScanner
     {
         private Database database;
-        private MediaItemX mediaItem;
+
+        private bool mayExecute;
 
         public MediaScanner(string databaseName)
         {
             this.database = Factory.GetDatabase(databaseName);
+            this.mayExecute = true;
         }
+
+        public MediaItemX MediaItemRoot { get; set; }
 
         public void ScanMediaLibraryJob()
         {
@@ -47,9 +51,9 @@
             var stopwatch = Stopwatch.StartNew();
 
             var root = database.Items["/sitecore/media library"];
-            this.mediaItem = new MediaItemX(root);
+            this.MediaItemRoot = new MediaItemX(root);
 
-            this.ScanItemsOf(root, this.mediaItem);
+            this.ScanItemsOf(root, this.MediaItemRoot);
 
             stopwatch.Stop();
             var elapsedTime = stopwatch.Elapsed.ToString(@"hh\:mm\:ss\.fffff");
@@ -64,7 +68,7 @@
                 Context.Job.Status.Processed++;
             }
 
-            if (sitecoreItem.HasChildren)
+            if (sitecoreItem.HasChildren && this.mayExecute)
             {
                 foreach (Item child in sitecoreItem.Children)
                 {
@@ -111,6 +115,11 @@
                 reportItem.IsPublished = new PublishingHelper().ListPublishedTargets(sitecoreItem).Count > 0;
                 reportItem.HasOldVersions = this.HasMultipleVersions(sitecoreItem);
             }
+        }
+
+        public void Stop()
+        {
+            this.mayExecute = false;
         }
 
         /// <summary>
