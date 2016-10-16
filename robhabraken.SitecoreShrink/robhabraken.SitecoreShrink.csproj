@@ -45,9 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analyzing\MediaScanner.cs" />
     <Compile Include="DatabaseHelper.cs" />
     <Compile Include="DatabaseReport.cs" />
-    <Compile Include="Entities\MediaItem.cs" />
+    <Compile Include="Entities\MediaItemX.cs" />
     <Compile Include="ITidy.cs" />
     <Compile Include="MediaItemReport.cs" />
     <Compile Include="PublishingHelper.cs" />
