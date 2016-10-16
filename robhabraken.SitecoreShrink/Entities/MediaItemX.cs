@@ -3,9 +3,11 @@
     using Sitecore.Data.Items;
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using Analyzing;
 
-    public class MediaItemX
+    [DataContract]
+    public class MediaItemX : IExtensibleDataObject
     {
         public const string MEDIA_FOLDER_TEMPLATE_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
 
@@ -37,14 +39,17 @@
         }
 
         public Guid ID { get; set; }
-
+        
+        [DataMember(Name = "name")]
         public string Name { get; set; }
 
+        [DataMember(Name = "children")]
         public List<MediaItemX> Children { get; set; }
 
         /// <summary>
         /// Only applicable for media items, defaults to 0 when IsMediaFolder is true.
         /// </summary>
+        [DataMember(Name = "size", EmitDefaultValue = false)]
         public long Size { get; set; }
         
         public bool? IsMediaFolder { get; set; }
