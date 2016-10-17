@@ -58,7 +58,7 @@ var arc = d3.svg.arc()
 // Keep track of the node that is currently being displayed as the root.
 var node;
 
-d3.json("small-example-file.json", function(error, root) {
+d3.json("master-dorel.json", function(error, root) {
   node = root;
   var path = svg.datum(root).selectAll("path")
       .data(partition.value(function(d) { return d.size; }).nodes)
