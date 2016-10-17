@@ -109,28 +109,6 @@ function stash(d) {
   d.dx0 = d.dx;
 }
 
-// When switching data: interpolate the arcs in data space.
-function arcTweenData(a, i) {
-  var oi = d3.interpolate({x: a.x0, dx: a.dx0}, a);
-  function tween(t) {
-    var b = oi(t);
-    a.x0 = b.x;
-    a.dx0 = b.dx;
-    return arc(b);
-  }
-  if (i == 0) {
-   // If we are on the first arc, adjust the x domain to match the root node
-   // at the current zoom level. (We only need to do this once.)
-    var xd = d3.interpolate(x.domain(), [node.x, node.x + node.dx]);
-    return function(t) {
-      x.domain(xd(t));
-      return tween(t);
-    };
-  } else {
-    return tween;
-  }
-}
-
 // When zooming: interpolate the scales.
 function arcTweenZoom(d) {
   var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
