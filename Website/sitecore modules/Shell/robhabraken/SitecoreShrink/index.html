@@ -67,7 +67,7 @@ d3.json("small-example-file.json", function(error, root) {
       .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
       .on("click", click)
     .append("title")
-      .text(function(d) { return d.name + " " + toReadableFileSizeString(d.value); })
+      .text(function(d) { return d.name + "\n" + toReadableFileSizeString(d.value); })
       .each(stash);
 
   function click(d) {
