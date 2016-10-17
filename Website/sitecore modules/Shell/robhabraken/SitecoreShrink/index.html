@@ -23,8 +23,6 @@ path {
 </style>
 <body>
 <form>
-  <label><input type="radio" name="mode" value="size"> Size</label>
-  <label><input type="radio" name="mode" value="count" checked> Count</label>
 </form>
 <script src="d3.v3.min.js"></script>
 <script>
@@ -60,27 +58,15 @@ var arc = d3.svg.arc()
 // Keep track of the node that is currently being displayed as the root.
 var node;
 
-d3.json("master-dorel.json", function(error, root) {
+d3.json("small-example-file.json", function(error, root) {
   node = root;
   var path = svg.datum(root).selectAll("path")
-      .data(partition.nodes)
+      .data(partition.value(function(d) { return d.size; }).nodes)
     .enter().append("path")
       .attr("d", arc)
       .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
       .on("click", click)
       .each(stash);
-
-  d3.selectAll("input").on("change", function change() {
-    var value = this.value === "count"
-        ? function() { return 1; }
-        : function(d) { return d.size; };
-
-    path
-        .data(partition.value(value).nodes)
-      .transition()
-        .duration(1000)
-        .attrTween("d", arcTweenData);
-  });
 
   function click(d) {
     node = d;
