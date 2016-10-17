@@ -65,11 +65,10 @@ d3.json("small-example-file.json", function(error, root) {
     .enter().append("path")
       .attr("d", arc)
       .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-      .on("click", click)
-      
       .append("title")
       .text(function(d) { return d.name + "\n" + toReadableFileSizeString(d.value); })
       .classed("tooltip", true)
+      .on("click", click)
       .each(stash);
 
   function click(d) {
@@ -82,7 +81,7 @@ d3.json("small-example-file.json", function(error, root) {
 
 d3.select(self.frameElement).style("height", height + "px");
 
-// Format the size of the element from bytes to a formatted MB string.
+// Format the size of the element from bytes to a formatted and human readable file size string.
 function toReadableFileSizeString(fileSizeInBytes) {
 
     var i = -1;
