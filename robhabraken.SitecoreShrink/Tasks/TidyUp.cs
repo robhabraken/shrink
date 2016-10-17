@@ -1,6 +1,7 @@
 ﻿
 namespace robhabraken.SitecoreShrink.Tasks
 {
+    using Entities;
     using Sitecore;
     using Sitecore.Configuration;
     using Sitecore.Data;
@@ -237,7 +238,7 @@ namespace robhabraken.SitecoreShrink.Tasks
         /// <param name="item">The item to change to a folder.</param>
         private void ChangeToFolder(Item item)
         {
-            var mediaFolderGuid = new ID(MediaItemUsage.MEDIA_FOLDER_TEMPLATE_ID);
+            var mediaFolderGuid = new ID(MediaItemX.MEDIA_FOLDER_TEMPLATE_ID);
             var mediaFolder = database.GetItem(mediaFolderGuid);
 
             item.Editing.BeginEdit();

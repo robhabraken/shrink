@@ -46,15 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analyzing\MediaReport.cs" />
     <Compile Include="Analyzing\MediaScanner.cs" />
     <Compile Include="Deprecated\DatabaseHelper.cs" />
     <Compile Include="Deprecated\DatabaseReport.cs" />
     <Compile Include="Entities\MediaItemX.cs" />
     <Compile Include="IO\SomethingJSON.cs" />
     <Compile Include="Tasks\ITidy.cs" />
-    <Compile Include="MediaItemReport.cs" />
+    <Compile Include="Deprecated\MediaItemReport.cs" />
     <Compile Include="Helpers\PublishingHelper.cs" />
-    <Compile Include="MediaItemUsage.cs" />
+    <Compile Include="Deprecated\MediaItemUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\TidyJobManager.cs" />
     <Compile Include="Tasks\TidyUp.cs" />

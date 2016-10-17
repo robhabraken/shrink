@@ -1,5 +1,5 @@
 ﻿
-namespace robhabraken.SitecoreShrink
+namespace robhabraken.SitecoreShrink.Deprecated
 {
     using Sitecore.Data.Items;
     using System.Collections.Generic;
