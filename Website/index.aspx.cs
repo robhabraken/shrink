@@ -87,5 +87,12 @@ namespace shrink
             //databaseHelper.CleanUpOrphanedBlobs();
             //databaseHelper.ShrinkDatabase();
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            var itemReport = new SomethingJSON().Deserialize(@"D:\import.json");
+
+            new SomethingJSON().Serialize(itemReport);
+        }
     }
 }
