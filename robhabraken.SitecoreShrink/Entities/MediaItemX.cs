@@ -38,6 +38,7 @@
             }
         }
 
+        [DataMember(Name = "id", Order = 4)]
         public Guid ID { get; set; }
         
         [DataMember(Name = "name", Order = 1)]
@@ -51,16 +52,20 @@
         /// </summary>
         [DataMember(Name = "size", EmitDefaultValue = false, Order = 3)]
         public long Size { get; set; }
-        
+
+        [DataMember(Name = "mediafolder", EmitDefaultValue = false, Order = 5)]
         public bool? IsMediaFolder { get; set; }
 
+        [DataMember(Name = "referenced", EmitDefaultValue = false, Order = 6)]
         public bool? IsReferenced { get; set; }
 
         /// <summary>
         /// True if this item is published to at least one of the configured publishing targets.
         /// </summary>
+        [DataMember(Name = "published", EmitDefaultValue = false, Order = 7)]
         public bool? IsPublished { get; set; }
 
+        [DataMember(Name = "oldversions", EmitDefaultValue = false, Order = 8)]
         public bool? HasOldVersions { get; set; }
     }
 }
