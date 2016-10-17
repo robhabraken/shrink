@@ -65,16 +65,26 @@ d3.json("small-example-file.json", function(error, root) {
     .enter().append("path")
       .attr("d", arc)
       .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-      .append("title")
-      .text(function(d) { return d.name + "\n" + toReadableFileSizeString(d.value); })
       .on("click", click)
+    .append("title")
+      .text(function(d) { return d.name + " " + toReadableFileSizeString(d.value); })
       .each(stash);
 
   function click(d) {
     node = d;
-    path.transition()
-      .duration(1000)
-      .attrTween("d", arcTweenZoom(d));
+    //path.transition()
+    //  .duration(1000)
+    //  .attrTween("d", arcTweenZoom(d));
+    svg.transition()
+      .duration(750)
+      .tween("scale", function() {
+        var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+            yd = d3.interpolate(y.domain(), [d.y, 1]),
+            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+        return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
+      })
+    .selectAll("path")
+      .attrTween("d", function(d) { return function() { return arc(d); }; });
   }
 });
 
