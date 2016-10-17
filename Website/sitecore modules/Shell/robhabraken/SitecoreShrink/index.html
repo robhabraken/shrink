@@ -67,7 +67,6 @@ d3.json("small-example-file.json", function(error, root) {
       .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
       .append("title")
       .text(function(d) { return d.name + "\n" + toReadableFileSizeString(d.value); })
-      .classed("tooltip", true)
       .on("click", click)
       .each(stash);
 
