@@ -53,9 +53,7 @@
     <Compile Include="Entities\MediaItemX.cs" />
     <Compile Include="IO\SomethingJSON.cs" />
     <Compile Include="Tasks\ITidy.cs" />
-    <Compile Include="Deprecated\MediaItemReport.cs" />
     <Compile Include="Helpers\PublishingHelper.cs" />
-    <Compile Include="Deprecated\MediaItemUsage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\TidyJobManager.cs" />
     <Compile Include="Tasks\TidyUp.cs" />

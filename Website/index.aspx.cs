@@ -52,15 +52,6 @@ namespace shrink
             //    Thread.Sleep(500);
             //}
 
-            //foreach (var item in itemReport.UnusedItems)
-            //{
-            //    Response.Write(item.ID + " " + item.Name + "<br/>");
-            //}
-            //Response.Write("total: " + itemReport.MediaItemCount.ToString() + "<br />");
-            //Response.Write("unused: " + itemReport.UnusedItems.Count.ToString() + "<br />");
-            //Response.Write("unpublished: " + itemReport.UnpublishedItems.Count.ToString() + "<br />");
-            //Response.Write("old versions: " + itemReport.OldVersions.Count.ToString() + "<br /><br />");
-
             //var tidyJM = new TidyJobManager("master");
             //tidyJM.Download(itemReport.UnusedItems, @"D:\test\", false);
             //tidyJM.Archive();
