@@ -92,7 +92,8 @@ namespace shrink
         {
             var itemReport = new SomethingJSON().Deserialize(@"D:\import.json");
 
-            new SomethingJSON().Serialize(itemReport);
+            var report = new MediaReport(itemReport);
+            
         }
     }
 }

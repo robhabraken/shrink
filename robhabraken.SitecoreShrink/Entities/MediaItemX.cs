@@ -38,6 +38,12 @@
             }
         }
 
+        public MediaItemX Concat(IEnumerable<MediaItemX> moreChildren)
+        {
+            this.Children.AddRange(moreChildren);
+            return this;
+        }
+
         [DataMember(Name = "id", Order = 4)]
         public Guid ID { get; set; }
         
@@ -45,7 +51,7 @@
         public string Name { get; set; }
 
         [DataMember(Name = "children", Order = 2)]
-        public List<MediaItemX> Children { get; set; } = null;
+        public List<MediaItemX> Children { get; set; }
 
         /// <summary>
         /// Only applicable for media items, defaults to 0 when IsMediaFolder is true.

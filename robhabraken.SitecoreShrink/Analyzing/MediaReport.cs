@@ -6,15 +6,22 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    
+    public static class ExtensionMethods
+    {
+        public static IEnumerable<T> Flatten<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> recursion)
+        {
+            return source.SelectMany(x => recursion(x).Flatten(recursion)).Concat(source);
+        }
+    }
 
     public class MediaReport
     {
-
-        public List<MediaItemX> flatList;
+        private IEnumerable<MediaItemX> flatList;
 
         public MediaReport(MediaItemX mediaItemX)
         {
-
+            this.flatList = mediaItemX.Children.Flatten(x => x.Children);
         }
 
         /// <summary>
@@ -23,7 +30,7 @@
         /// <returns></returns>
         public int MediaItemCount()
         {
-            return 0;
+            return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value);
         }
 
         /// <summary>
@@ -32,7 +39,7 @@
         /// <returns></returns>
         public long MediaLibrarySize()
         {
-            return 0;
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value).Sum(x => x.Size);
         }
 
         /// <summary>
@@ -41,7 +48,7 @@
         /// <returns></returns>
         public int ReferencedItemCount()
         {
-            return 0;
+            return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && x.IsReferenced.Value);
         }
 
         /// <summary>
@@ -50,7 +57,7 @@
         /// <returns></returns>
         public long ReferencedMediaSize()
         {
-            return 0;
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && x.IsReferenced.Value).Sum(x => x.Size);
         }
 
         /// <summary>
@@ -59,16 +66,16 @@
         /// <returns></returns>
         public int PublishedItemCount()
         {
-            return 0;
+            return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value);
         }
 
         /// <summary>
         /// Returns the total size of all published items in bytes (to one or more publishing targets), not including media folders.
         /// </summary>
         /// <returns></returns>
-        public int PublishedMediaSize()
+        public long PublishedMediaSize()
         {
-            return 0;
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value).Sum(x => x.Size);
         }
         
         /// <summary>
@@ -77,7 +84,7 @@
         /// <returns></returns>
         public int OldVersionsItemCount()
         {
-            return 0;
+            return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value);
         }
     }
 }
