@@ -83,7 +83,19 @@ namespace shrink
         {
             var itemReport = new SomethingJSON().Deserialize(@"D:\import.json");
 
+            var stopwatch = Stopwatch.StartNew();
+
             var report = new MediaReport(itemReport);
+
+            var a = report.MediaItemCount();
+            var b = report.MediaLibrarySize();
+            var c = report.ReferencedItemCount();
+            var d = report.ReferencedMediaSize();
+            var f = report.PublishedItemCount();
+            var g = report.PublishedMediaSize();
+            var h = report.OldVersionsItemCount();
+
+            stopwatch.Stop();
             
         }
     }
