@@ -1,16 +1,16 @@
 ﻿namespace robhabraken.SitecoreShrink.Analyzing
 {
+    using Entities;
+    using Helpers;
+    using IO;
     using Sitecore;
     using Sitecore.Configuration;
     using Sitecore.Data;
     using Sitecore.Data.Items;
+    using Sitecore.Jobs;
     using Sitecore.Links;
     using System;
-    using Sitecore.Jobs;
     using System.Diagnostics;
-    using Entities;
-    using Helpers;
-    using IO;
 
     /// <summary>
     /// Utility class that is able to scan the media library to analyze item usage and space consumption. (RECOMPOSE THIS DESCRIPTION)

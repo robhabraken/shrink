@@ -2,7 +2,6 @@
 {
     using Entities;
     using Sitecore;
-    using Sitecore.Data.Items;
     using Sitecore.Jobs;
     using System;
     using System.Collections.Generic;

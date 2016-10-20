@@ -1,12 +1,11 @@
 ﻿namespace robhabraken.SitecoreShrink.Entities
 {
+    using Sitecore.Configuration;
+    using Sitecore.Data;
     using Sitecore.Data.Items;
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-    using Analyzing;
-    using Sitecore.Configuration;
-    using Sitecore.Data;
 
     [DataContract]
     public class MediaItemX

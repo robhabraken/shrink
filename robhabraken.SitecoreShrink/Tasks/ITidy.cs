@@ -1,7 +1,6 @@
 ﻿namespace robhabraken.SitecoreShrink.Tasks
 {
     using Entities;
-    using Sitecore.Data.Items;
     using System.Collections.Generic;
 
     public interface ITidy
