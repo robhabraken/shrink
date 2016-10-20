@@ -1,19 +1,19 @@
-﻿
-namespace robhabraken.SitecoreShrink.Tasks
+﻿namespace robhabraken.SitecoreShrink.Tasks
 {
+    using Entities;
     using Sitecore.Data.Items;
     using System.Collections.Generic;
 
     public interface ITidy
     {
-        void Download(List<Item> items, string targetPath, bool deleteAfterwards);
+        void Download(List<MediaItemX> items, string targetPath, bool deleteAfterwards);
 
-        void Archive(List<Item> items, bool archiveChildren);
+        void Archive(List<MediaItemX> items, bool archiveChildren);
 
-        void Recycle(List<Item> items, bool recycleChildren);
+        void Recycle(List<MediaItemX> items, bool recycleChildren);
 
-        void Delete(List<Item> items, bool deleteChildren);
+        void Delete(List<MediaItemX> items, bool deleteChildren);
 
-        void DeleteOldVersions(List<Item> items);
+        void DeleteOldVersions(List<MediaItemX> items);
     }
 }

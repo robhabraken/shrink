@@ -52,6 +52,11 @@
             return database != null ? database.Items[new ID(this.ID)] : null;
         }
 
+        public Item GetSitecoreItem(Database database)
+        {
+            return database != null ? database.Items[new ID(this.ID)] : null;
+        }
+
         [DataMember(Name = "id", Order = 4)]
         public Guid ID { get; set; }
         
