@@ -22,10 +22,10 @@ namespace robhabraken.SitecoreShrink.Deprecated
             SELECT CONVERT(UNIQUEIDENTIFIER, [Value]) AS EmpID
             FROM [Fields] WHERE [Value] != '' AND(FieldId = @VersionedBlobField OR FieldId = @UnversionedBlobField)
 
-            SELECT SUM(CAST(DATALENGTH(Data) AS BIGINT)) / 1048576.0 AS usedBlobs FROM [Blobs] 
+            SELECT SUM(CAST(DATALENGTH(Data) AS BIGINT)) AS usedBlobs FROM [Blobs] 
             WHERE [BlobId] IN (SELECT * FROM @UsableBlobs)
 
-            SELECT SUM(CAST(DATALENGTH(Data) AS BIGINT)) / 1048576.0 AS unusedBlobs FROM [Blobs] 
+            SELECT SUM(CAST(DATALENGTH(Data) AS BIGINT)) AS unusedBlobs FROM [Blobs] 
             WHERE [BlobId] NOT IN (SELECT * FROM @UsableBlobs)
                 ";
 
@@ -120,11 +120,11 @@ namespace robhabraken.SitecoreShrink.Deprecated
                                 // the result contains two result set, so we're detecting which result set this is by the first column name
                                 if (reader.GetName(0).Equals("usedBlobs", StringComparison.InvariantCultureIgnoreCase))
                                 {
-                                    report.UsedBlobs = reader.GetDecimal(0);
+                                    report.UsedBlobsSizeInBytes = reader.GetInt64(0);
                                 }
                                 else if (reader.GetName(0).Equals("unusedBlobs", StringComparison.InvariantCultureIgnoreCase))
                                 {
-                                    report.UnusedBlobs = reader.GetDecimal(0);
+                                    report.UnusedBlobsSizeInBytes = reader.GetInt64(0);
                                 }
                             }
                         }

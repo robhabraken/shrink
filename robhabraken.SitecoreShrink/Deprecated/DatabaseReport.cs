@@ -11,9 +11,8 @@ namespace robhabraken.SitecoreShrink.Deprecated
         public string Data { get; set; }
         public string IndexSize { get; set; }
         public string UnusedData { get; set; }
-
-        // stored in MB
-        public decimal UsedBlobs { get; set; }
-        public decimal UnusedBlobs { get; set; }
+        
+        public long UsedBlobsSizeInBytes { get; set; }
+        public long UnusedBlobsSizeInBytes { get; set; }
     }
 }
