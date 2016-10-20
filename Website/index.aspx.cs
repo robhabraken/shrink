@@ -81,7 +81,7 @@ namespace shrink
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            var itemReport = new SomethingJSON().Deserialize(@"D:\import.json");
+            var itemReport = new SomethingJSON(@"D:\test.json").Deserialize();
 
             var stopwatch = Stopwatch.StartNew();
 

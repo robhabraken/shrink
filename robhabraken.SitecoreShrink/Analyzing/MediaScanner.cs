@@ -61,7 +61,7 @@
             var elapsedTime = stopwatch.Elapsed.ToString(@"hh\:mm\:ss\.fffff");
 
             // TEMP WRITE TO JSON STUFF FOR TESTING PURPOSES
-            var json = new SomethingJSON();
+            var json = new SomethingJSON(@"D:\test.json");
             json.Serialize(this.MediaItemRoot);
         }
 

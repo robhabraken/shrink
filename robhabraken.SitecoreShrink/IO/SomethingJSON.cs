@@ -6,9 +6,11 @@
 
     public class SomethingJSON
     {
-        public SomethingJSON()
-        {
+        private string jsonFilePath;
 
+        public SomethingJSON(string path)
+        {
+            this.jsonFilePath = path;
         }
 
         public void Serialize(MediaItemX reportItem)
@@ -20,15 +22,15 @@
             memoryStream.Position = 0;
             var streamReader = new StreamReader(memoryStream);
 
-            using (var file = new StreamWriter(@"D:\report.txt", false))
+            using (var file = new StreamWriter(this.jsonFilePath, false))
             {
                 file.WriteLine(streamReader.ReadToEnd());
             }
         }
 
-        public MediaItemX Deserialize(string path)
+        public MediaItemX Deserialize()
         {
-            var streamReader = new StreamReader(path);            
+            var streamReader = new StreamReader(this.jsonFilePath);            
             var serializer = new DataContractJsonSerializer(typeof(MediaItemX));
 
             var reportItem = (MediaItemX)serializer.ReadObject(streamReader.BaseStream);
