@@ -5,6 +5,8 @@
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using Analyzing;
+    using Sitecore.Configuration;
+    using Sitecore.Data;
 
     [DataContract]
     public class MediaItemX
@@ -42,6 +44,12 @@
         {
             this.Children.AddRange(moreChildren);
             return this;
+        }
+
+        public Item GetSitecoreItem(string databaseName)
+        {
+            var database = Factory.GetDatabase(databaseName);
+            return database != null ? database.Items[new ID(this.ID)] : null;
         }
 
         [DataMember(Name = "id", Order = 4)]
