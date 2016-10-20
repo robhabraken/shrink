@@ -61,6 +61,15 @@
         }
 
         /// <summary>
+        /// Returns a list of all items that are not referenced, not including media folders, for clean up purposes.
+        /// </summary>
+        /// <returns></returns>
+        public List<MediaItemX> UnreferencedItems()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && !x.IsReferenced.Value).ToList<MediaItemX>();
+        }
+
+        /// <summary>
         /// Returns the number of media items that are published to one or more publishing targets, not including media folders.
         /// </summary>
         /// <returns></returns>
@@ -77,6 +86,15 @@
         {
             return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value).Sum(x => x.Size);
         }
+
+        /// <summary>
+        /// Returns a list of all items that are not published, not including media folders, for clean up purposes.
+        /// </summary>
+        /// <returns></returns>
+        public List<MediaItemX> UnpublishedItems()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).ToList<MediaItemX>();
+        }
         
         /// <summary>
         /// Returns the number of media items that contain more than one version, not including media folders.
@@ -85,6 +103,15 @@
         public int OldVersionsItemCount()
         {
             return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value);
+        }
+
+        /// <summary>
+        /// Returns a list of all items that contain old versions, not including media folders, for clean up purposes.
+        /// </summary>
+        /// <returns></returns>
+        public List<MediaItemX> ItemsWithOldVersions()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value).ToList<MediaItemX>();
         }
     }
 }
