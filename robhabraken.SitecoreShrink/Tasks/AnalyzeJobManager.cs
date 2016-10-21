@@ -1,10 +1,8 @@
 ﻿namespace robhabraken.SitecoreShrink.Tasks
 {
-    using Entities;
     using Sitecore;
     using Sitecore.Jobs;
     using System;
-    using System.Collections.Generic;
 
     public class AnalyzeJobManager : IAnalyze
     {
