@@ -15,7 +15,7 @@
     /// <summary>
     /// Utility class that is able to scan the media library to analyze item usage and space consumption. (RECOMPOSE THIS DESCRIPTION)
     /// </summary>
-    public class MediaScanner
+    public class MediaScanner : IAnalyze
     {
         private Database database;
 
