@@ -50,13 +50,13 @@
 
         private void StartJob(string action, object[] args)
         {
-            var jobName = string.Format("{0}_{1}_Media", tidyUp.GetType(), action);
+            var jobName = string.Format("{0}_{1}_Media", this.tidyUp.GetType(), action);
 
             var jobOptions = new JobOptions(
                 jobName,
                 "Batch clean up",
                 Context.Site.Name,
-                tidyUp,
+                this.tidyUp,
                 action,
                 args)
             {
