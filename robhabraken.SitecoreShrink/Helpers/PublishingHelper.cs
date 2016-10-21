@@ -1,5 +1,4 @@
-﻿
-namespace robhabraken.SitecoreShrink.Helpers
+﻿namespace robhabraken.SitecoreShrink.Helpers
 {
     using Sitecore.Configuration;
     using Sitecore.Data;
@@ -10,6 +9,9 @@ namespace robhabraken.SitecoreShrink.Helpers
     /// <summary>
     /// Helper methods for easy publishing from code, that are not natively available in the Sitecore API.
     /// </summary>
+    /// <remarks>
+    /// This class is derived from an earlier module I wrote (the Power Publish module). Hence, not all methods may be used in this module (yet).
+    /// </remarks>
     public class PublishingHelper
     {
         public enum PublishState
