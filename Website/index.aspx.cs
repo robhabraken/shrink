@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using robhabraken.SitecoreShrink;
 using Sitecore.Configuration;
 using Sitecore.Data.Items;
-using robhabraken.SitecoreShrink.Analyzing;
+using robhabraken.SitecoreShrink.Entities;
 using System.Diagnostics;
 using System.Threading;
 using robhabraken.SitecoreShrink.IO;

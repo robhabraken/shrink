@@ -1,4 +1,4 @@
-﻿namespace robhabraken.SitecoreShrink.Analyzing
+﻿namespace robhabraken.SitecoreShrink.Entities
 {
     using Entities;
     using System;
