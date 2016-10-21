@@ -19,12 +19,9 @@
     {
         private Database database;
 
-        private bool mayExecute;
-
         public MediaAnalyzer(string databaseName)
         {
             this.database = Factory.GetDatabase(databaseName);
-            this.mayExecute = true;
         }
 
         public MediaItemReport MediaItemRoot { get; set; }
@@ -74,7 +71,7 @@
                 Context.Job.Status.Processed++;
             }
 
-            if (sitecoreItem.HasChildren && this.mayExecute)
+            if (sitecoreItem.HasChildren)
             {
                 foreach (Item child in sitecoreItem.Children)
                 {
@@ -121,11 +118,6 @@
                 reportItem.IsPublished = new PublishingHelper().ListPublishedTargets(sitecoreItem).Count > 0;
                 reportItem.HasOldVersions = this.HasMultipleVersions(sitecoreItem);
             }
-        }
-
-        public void Stop()
-        {
-            this.mayExecute = false;
         }
 
         /// <summary>
