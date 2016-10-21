@@ -4,15 +4,27 @@
     using System.IO;
     using System.Runtime.Serialization.Json;
 
+    /// <summary>
+    /// Generic class to store serializable objects as a JSON file on disk.
+    /// </summary>
     public class JsonStorage
     {
         private string jsonFilePath;
 
+        /// <summary>
+        /// Constructs a new JSON storage object referring to the given file path.
+        /// </summary>
+        /// <param name="path">The file path indicating where to store the object on disk.</param>
         public JsonStorage(string path)
         {
             this.jsonFilePath = path;
         }
         
+        /// <summary>
+        /// Serializes the given object to disk in a JSON file format.
+        /// </summary>
+        /// <typeparam name="T">The type of the object to store.</typeparam>
+        /// <param name="objectToStore">The object to store.</param>
         public void Serialize<T>(T objectToStore)
         {
             var memoryStream = new MemoryStream();
@@ -28,6 +40,11 @@
             }
         }
 
+        /// <summary>
+        /// Deserializes an object from disk, being stored in a JSON file format.
+        /// </summary>
+        /// <typeparam name="T">The type of the object to retrieve.</typeparam>
+        /// <returns>The deserialized object of the given type.</returns>
         public T Deserialize<T>()
         {
             var streamReader = new StreamReader(this.jsonFilePath);            
