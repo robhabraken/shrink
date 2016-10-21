@@ -53,7 +53,7 @@
     <Compile Include="Deprecated\DatabaseHelper.cs" />
     <Compile Include="Deprecated\DatabaseReport.cs" />
     <Compile Include="Entities\MediaItemReport.cs" />
-    <Compile Include="IO\SomethingJSON.cs" />
+    <Compile Include="IO\JsonStorage.cs" />
     <Compile Include="Tasks\ITidy.cs" />
     <Compile Include="Helpers\PublishingHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

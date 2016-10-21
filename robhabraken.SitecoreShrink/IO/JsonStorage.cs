@@ -4,11 +4,11 @@
     using System.IO;
     using System.Runtime.Serialization.Json;
 
-    public class SomethingJSON
+    public class JsonStorage
     {
         private string jsonFilePath;
 
-        public SomethingJSON(string path)
+        public JsonStorage(string path)
         {
             this.jsonFilePath = path;
         }
