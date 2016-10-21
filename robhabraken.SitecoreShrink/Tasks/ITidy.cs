@@ -5,14 +5,14 @@
 
     public interface ITidy
     {
-        void Download(List<MediaItemX> items, string targetPath, bool deleteAfterwards);
+        void Download(List<MediaItemReport> items, string targetPath, bool deleteAfterwards);
 
-        void Archive(List<MediaItemX> items, bool archiveChildren);
+        void Archive(List<MediaItemReport> items, bool archiveChildren);
 
-        void Recycle(List<MediaItemX> items, bool recycleChildren);
+        void Recycle(List<MediaItemReport> items, bool recycleChildren);
 
-        void Delete(List<MediaItemX> items, bool deleteChildren);
+        void Delete(List<MediaItemReport> items, bool deleteChildren);
 
-        void DeleteOldVersions(List<MediaItemX> items);
+        void DeleteOldVersions(List<MediaItemReport> items);
     }
 }

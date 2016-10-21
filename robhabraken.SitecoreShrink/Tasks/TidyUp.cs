@@ -30,7 +30,7 @@
         /// <param name="items">A list of items to download.</param>
         /// <param name="targetPath">The target location for the items to be downloaded to.</param>
         /// <param name="deleteAfterwards">If set to true, the items will be deleted from the Sitecore database after the download is completed.</param>
-        public void Download(List<MediaItemX> items, string targetPath, bool deleteAfterwards)
+        public void Download(List<MediaItemReport> items, string targetPath, bool deleteAfterwards)
         {
             if (Context.Job != null)
             {
@@ -97,7 +97,7 @@
         /// </remarks>
         /// <param name="items">A list of items to archive.</param>
         /// <param name="archiveChildren">If set to true, child items will be archived as well; if set to false, items with children will be left untouched.</param>
-        public void Archive(List<MediaItemX> items, bool archiveChildren)
+        public void Archive(List<MediaItemReport> items, bool archiveChildren)
         {
             var archive = ArchiveManager.GetArchive("archive", database);
             if (Context.Job != null)
@@ -138,7 +138,7 @@
         /// </remarks>
         /// <param name="items">A list of items to recycle.</param>
         /// <param name="recycleChildren">If set to true, child items will be recycled as well; if set to false, items with children will be left untouched.</param>
-        public void Recycle(List<MediaItemX> items, bool recycleChildren)
+        public void Recycle(List<MediaItemReport> items, bool recycleChildren)
         {
             if (Context.Job != null)
             {
@@ -179,7 +179,7 @@
         /// </remarks>
         /// <param name="items">A list of items to delete.</param>
         /// <param name="deleteChildren">If set to true, the underlying child items of each item will be deleted too.</param>
-        public void Delete(List<MediaItemX> items, bool deleteChildren)
+        public void Delete(List<MediaItemReport> items, bool deleteChildren)
         {
             if (Context.Job != null)
             {
@@ -241,7 +241,7 @@
         /// <param name="item">The item to change to a folder.</param>
         private void ChangeToFolder(Item item)
         {
-            var mediaFolderGuid = new ID(MediaItemX.MEDIA_FOLDER_TEMPLATE_ID);
+            var mediaFolderGuid = new ID(MediaItemReport.MEDIA_FOLDER_TEMPLATE_ID);
             var mediaFolder = database.GetItem(mediaFolderGuid);
 
             item.Editing.BeginEdit();
@@ -265,7 +265,7 @@
         /// we do not want to delete it, and if there isn't a valid version _at all_ we can ignore the publishing settings and delete all versions but the last.
         /// </remarks>
         /// <param name="items">A list of items to delete the old versions of.</param>
-        public void DeleteOldVersions(List<MediaItemX> items)
+        public void DeleteOldVersions(List<MediaItemReport> items)
         {
             if (Context.Job != null)
             {

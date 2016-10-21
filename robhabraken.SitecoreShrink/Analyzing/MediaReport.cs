@@ -15,9 +15,9 @@
 
     public class MediaReport
     {
-        private IEnumerable<MediaItemX> flatList;
+        private IEnumerable<MediaItemReport> flatList;
 
-        public MediaReport(MediaItemX mediaItemX)
+        public MediaReport(MediaItemReport mediaItemX)
         {
             this.flatList = mediaItemX.Children.Flatten(x => x.Children);
         }
@@ -62,9 +62,9 @@
         /// Returns a list of all items that are not referenced, not including media folders, for clean up purposes.
         /// </summary>
         /// <returns></returns>
-        public List<MediaItemX> UnreferencedItems()
+        public List<MediaItemReport> UnreferencedItems()
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && !x.IsReferenced.Value).ToList<MediaItemX>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && !x.IsReferenced.Value).ToList<MediaItemReport>();
         }
 
         /// <summary>
@@ -89,9 +89,9 @@
         /// Returns a list of all items that are not published, not including media folders, for clean up purposes.
         /// </summary>
         /// <returns></returns>
-        public List<MediaItemX> UnpublishedItems()
+        public List<MediaItemReport> UnpublishedItems()
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).ToList<MediaItemX>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).ToList<MediaItemReport>();
         }
         
         /// <summary>
@@ -107,9 +107,9 @@
         /// Returns a list of all items that contain old versions, not including media folders, for clean up purposes.
         /// </summary>
         /// <returns></returns>
-        public List<MediaItemX> ItemsWithOldVersions()
+        public List<MediaItemReport> ItemsWithOldVersions()
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value).ToList<MediaItemX>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value).ToList<MediaItemReport>();
         }
     }
 }

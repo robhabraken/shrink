@@ -27,7 +27,7 @@
             this.mayExecute = true;
         }
 
-        public MediaItemX MediaItemRoot { get; set; }
+        public MediaItemReport MediaItemRoot { get; set; }
 
         public void ScanMediaLibraryJob()
         {
@@ -53,7 +53,7 @@
             var stopwatch = Stopwatch.StartNew();
 
             var root = database.Items["/sitecore/media library"];
-            this.MediaItemRoot = new MediaItemX(root);
+            this.MediaItemRoot = new MediaItemReport(root);
 
             this.ScanItemsOf(root, this.MediaItemRoot);
 
@@ -65,7 +65,7 @@
             json.Serialize(this.MediaItemRoot);
         }
 
-        private void ScanItemsOf(Item sitecoreItem, MediaItemX reportItem)
+        private void ScanItemsOf(Item sitecoreItem, MediaItemReport reportItem)
         {
             this.Analyze(sitecoreItem, reportItem);
 
@@ -78,7 +78,7 @@
             {
                 foreach (Item child in sitecoreItem.Children)
                 {
-                    var childItem = new MediaItemX(child);
+                    var childItem = new MediaItemReport(child);
                     reportItem.Children.Add(childItem);
 
                     this.ScanItemsOf(child, childItem);
@@ -86,7 +86,7 @@
             }
         }
 
-        private void Analyze(Item sitecoreItem, MediaItemX reportItem)
+        private void Analyze(Item sitecoreItem, MediaItemReport reportItem)
         {
             if (reportItem.IsMediaFolder.HasValue && !reportItem.IsMediaFolder.Value)
             {

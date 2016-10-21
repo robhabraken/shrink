@@ -18,31 +18,31 @@
             this.tidyUp = new TidyUp(databaseName);
         }
 
-        public void Archive(List<MediaItemX> items, bool archiveChildren)
+        public void Archive(List<MediaItemReport> items, bool archiveChildren)
         {
             var args = new object[] { items, archiveChildren };
             this.StartJob("Archive", args);
         }
 
-        public void Delete(List<MediaItemX> items, bool deleteChildren)
+        public void Delete(List<MediaItemReport> items, bool deleteChildren)
         {
             var args = new object[] { items, deleteChildren };
             this.StartJob("Delete", args);
         }
 
-        public void DeleteOldVersions(List<MediaItemX> items)
+        public void DeleteOldVersions(List<MediaItemReport> items)
         {
             var args = new object[] { items };
             this.StartJob("DeleteOldVersions", args);
         }
 
-        public void Download(List<MediaItemX> items, string targetPath, bool deleteAfterwards)
+        public void Download(List<MediaItemReport> items, string targetPath, bool deleteAfterwards)
         {
             var args = new object[] { items, targetPath, deleteAfterwards };
             this.StartJob("Download", args);
         }
 
-        public void Recycle(List<MediaItemX> items, bool recycleChildren)
+        public void Recycle(List<MediaItemReport> items, bool recycleChildren)
         {
             var args = new object[] { items, recycleChildren };
             this.StartJob("Recycle", args);

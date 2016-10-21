@@ -8,15 +8,15 @@
     using System.Runtime.Serialization;
 
     [DataContract]
-    public class MediaItemX
+    public class MediaItemReport
     {
         public const string MEDIA_FOLDER_TEMPLATE_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
 
-        public MediaItemX()
+        public MediaItemReport()
         {
             this.ID = Guid.Empty;
             this.Name = string.Empty;
-            this.Children = new List<MediaItemX>();
+            this.Children = new List<MediaItemReport>();
             this.Size = 0;
             this.IsMediaFolder = null;
             this.IsReferenced = null;
@@ -24,13 +24,13 @@
             this.HasOldVersions = null;
         }
 
-        public MediaItemX(Item item)
+        public MediaItemReport(Item item)
         {
             this.ID = item.ID.Guid;
             this.Name = item.Name;
-            this.Children = new List<MediaItemX>();
+            this.Children = new List<MediaItemReport>();
 
-            this.IsMediaFolder = item.Template.ID.ToString().Equals(MediaItemX.MEDIA_FOLDER_TEMPLATE_ID);
+            this.IsMediaFolder = item.Template.ID.ToString().Equals(MediaItemReport.MEDIA_FOLDER_TEMPLATE_ID);
 
             if (this.IsMediaFolder.HasValue && !this.IsMediaFolder.Value && item.Paths.IsMediaItem)
             {
@@ -39,7 +39,7 @@
             }
         }
 
-        public MediaItemX Concat(IEnumerable<MediaItemX> moreChildren)
+        public MediaItemReport Concat(IEnumerable<MediaItemReport> moreChildren)
         {
             this.Children.AddRange(moreChildren);
             return this;
@@ -63,7 +63,7 @@
         public string Name { get; set; }
 
         [DataMember(Name = "children", Order = 2)]
-        public List<MediaItemX> Children { get; set; }
+        public List<MediaItemReport> Children { get; set; }
 
         /// <summary>
         /// Only applicable for media items, defaults to 0 when IsMediaFolder is true.

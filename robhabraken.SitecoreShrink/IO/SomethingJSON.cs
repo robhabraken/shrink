@@ -13,10 +13,10 @@
             this.jsonFilePath = path;
         }
 
-        public void Serialize(MediaItemX reportItem)
+        public void Serialize(MediaItemReport reportItem)
         {
             var memoryStream = new MemoryStream();
-            var serializer = new DataContractJsonSerializer(typeof(MediaItemX));
+            var serializer = new DataContractJsonSerializer(typeof(MediaItemReport));
             serializer.WriteObject(memoryStream, reportItem);
 
             memoryStream.Position = 0;
@@ -28,12 +28,12 @@
             }
         }
 
-        public MediaItemX Deserialize()
+        public MediaItemReport Deserialize()
         {
             var streamReader = new StreamReader(this.jsonFilePath);            
-            var serializer = new DataContractJsonSerializer(typeof(MediaItemX));
+            var serializer = new DataContractJsonSerializer(typeof(MediaItemReport));
 
-            var reportItem = (MediaItemX)serializer.ReadObject(streamReader.BaseStream);
+            var reportItem = (MediaItemReport)serializer.ReadObject(streamReader.BaseStream);
 
             return reportItem;
         }
