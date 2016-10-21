@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\MediaConstants.cs" />
     <Compile Include="Entities\MediaLibraryReport.cs" />
     <Compile Include="Tasks\AnalyzeJobManager.cs" />
     <Compile Include="Tasks\IAnalyze.cs" />

@@ -10,8 +10,6 @@
     [DataContract]
     public class MediaItemReport
     {
-        public const string MEDIA_FOLDER_TEMPLATE_ID = "{FE5DD826-48C6-436D-B87A-7C4210C7413B}";
-
         public MediaItemReport()
         {
             this.ID = Guid.Empty;
@@ -30,7 +28,7 @@
             this.Name = item.Name;
             this.Children = new List<MediaItemReport>();
 
-            this.IsMediaFolder = item.Template.ID.ToString().Equals(MediaItemReport.MEDIA_FOLDER_TEMPLATE_ID);
+            this.IsMediaFolder = item.Template.ID.ToString().Equals(MediaConstants.MediaFolderTemplateID);
 
             if (this.IsMediaFolder.HasValue && !this.IsMediaFolder.Value && item.Paths.IsMediaItem)
             {

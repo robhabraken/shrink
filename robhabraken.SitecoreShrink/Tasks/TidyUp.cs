@@ -241,7 +241,7 @@
         /// <param name="item">The item to change to a folder.</param>
         private void ChangeToFolder(Item item)
         {
-            var mediaFolderGuid = new ID(MediaItemReport.MEDIA_FOLDER_TEMPLATE_ID);
+            var mediaFolderGuid = new ID(MediaConstants.MediaFolderTemplateID);
             var mediaFolder = database.GetItem(mediaFolderGuid);
 
             item.Editing.BeginEdit();
