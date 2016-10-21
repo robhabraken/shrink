@@ -15,13 +15,13 @@
     /// <summary>
     /// Utility class that is able to scan the media library to analyze item usage and space consumption. (RECOMPOSE THIS DESCRIPTION)
     /// </summary>
-    public class MediaScanner : IAnalyze
+    public class MediaAnalyzer : IAnalyze
     {
         private Database database;
 
         private bool mayExecute;
 
-        public MediaScanner(string databaseName)
+        public MediaAnalyzer(string databaseName)
         {
             this.database = Factory.GetDatabase(databaseName);
             this.mayExecute = true;

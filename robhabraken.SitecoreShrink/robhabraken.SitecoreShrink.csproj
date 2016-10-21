@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Entities\MediaLibraryReport.cs" />
     <Compile Include="Tasks\IAnalyze.cs" />
-    <Compile Include="Tasks\MediaScanner.cs" />
+    <Compile Include="Tasks\MediaAnalyzer.cs" />
     <Compile Include="Deprecated\DatabaseHelper.cs" />
     <Compile Include="Deprecated\DatabaseReport.cs" />
     <Compile Include="Entities\MediaItemReport.cs" />
