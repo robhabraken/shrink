@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Threading;
 using robhabraken.SitecoreShrink.IO;
 using robhabraken.SitecoreShrink.Tasks;
+using robhabraken.SitecoreShrink.Helpers;
 
 namespace shrink
 {
@@ -82,7 +83,9 @@ namespace shrink
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            var itemReport = new JsonStorage(@"D:\test.json").Deserialize<MediaItemReport>();
+            var path = ConfigurationHelper.ReadSetting("MediaItemReportPath");
+            var jsonStorage = new JsonStorage(path);
+            var itemReport = jsonStorage.Deserialize<MediaItemReport>();
 
             var stopwatch = Stopwatch.StartNew();
 

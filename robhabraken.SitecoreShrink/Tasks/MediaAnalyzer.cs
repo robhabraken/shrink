@@ -41,9 +41,12 @@
 
             this.ScanItemsOf(root, this.MediaItemRoot);
 
-            // TEMP WRITE TO JSON STUFF FOR TESTING PURPOSES
-            var json = new JsonStorage(@"D:\test.json");
-            json.Serialize(this.MediaItemRoot);
+            var path = ConfigurationHelper.ReadSetting("MediaItemReportPath");
+            if(!string.IsNullOrEmpty(path))
+            {
+                var json = new JsonStorage(path);
+                json.Serialize(this.MediaItemRoot);
+            }
         }
 
         /// <summary>

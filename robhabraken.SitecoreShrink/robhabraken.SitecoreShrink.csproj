@@ -49,6 +49,7 @@
     <Compile Include="Entities\ExtensionMethods.cs" />
     <Compile Include="Entities\MediaConstants.cs" />
     <Compile Include="Entities\MediaLibraryReport.cs" />
+    <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Tasks\AnalyzeJobManager.cs" />
     <Compile Include="Tasks\IAnalyze.cs" />
     <Compile Include="Tasks\MediaAnalyzer.cs" />
@@ -64,6 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="files.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
