@@ -12,6 +12,7 @@ using robhabraken.SitecoreShrink.Analyzing;
 using System.Diagnostics;
 using System.Threading;
 using robhabraken.SitecoreShrink.IO;
+using robhabraken.SitecoreShrink.Tasks;
 
 namespace shrink
 {
@@ -85,7 +86,7 @@ namespace shrink
 
             var stopwatch = Stopwatch.StartNew();
 
-            var report = new MediaReport(itemReport);
+            var report = new MediaLibraryReport(itemReport);
 
             var a = report.MediaItemCount();
             var b = report.MediaLibrarySize();

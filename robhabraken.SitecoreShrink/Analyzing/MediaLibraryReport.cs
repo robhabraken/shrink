@@ -13,11 +13,11 @@
         }
     }
 
-    public class MediaReport
+    public class MediaLibraryReport
     {
         private IEnumerable<MediaItemReport> flatList;
 
-        public MediaReport(MediaItemReport mediaItemX)
+        public MediaLibraryReport(MediaItemReport mediaItemX)
         {
             this.flatList = mediaItemX.Children.Flatten(x => x.Children);
         }

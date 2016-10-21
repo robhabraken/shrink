@@ -46,8 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analyzing\MediaReport.cs" />
-    <Compile Include="Analyzing\MediaScanner.cs" />
+    <Compile Include="Analyzing\MediaLibraryReport.cs" />
+    <Compile Include="Tasks\MediaScanner.cs" />
     <Compile Include="Deprecated\DatabaseHelper.cs" />
     <Compile Include="Deprecated\DatabaseReport.cs" />
     <Compile Include="Entities\MediaItemReport.cs" />
