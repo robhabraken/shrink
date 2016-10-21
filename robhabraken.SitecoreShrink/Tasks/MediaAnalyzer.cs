@@ -26,25 +26,6 @@
 
         public MediaItemReport MediaItemRoot { get; set; }
 
-        public void ScanMediaLibraryJob()
-        {
-            var action = "ScanMediaLibrary";
-            var jobName = string.Format("{0}_{1}", this.GetType(), action);
-
-            var jobOptions = new JobOptions(
-                jobName,
-                "Scanning media",
-                Context.Site.Name,
-                this,
-                action,
-                new object[0])
-            {
-                AfterLife = TimeSpan.FromMinutes(30)
-            };
-
-            var job = JobManager.Start(jobOptions);
-        }
-
         public void ScanMediaLibrary()
         {
             var stopwatch = Stopwatch.StartNew();

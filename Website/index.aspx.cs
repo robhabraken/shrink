@@ -24,8 +24,8 @@ namespace shrink
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            var mediaScanner = new MediaAnalyzer("master");
-            mediaScanner.ScanMediaLibraryJob();
+            var mediaScanner = new AnalyzeJobManager("master");
+            mediaScanner.ScanMediaLibrary();
             Response.Write("Job started");
 
             //var stopwatch = Stopwatch.StartNew();
