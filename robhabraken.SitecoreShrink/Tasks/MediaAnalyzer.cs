@@ -9,39 +9,48 @@
     using Sitecore.Data.Items;
     using Sitecore.Links;
     using System;
-    using System.Diagnostics;
 
     /// <summary>
-    /// Utility class that is able to scan the media library to analyze item usage and space consumption. (RECOMPOSE THIS DESCRIPTION)
+    /// Utility class that scans the media library, analyzing its usage and size.
     /// </summary>
     public class MediaAnalyzer : IAnalyze
     {
         private Database database;
 
+        /// <summary>
+        /// Constructs an analyzer object to scan the media library of the given database.
+        /// </summary>
+        /// <param name="databaseName">The name of the database of which to scan the media library of.</param>
         public MediaAnalyzer(string databaseName)
         {
             this.database = Factory.GetDatabase(databaseName);
         }
 
+        /// <summary>
+        /// The media item report representing the media library Sitecore root item.
+        /// </summary>
         public MediaItemReport MediaItemRoot { get; set; }
 
+        /// <summary>
+        /// Scans the media library and all of its media items recursively.
+        /// </summary>
         public void ScanMediaLibrary()
         {
-            var stopwatch = Stopwatch.StartNew();
-
             var root = database.Items["/sitecore/media library"];
             this.MediaItemRoot = new MediaItemReport(root);
 
             this.ScanItemsOf(root, this.MediaItemRoot);
-
-            stopwatch.Stop();
-            var elapsedTime = stopwatch.Elapsed.ToString(@"hh\:mm\:ss\.fffff");
 
             // TEMP WRITE TO JSON STUFF FOR TESTING PURPOSES
             var json = new JsonStorage(@"D:\test.json");
             json.Serialize(this.MediaItemRoot);
         }
 
+        /// <summary>
+        /// Recursive method to analyze a Sitecore media item and its child items.
+        /// </summary>
+        /// <param name="sitecoreItem">The Sitecore item to analyze.</param>
+        /// <param name="reportItem">The media item report item to store the results and its children in.</param>
         private void ScanItemsOf(Item sitecoreItem, MediaItemReport reportItem)
         {
             this.Analyze(sitecoreItem, reportItem);
@@ -63,6 +72,11 @@
             }
         }
 
+        /// <summary>
+        /// Analyzes a Sitecore media item and stores the result in the corresponding media item report object.
+        /// </summary>
+        /// <param name="sitecoreItem">The Sitecore item to analyze.</param>
+        /// <param name="reportItem">The media item report object to store the results in.</param>
         private void Analyze(Item sitecoreItem, MediaItemReport reportItem)
         {
             if (reportItem.IsMediaFolder.HasValue && !reportItem.IsMediaFolder.Value)
@@ -83,6 +97,7 @@
                             var referencedItem = itemLink.GetSourceItem();
                             if (referencedItem != null)
                             {
+                                // if at least one valid referrer is found, report and break out
                                 reportItem.IsReferenced = true;
                                 break;
                             }
@@ -91,21 +106,22 @@
                 }
                 catch (Exception exception)
                 {
-                    //this.report(string.Format("Skipping this item because retrieving referrers failed due to {0}", exception.Message));
+                    // TO DO: add exception handling because getting the referrers doesn't always seem to go flawless
                     return;
                 }
 
+                // add other meta data as well
                 reportItem.IsPublished = new PublishingHelper().ListPublishedTargets(sitecoreItem).Count > 0;
                 reportItem.HasOldVersions = this.HasMultipleVersions(sitecoreItem);
             }
         }
 
         /// <summary>
-        /// Checks if one or more language items of an item have more than one version.
+        /// Checks if one or more language items of the given item have more than one version.
         /// </summary>
         /// <remarks>
-        /// Note that it could be that an older verions is still in use due to custom publishing restrictions,
-        /// but checking that at this stage would be to costly, so we assume this items is an item to check when deleting old versions.
+        /// Note that it could be that an older verions is still in use due to custom publishing restrictions, but checking that at this stage would be to costly,
+        /// so we assume this item is an item to check in close detail when deleting old versions (this is done by the TidyUp class in code, not manually!).
         /// </remarks>
         /// <param name="item">The item to check for multiple versions.</param>
         /// <returns>True if one or more language items have multiple verions.</returns>

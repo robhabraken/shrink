@@ -4,6 +4,9 @@
     using Sitecore.Jobs;
     using System;
 
+    /// <summary>
+    /// Utility class that scans the media library, analyzing its usage and size, executed as a Sitecore job.
+    /// </summary>
     public class AnalyzeJobManager : IAnalyze
     {
         private MediaAnalyzer mediaAnalyzer;

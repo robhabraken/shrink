@@ -19,6 +19,10 @@
     {
         private Database database;
 
+        /// <summary>
+        /// Constructs a clean up class for the given database.
+        /// </summary>
+        /// <param name="databaseName">The name of the database to clean up items from.</param>
         public TidyUp(string databaseName)
         {
             this.database = Factory.GetDatabase(databaseName);
