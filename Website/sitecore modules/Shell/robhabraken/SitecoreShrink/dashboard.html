@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  margin: auto;
+  position: relative;
+  width: 1200px;
+}
+
+.mainPane {
+  float: left;
+  height: 250px;
+  width: 50%;
+}
+
+#leftPane {
+  background-color: red;
+}
+
+#rightPane {
+  background-color: green;
+}
+
+#sunburst {
+  height: 66%;
+}
+
+#donuts {
+  background-color: blue;
+}
+
+.donut {  
+  float: left;
+  height: 33%;
+  width: 33%;
+}
+
+.buttons input {
+  width: 19%;
+}
+
+
+</style>
+<body>
+<div id="canvas">
+  <div id="leftPane" class="mainPane">
+    <div id="sunburst">
+      sun
+    </div>
+    <div id="donunts">
+      <div class="donut">
+        1
+      </div>
+      <div class="donut">
+        2
+      </div>
+      <div class="donut">
+        3
+      </div>
+    </div>
+  </div>
+  <div id="rightPane" class="mainPane">
+    <div class="buttons">
+      <input type="button" value="Archive"/>
+      <input type="button" value="Recycle"/>
+      <input type="button" value="Delete"/>
+      <input type="button" value="Download"/>
+      <input type="button" value="Delete old versions"/>
+    </div>
+    <div class="treeview">
+      tree
+    </div>
+  </div>
+</div>
+</body>
+</html>
