@@ -48,7 +48,7 @@ body {
         </div>
       </div>
     </div>
-<script src="d3.v3.min.js"></script>
+<script src="../d3.v3.min.js"></script>
 <script>
 
 var width = 250,
@@ -71,7 +71,7 @@ var svg = d3.select("#chart").append("svg")
   .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-d3.csv("usage.csv", type, function(error, data) {
+d3.csv("data.csv", type, function(error, data) {
   if (error) throw error;
 
   var g = svg.selectAll(".arc")

@@ -18,7 +18,7 @@ path {
 <body>
 <form>
 </form>
-<script src="d3.v3.min.js"></script>
+<script src="../d3.v3.min.js"></script>
 <script>
 
 var width = 960,
@@ -52,7 +52,7 @@ var arc = d3.svg.arc()
 // Keep track of the node that is currently being displayed as the root.
 var node;
 
-d3.json("full-view-example.json", function(error, root) {
+d3.json("data-small.json", function(error, root) {
   node = root;
   var path = svg.datum(root).selectAll("path")
       .data(partition.value(function(d) { return d.size; }).nodes)
