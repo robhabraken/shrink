@@ -68,13 +68,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="files.txt" />
+    <Content Include="sitecore\Shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.js" />
+    <Content Include="sitecore\Shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.test.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="sitecore\Shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="sitecore\Shell\client\YourApps\ViewSitecoreJobs\Renderings\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
