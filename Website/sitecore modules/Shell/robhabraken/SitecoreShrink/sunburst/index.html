@@ -55,8 +55,7 @@ d3.json("data-small.json", function(error, root) {
       .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
       .on("click", click)
     .append("title")
-      .text(function(d) { return d.name + "\n" + toReadableFileSizeString(d.value); })
-      .each(stash);
+      .text(function(d) { return d.name + "\n" + toReadableFileSizeString(d.value); });
 
   function click(d) {
     node = d;
@@ -66,14 +65,6 @@ d3.json("data-small.json", function(error, root) {
       .attrTween("d", arcTweenZoom(d));
   }
 });
-
-d3.select(self.frameElement).style("height", height + "px");
-
-// Setup for switching data: stash the old values for transition.
-function stash(d) {
-  d.x0 = d.x;
-  d.dx0 = d.dx;
-}
 
 // When zooming: interpolate the scales.
 function arcTweenZoom(d) {
