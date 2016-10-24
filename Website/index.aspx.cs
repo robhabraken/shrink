@@ -83,23 +83,16 @@ namespace shrink
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-            var path = ConfigurationHelper.ReadSetting("MediaItemReportPath");
-            var jsonStorage = new JsonStorage(path);
+            //var path = ConfigurationHelper.ReadSetting("MediaItemReportPath");
+            var jsonStorage = new JsonStorage(@"D:\import.json");
             var itemReport = jsonStorage.Deserialize<MediaItemReport>();
-
-            var stopwatch = Stopwatch.StartNew();
 
             var report = new MediaLibraryReport(itemReport);
 
-            var a = report.MediaItemCount();
-            var b = report.MediaLibrarySize();
-            var c = report.ReferencedItemCount();
-            var d = report.ReferencedMediaSize();
-            var f = report.PublishedItemCount();
-            var g = report.PublishedMediaSize();
-            var h = report.OldVersionsItemCount();
+            //var path2 = ConfigurationHelper.ReadSetting("MediaLibraryReportPath");
+            var jsonStorage2 = new JsonStorage(@"D:\export.json");
 
-            stopwatch.Stop();
+            jsonStorage2.Serialize(report);
             
         }
     }

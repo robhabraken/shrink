@@ -2,10 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Reporting class representing (a part of) the media library, containing metrics about its item usage.
     /// </summary>
+    [DataContract]
     public class MediaLibraryReport
     {
         private IEnumerable<MediaItemReport> flatList;
@@ -17,6 +19,7 @@
         public MediaLibraryReport(MediaItemReport mediaItemReport)
         {
             this.flatList = mediaItemReport.Children.Flatten(x => x.Children);
+            this.GenerateStats();
         }
 
         /// <summary>
@@ -90,7 +93,7 @@
         {
             return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).ToList<MediaItemReport>();
         }
-        
+
         /// <summary>
         /// Returns the number of media items that contain more than one version, not including media folders.
         /// </summary>
@@ -107,6 +110,50 @@
         public List<MediaItemReport> ItemsWithOldVersions()
         {
             return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value).ToList<MediaItemReport>();
+        }
+
+        /// <summary>
+        /// Stores statistics generated at construction time, also used to generate the JSON data source for the donut charts.
+        /// </summary>
+        [DataMember(Name = "stats")]
+        public List<ChartStats> Stats { get; set; }
+
+        /// <summary>
+        /// Generates the statistics object required to store the above stats in a JSON format to be used for the donut charts.
+        /// </summary>
+        private void GenerateStats()
+        {
+            this.Stats = new List<ChartStats>();
+
+            var totalCount = this.MediaItemCount();
+            var totalSize = this.MediaLibrarySize();
+            var referencedItems = this.ReferencedMediaSize();
+            var publishedItems = this.PublishedMediaSize();
+            var itemsOldVersions = this.OldVersionsItemCount();
+
+            this.Stats.Add(new ChartStats()
+            {
+                Children = new List<ReportCategory>() {
+                    new ReportCategory("Items in use", referencedItems),
+                    new ReportCategory("Items not referenced", totalSize - referencedItems)
+                }
+            });
+
+            this.Stats.Add(new ChartStats()
+            {
+                Children = new List<ReportCategory>() {
+                    new ReportCategory("Published items", publishedItems),
+                    new ReportCategory("Unpublished items", totalSize - publishedItems)
+                }
+            });
+
+            this.Stats.Add(new ChartStats()
+            {
+                Children = new List<ReportCategory>() {
+                    new ReportCategory("Items with old versions", itemsOldVersions),
+                    new ReportCategory("Items that use all versions", totalCount - itemsOldVersions)
+                }
+            });
         }
     }
 }
