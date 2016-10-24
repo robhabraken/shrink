@@ -5,11 +5,11 @@
 		"name": "ReferencedItems",
 		"children": [
 		{
-	        "category": "used",
+	        "category": "Items in use",
 	        "size": 13002342.4
 	    },
 	    {
-	        "name": "not used",
+	        "category": "Items not referenced",
 	        "size": 16212057.6
 	    }]
 	},
@@ -17,11 +17,11 @@
 		"name": "PublishedItems",
 		"children": [
 		{
-	        "category": "used",
+	        "category": "Published items",
 	        "size": 26002342.4
 	    },
 	    {
-	        "name": "not used",
+	        "category": "Unpublished items",
 	        "size": 3212057.6
 	    }]
 	}]
