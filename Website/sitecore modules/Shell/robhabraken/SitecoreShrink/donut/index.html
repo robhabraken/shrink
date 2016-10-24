@@ -5,61 +5,34 @@
 </head>
 <body>
   <div id="main-canvas">
-    <div class="chart-title">
-      Referenced items
+    <div class="chart-panel">
+      <div class="chart-title">
+        Referenced items
+      </div>
+      <div class="donut-chart" id="referenced-chart">
+        <div class="donut-fact">
+          <span class="donut-fact-highlight" id="size-referenced">15.5 Gb</span><br/>
+            is not being referenced
+        </div>
+      </div>
     </div>
-    <div class="donut-chart" id="referenced-chart">
-      <div class="donut-fact">
-        <span class="donut-fact-highlight" id="size-referenced">15.5 Gb</span><br/>
-          is not being referenced
+    <div class="chart-panel">
+      <div class="chart-title">
+        Published items
+      </div>
+      <div class="donut-chart" id="published-chart">
+        <div class="donut-fact">
+          <span class="donut-fact-highlight" id="size-published">3.1 Gb</span><br/>
+            is not published at all
+        </div>
       </div>
     </div>
   </div>
 <script src="../d3.v3.min.js"></script>
 <script src="../shrink.js"></script>
 <script>
-
-var width = 250,
-    height = 250,
-    radius = Math.min(width, height) / 2;
-
-var color = d3.scale.category20c();
-
-var arc = d3.svg.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(radius - 50);
-
-var pie = d3.layout.pie()
-    .sort(null)
-    .value(function(d) { return d.size; });
-
-var svg = d3.select("#referenced-chart").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-d3.json("data.json", function(error, data) {
-  if (error) throw error;
-  
-  var g = svg.selectAll(".arc")
-      .data(pie(data.stats[0].children))
-    .enter().append("g")
-      .attr("class", "arc");
-
-  g.append("path")
-      .attr("d", arc)
-      .style("fill", function(d) { return color(d.data.category); })
-      .on("click", click)
-    .append("title")
-      .text(function(d) { return d.data.category + "\n" + toReadableFileSizeString(d.data.size); });
-
-  function click(d) {
-    node = d;
-    alert(d.data.category);
-  }
-});
-
+  renderDonut("referenced-chart", "data.json", 0);
+  renderDonut("published-chart", "data.json", 1);
 </script>
 </body>
 </html>

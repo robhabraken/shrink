@@ -1,13 +1,19 @@
 body {
   font-family: Arial, sans-serif;
   font-size: 12px;
-  background-color: #fff;
+  background-color: #f0f0f0;
 }
 
 #main-canvas {
   margin: auto;
   position: relative;
   width: 960px;
+}
+
+.chart-panel {
+  background-color: #fff;
+  float: left;
+  margin: 15px;
 }
 
 .chart-title {
@@ -33,7 +39,6 @@ body {
   width: 140px;
   text-align: center;
   color: #666;
-  z-index: -1;
 }
 
 .donut-fact-highlight {
