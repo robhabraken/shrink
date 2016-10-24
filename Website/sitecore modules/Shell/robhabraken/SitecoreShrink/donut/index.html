@@ -71,9 +71,9 @@ var svg = d3.select("#chart").append("svg")
   .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-d3.csv("data.csv", type, function(error, data) {
+d3.json("data.json", function(error, data) {
   if (error) throw error;
-
+  
   var g = svg.selectAll(".arc")
       .data(pie(data))
     .enter().append("g")
@@ -83,10 +83,5 @@ d3.csv("data.csv", type, function(error, data) {
       .attr("d", arc)
       .style("fill", function(d) { return color(d.data.category); });
 });
-
-function type(d) {
-  d.size = +d.size;
-  return d;
-}
 
 </script>
