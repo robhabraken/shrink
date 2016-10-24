@@ -1,30 +1,23 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<head>
 <style>
 
 body {
   font-family: Arial, sans-serif;
   font-size: 12px;
-  font-weight: 400;
   background-color: #fff;
-  width: 250px;
-  height: 250px;
-  margin-top: 10px;
 }
 
-#main {
-  float: left;
-}
-
-#chart {
+.donut-chart {
   position: relative;
 }
 
-#chart path {
+.donut-chart path {
   stroke: #fff;
 }
 
-#explanation {
+.donut-fact {
   position: absolute;
   top: 95px;
   left: 55px;
@@ -34,20 +27,21 @@ body {
   z-index: -1;
 }
 
-#percentage {
+.donut-fact-highlight {
   font-size: 2.5em;
 }
 
 </style>
+</head>
 <body>
- <div id="main">
-      <div id="chart">
-        <div id="explanation">
-          <span id="percentage">15.5 Gb</span><br/>
+  <div id="main">
+    <div class="donut-chart" id="referenced-chart">
+      <div class="donut-fact">
+        <span class="donut-fact-highlight" id="size-referenced">15.5 Gb</span><br/>
           is not being referenced
-        </div>
       </div>
     </div>
+  </div>
 <script src="../d3.v3.min.js"></script>
 <script>
 
@@ -65,7 +59,7 @@ var pie = d3.layout.pie()
     .sort(null)
     .value(function(d) { return d.size; });
 
-var svg = d3.select("#chart").append("svg")
+var svg = d3.select("#referenced-chart").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g")
@@ -101,3 +95,5 @@ function toReadableFileSizeString(fileSizeInBytes) {
 };
 
 </script>
+</body>
+</html>
