@@ -24,5 +24,17 @@
 	        "category": "Unpublished items",
 	        "size": 3212057.6
 	    }]
+	},	
+	{
+		"name": "ItemsOldVersions",
+		"children": [
+		{
+	        "category": "Items with old versions",
+	        "size": 23342.4
+	    },
+	    {
+	        "category": "Items that use all versions",
+	        "size": 3212057.6
+	    }]
 	}]
 }

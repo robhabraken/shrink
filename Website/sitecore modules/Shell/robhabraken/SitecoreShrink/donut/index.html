@@ -27,12 +27,24 @@
         </div>
       </div>
     </div>
+    <div class="chart-panel">
+      <div class="chart-title">
+        Items with old versions
+      </div>
+      <div class="donut-chart" id="versions-chart">
+        <div class="donut-fact">
+          <span class="donut-fact-highlight" id="size-versions">22.8 kB</span><br/>
+            have old unused versions
+        </div>
+      </div>
+    </div>
   </div>
 <script src="../d3.v3.min.js"></script>
 <script src="../shrink.js"></script>
 <script>
   renderDonut("referenced-chart", "data.json", 0);
   renderDonut("published-chart", "data.json", 1);
+  renderDonut("versions-chart", "data.json", 2);
 </script>
 </body>
 </html>
