@@ -1,10 +1,28 @@
-[
+{
+	"name": "MediaLibraryReport",
+	"stats": [
 	{
-        "category": "used",
-        "size": 13002342.4
-    },
-    {
-        "name": "not used",
-        "size": 16212057.6
-    }
-]
+		"name": "ReferencedItems",
+		"children": [
+		{
+	        "category": "used",
+	        "size": 13002342.4
+	    },
+	    {
+	        "name": "not used",
+	        "size": 16212057.6
+	    }]
+	},
+	{
+		"name": "PublishedItems",
+		"children": [
+		{
+	        "category": "used",
+	        "size": 26002342.4
+	    },
+	    {
+	        "name": "not used",
+	        "size": 3212057.6
+	    }]
+	}]
+}

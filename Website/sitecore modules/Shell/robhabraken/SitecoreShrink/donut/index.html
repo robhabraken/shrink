@@ -75,7 +75,7 @@ d3.json("data.json", function(error, data) {
   if (error) throw error;
   
   var g = svg.selectAll(".arc")
-      .data(pie(data))
+      .data(pie(data.stats[0].children))
     .enter().append("g")
       .attr("class", "arc");
 
