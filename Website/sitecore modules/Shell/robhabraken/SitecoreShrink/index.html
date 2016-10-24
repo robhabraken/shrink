@@ -46,7 +46,7 @@
         <div class="donut-chart" id="versions-chart">
           <div class="donut-fact">
             <span class="donut-fact-highlight" id="size-versions"></span><br/>
-              have old unused versions
+              items have old versions
           </div>
         </div>
       </div>
@@ -74,9 +74,9 @@
 <script src="shrink.js"></script>
 <script>
   renderSunburst("media-usage", "mediaitems-small.json");
-  renderDonut("referenced-chart", "libraryreport.json", 0, "size-referenced", 0);
-  renderDonut("published-chart", "libraryreport.json", 1, "size-published", 0);
-  renderDonut("versions-chart", "libraryreport.json", 2, "size-versions", 1);
+  renderDonut("referenced-chart", "libraryreport.json", 0, "size-referenced", true);
+  renderDonut("published-chart", "libraryreport.json", 1, "size-published", true);
+  renderDonut("versions-chart", "libraryreport.json", 2, "size-versions", false);
 </script>
 </body>
 </html>

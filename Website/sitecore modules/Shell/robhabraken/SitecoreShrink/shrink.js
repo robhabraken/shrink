@@ -55,8 +55,9 @@ function renderSunburst(chartId, jsonFilePath) {
 }
 
 // Renders a donut chart using D3 on the div with ID chartId, using the number jsonObjectIndex item from the given media library report json file.
-// This script also puts the formatted statistics with the highlight stat index into the div with ID hightlighId.
-function renderDonut(chartId, jsonFilePath, jsonObjectIndex, highlightId, highlightStatIndex) {
+// This script also puts the most important metric formatted into the div with ID hightlighId.
+// If sizeInBytes is true, the sizes of the donut chart are stored in bytes in the given json file, otherwise whole numbers are used (item count).
+function renderDonut(chartId, jsonFilePath, jsonObjectIndex, highlightId, sizeInBytes) {
 
   var width = 250,
       height = 250,
@@ -91,10 +92,10 @@ function renderDonut(chartId, jsonFilePath, jsonObjectIndex, highlightId, highli
         .style("fill", function(d) { return color(d.data.category); })
         .on("click", click)
       .append("title")
-        .text(function(d) { return d.data.category + "\n" + toReadableFileSizeString(d.data.size); });
+        .text(function(d) { return d.data.category + "\n" + toReadableFileSizeString(d.data.size, !sizeInBytes); });
 
-    var highlightStatistic = data.stats[jsonObjectIndex].children[highlightStatIndex].size;
-    d3.select("#" + highlightId).text(toReadableFileSizeString(highlightStatistic));
+    var highlightStatistic = data.stats[jsonObjectIndex].children[0].size;
+    d3.select("#" + highlightId).text(toReadableFileSizeString(highlightStatistic, !sizeInBytes));
 
     function click(d) {
       node = d;
@@ -104,16 +105,21 @@ function renderDonut(chartId, jsonFilePath, jsonObjectIndex, highlightId, highli
 }
 
 // Format the size of an item or a category from bytes to a formatted and human readable file size string.
-function toReadableFileSizeString(fileSizeInBytes) {
+// The skip boolean indicates that the given size concerns whole numbers instead of a file size in bytes, so this method should be skipped.
+// Editorial note: I know this exception is kind of cheesy, but this was far less complex to read than making exceptions in the calling method.
+function toReadableFileSizeString(fileSizeInBytes, skip) {
+  if(skip) {
+    return fileSizeInBytes;
+  }
 
-    var i = -1;
-    var byteUnits = [' kB', ' MB', ' GB', ' TB', ' PB', ' EB', ' ZB', ' YB'];
-    do {
-        fileSizeInBytes = fileSizeInBytes / 1024;
-        i++;
-    } while (fileSizeInBytes > 1024);
+  var i = -1;
+  var byteUnits = [' kB', ' MB', ' GB', ' TB', ' PB', ' EB', ' ZB', ' YB'];
+  do {
+      fileSizeInBytes = fileSizeInBytes / 1024;
+      i++;
+  } while (fileSizeInBytes > 1024);
 
-    return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
+  return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
 };
 
 // Sunburst chart helper function: when zooming, interpolate the scales.
