@@ -55,7 +55,8 @@ function renderSunburst(chartId, jsonFilePath) {
 }
 
 // Renders a donut chart using D3 on the div with ID chartId, using the number jsonObjectIndex item from the given media library report json file.
-function renderDonut(chartId, jsonFilePath, jsonObjectIndex) {
+// This script also puts the formatted statistics with the highlight stat index into the div with ID hightlighId.
+function renderDonut(chartId, jsonFilePath, jsonObjectIndex, highlightId, highlightStatIndex) {
 
   var width = 250,
       height = 250,
@@ -91,6 +92,9 @@ function renderDonut(chartId, jsonFilePath, jsonObjectIndex) {
         .on("click", click)
       .append("title")
         .text(function(d) { return d.data.category + "\n" + toReadableFileSizeString(d.data.size); });
+
+    var highlightStatistic = data.stats[jsonObjectIndex].children[highlightStatIndex].size;
+    d3.select("#" + highlightId).text(toReadableFileSizeString(highlightStatistic));
 
     function click(d) {
       node = d;

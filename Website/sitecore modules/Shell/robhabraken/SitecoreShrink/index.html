@@ -21,7 +21,7 @@
         </div>
         <div class="donut-chart" id="referenced-chart">
           <div class="donut-fact">
-            <span class="donut-fact-highlight" id="size-referenced">15.5 Gb</span><br/>
+            <span class="donut-fact-highlight" id="size-referenced"></span><br/>
               is not being referenced
           </div>
         </div>
@@ -33,7 +33,7 @@
         </div>
         <div class="donut-chart" id="published-chart">
           <div class="donut-fact">
-            <span class="donut-fact-highlight" id="size-published">3.1 Gb</span><br/>
+            <span class="donut-fact-highlight" id="size-published"></span><br/>
               is not published at all
           </div>
         </div>
@@ -45,7 +45,7 @@
         </div>
         <div class="donut-chart" id="versions-chart">
           <div class="donut-fact">
-            <span class="donut-fact-highlight" id="size-versions">22.8 kB</span><br/>
+            <span class="donut-fact-highlight" id="size-versions"></span><br/>
               have old unused versions
           </div>
         </div>
@@ -74,9 +74,9 @@
 <script src="shrink.js"></script>
 <script>
   renderSunburst("media-usage", "mediaitems-small.json");
-  renderDonut("referenced-chart", "libraryreport.json", 0);
-  renderDonut("published-chart", "libraryreport.json", 1);
-  renderDonut("versions-chart", "libraryreport.json", 2);
+  renderDonut("referenced-chart", "libraryreport.json", 0, "size-referenced", 0);
+  renderDonut("published-chart", "libraryreport.json", 1, "size-published", 0);
+  renderDonut("versions-chart", "libraryreport.json", 2, "size-versions", 1);
 </script>
 </body>
 </html>
