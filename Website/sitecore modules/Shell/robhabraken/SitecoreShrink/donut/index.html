@@ -47,9 +47,14 @@ d3.json("data.json", function(error, data) {
   g.append("path")
       .attr("d", arc)
       .style("fill", function(d) { return color(d.data.category); })
-
+      .on("click", click)
     .append("title")
       .text(function(d) { return d.data.category + "\n" + toReadableFileSizeString(d.data.size); });
+
+  function click(d) {
+    node = d;
+    alert(d.data.category);
+  }
 });
 
 </script>
