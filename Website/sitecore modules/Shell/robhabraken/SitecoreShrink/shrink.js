@@ -55,9 +55,9 @@ function renderSunburst(chartId, jsonFilePath) {
 }
 
 // Renders a donut chart using D3 on the div with ID chartId, using the number jsonObjectIndex item from the given media library report json file.
-// This script also puts the most important metric formatted into the div with ID hightlighId.
+// This script also puts the formatted statistics with the highlight stat index into the div with ID hightlighId (most important metric).
 // If sizeInBytes is true, the sizes of the donut chart are stored in bytes in the given json file, otherwise whole numbers are used (item count).
-function renderDonut(chartId, jsonFilePath, jsonObjectIndex, highlightId, sizeInBytes) {
+function renderDonut(chartId, jsonFilePath, jsonObjectIndex, highlightId, highlightStatIndex, sizeInBytes) {
 
   var width = 250,
       height = 250,
@@ -94,7 +94,7 @@ function renderDonut(chartId, jsonFilePath, jsonObjectIndex, highlightId, sizeIn
       .append("title")
         .text(function(d) { return d.data.category + "\n" + toReadableFileSizeString(d.data.size, !sizeInBytes); });
 
-    var highlightStatistic = data.stats[jsonObjectIndex].children[0].size;
+    var highlightStatistic = data.stats[jsonObjectIndex].children[highlightStatIndex].size;
     d3.select("#" + highlightId).text(toReadableFileSizeString(highlightStatistic, !sizeInBytes));
 
     function click(d) {
