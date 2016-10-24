@@ -1,26 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-<style>
-
-body {
-  font-family: Arial, sans-serif;
-  font-size: 12px;
-  background-color: #fff;
-}
-
-#main-canvas {
-  margin: auto;
-  position: relative;
-  width: 960px;
-}
-
-.sunburst-chart path {
-  stroke: #fff;
-  fill-rule: evenodd;
-}
-
-</style>
+  <link rel="stylesheet" type="text/css" href="../shrink.css">
 </head>
 <body>
   <div id="main-canvas">
@@ -28,6 +9,7 @@ body {
     </div>
   </div>
 <script src="../d3.v3.min.js"></script>
+<script src="../shrink.js"></script>
 <script>
 
 var width = 700,
@@ -83,19 +65,6 @@ d3.json("data-small.json", function(error, root) {
 });
 
 d3.select(self.frameElement).style("height", height + "px");
-
-// Format the size of the element from bytes to a formatted and human readable file size string.
-function toReadableFileSizeString(fileSizeInBytes) {
-
-    var i = -1;
-    var byteUnits = [' kB', ' MB', ' GB', ' TB', ' PB', ' EB', ' ZB', ' YB'];
-    do {
-        fileSizeInBytes = fileSizeInBytes / 1024;
-        i++;
-    } while (fileSizeInBytes > 1024);
-
-    return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
-};
 
 // Setup for switching data: stash the old values for transition.
 function stash(d) {
