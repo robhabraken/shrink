@@ -51,3 +51,7 @@ body {
   stroke: #fff;
   fill-rule: evenodd;
 }
+
+.tree-view {
+  width: 580px;
+}
