@@ -913,6 +913,8 @@
     <Content Include="layouts\xmlcontrol.aspx" />
     <Content Include="packages.config" />
     <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\job.aspx" />
+    <Content Include="sitecore\shell\client\YourApps\ViewSitecoreJobs\Renderings\d3.v3.min.js" />
+    <Content Include="sitecore\shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.css" />
     <Content Include="sitecore\shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.js" />
     <Content Include="sitecore\shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.test.js" />
     <Content Include="webedit.css" />
