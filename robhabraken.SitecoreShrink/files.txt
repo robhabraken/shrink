@@ -1,5 +1,6 @@
 ﻿List of files (and items) that should be included in this module, but are not present in this namespace / project:
 - sitecore modules/Shell/robhabraken/SitecoreShrink/.
+- sitecore/shell/client/YourApps/ViewSitecoreJobs/. (this is a temp name, please change to final one)
 
 Texts / advise
 - Archive data that you want to keep (for example, for audit purposes); recycle data that you may want to restore; delete data that you want to remove. For optimal performance and usability, recycle or remove as much data as you can, and archive whatever else you do not need in the Master database.
