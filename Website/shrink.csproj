@@ -913,6 +913,8 @@
     <Content Include="layouts\xmlcontrol.aspx" />
     <Content Include="packages.config" />
     <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\job.aspx" />
+    <Content Include="sitecore\shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.js" />
+    <Content Include="sitecore\shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.test.js" />
     <Content Include="webedit.css" />
     <Content Include="xsl\sample rendering.xslt" />
     <Content Include="xsl\system\WebEdit\Hidden Rendering.xslt" />
@@ -6495,6 +6497,7 @@
     <Content Include="sitecore\shell\Controls\Rich Text Editor\Dictionaries\ru-RU.tdf" />
     <Content Include="sitecore\shell\Controls\Rich Text Editor\Dictionaries\sl-SI.tdf" />
     <Content Include="sitecore\shell\DialogPage.Master" />
+    <Content Include="sitecore\shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.cshtml" />
     <None Include="sitecore\shell\Schemas\Sitecore xhtml.xsd">
       <SubType>Designer</SubType>
     </None>

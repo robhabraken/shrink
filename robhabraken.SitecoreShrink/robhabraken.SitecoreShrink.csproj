@@ -70,12 +70,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="files.txt" />
-    <Content Include="sitecore\Shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.js" />
-    <Content Include="sitecore\Shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.test.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="sitecore\Shell\client\YourApps\ViewSitecoreJobs\Renderings\SitecoreJobsListing.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
