@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ChartStats.cs" />
+    <Compile Include="Entities\ReportCategory.cs" />
     <Compile Include="Entities\ExtensionMethods.cs" />
     <Compile Include="Entities\MediaConstants.cs" />
     <Compile Include="Entities\MediaLibraryReport.cs" />

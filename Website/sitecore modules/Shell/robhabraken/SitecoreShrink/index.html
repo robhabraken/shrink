@@ -1,109 +1,82 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
-
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  margin: auto;
-  position: relative;
-  width: 960px;
-}
-
-path {
-  stroke: #fff;
-  fill-rule: evenodd;
-}
-
-</style>
+<head>
+  <link rel="stylesheet" type="text/css" href="shrink.css">
+</head>
 <body>
-<form>
-</form>
+  <div id="main-canvas">
+    <div id="left-canvas">
+      <!-- sunburst chart -->
+      <div class="chart-panel">
+        <div class="chart-title">
+          Media library usage
+        </div>
+        <div class="sunburst-chart" id="media-usage">
+        </div>
+      </div>
+      <!-- donut chart referenced items -->
+      <div class="chart-panel">
+        <div class="chart-title">
+          Referenced items
+        </div>
+        <div class="donut-chart" id="referenced-chart">
+          <div class="donut-fact">
+            <span class="donut-fact-highlight" id="size-referenced"></span><br/>
+              is not being referenced
+          </div>
+        </div>
+      </div>
+      <!-- donut chart published items -->
+      <div class="chart-panel">
+        <div class="chart-title">
+          Published items
+        </div>
+        <div class="donut-chart" id="published-chart">
+          <div class="donut-fact">
+            <span class="donut-fact-highlight" id="size-published"></span><br/>
+              is not published at all
+          </div>
+        </div>
+      </div>
+      <!-- donut chart old versions -->
+      <div class="chart-panel">
+        <div class="chart-title">
+          Items with old versions
+        </div>
+        <div class="donut-chart" id="versions-chart">
+          <div class="donut-fact">
+            <span class="donut-fact-highlight" id="size-versions"></span><br/>
+              items have old versions
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="right-canvas">
+      <!-- tree view -->
+      <div class="chart-panel">
+        <div class="chart-title">
+          Media items by selection
+        </div>
+        <div class="action-buttons">
+          <input type="button" value="Archive"/>
+          <input type="button" value="Recycle"/>
+          <input type="button" value="Delete"/>
+          <input type="button" value="Download"/>
+          <input type="button" value="Delete old versions"/>
+        </div>
+        <div class="tree-view">
+          <!-- tree -->
+        </div>
+      </div>
+    </div>
+  </div>
 <script src="d3.v3.min.js"></script>
+<script src="shrink.js"></script>
 <script>
-
-var width = 960,
-    height = 700,
-    radius = Math.min(width, height) / 2;
-
-var x = d3.scale.linear()
-    .range([0, 2 * Math.PI]);
-
-var y = d3.scale.sqrt()
-    .range([0, radius]);
-
-var color = d3.scale.category20c();
-
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 10) + ")");
-
-var partition = d3.layout.partition()
-    .sort(null)
-    .value(function(d) { return 1; });
-
-var arc = d3.svg.arc()
-    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
-    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
-    .innerRadius(function(d) { return Math.max(0, y(d.y)); })
-    .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
-
-// Keep track of the node that is currently being displayed as the root.
-var node;
-
-d3.json("full-view-example.json", function(error, root) {
-  node = root;
-  var path = svg.datum(root).selectAll("path")
-      .data(partition.value(function(d) { return d.size; }).nodes)
-    .enter().append("path")
-      .attr("d", arc)
-      .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
-      .on("click", click)
-    .append("title")
-      .text(function(d) { return d.name + "\n" + toReadableFileSizeString(d.value); })
-      .each(stash);
-
-  function click(d) {
-    node = d;
-    svg.transition()
-      .duration(1000)
-    .selectAll("path")
-      .attrTween("d", arcTweenZoom(d));
-  }
-});
-
-d3.select(self.frameElement).style("height", height + "px");
-
-// Format the size of the element from bytes to a formatted and human readable file size string.
-function toReadableFileSizeString(fileSizeInBytes) {
-
-    var i = -1;
-    var byteUnits = [' kB', ' MB', ' GB', ' TB', ' PB', ' EB', ' ZB', ' YB'];
-    do {
-        fileSizeInBytes = fileSizeInBytes / 1024;
-        i++;
-    } while (fileSizeInBytes > 1024);
-
-    return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i];
-};
-
-// Setup for switching data: stash the old values for transition.
-function stash(d) {
-  d.x0 = d.x;
-  d.dx0 = d.dx;
-}
-
-// When zooming: interpolate the scales.
-function arcTweenZoom(d) {
-  var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
-      yd = d3.interpolate(y.domain(), [d.y, 1]),
-      yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
-  return function(d, i) {
-    return i
-        ? function(t) { return arc(d); }
-        : function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); return arc(d); };
-  };
-}
-
+  renderSunburst("media-usage", "mediaitems-small.json");
+  renderDonut("referenced-chart", "libraryreport.json", 0, "size-referenced", 1, true);
+  renderDonut("published-chart", "libraryreport.json", 1, "size-published", 1, true);
+  renderDonut("versions-chart", "libraryreport.json", 2, "size-versions", 0, false);
 </script>
+</body>
+</html>

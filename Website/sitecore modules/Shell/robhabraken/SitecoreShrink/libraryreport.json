@@ -1,0 +1,40 @@
+{
+	"name": "MediaLibraryReport",
+	"stats": [
+	{
+		"name": "ReferencedItems",
+		"children": [
+		{
+	        "category": "Items in use",
+	        "size": 13002342.4
+	    },
+	    {
+	        "category": "Items not referenced",
+	        "size": 16212057.6
+	    }]
+	},
+	{
+		"name": "PublishedItems",
+		"children": [
+		{
+	        "category": "Published items",
+	        "size": 26002342.4
+	    },
+	    {
+	        "category": "Unpublished items",
+	        "size": 3212057.6
+	    }]
+	},	
+	{
+		"name": "ItemsOldVersions",
+		"children": [
+		{
+	        "category": "Items with old versions",
+	        "size": 6
+	    },
+	    {
+	        "category": "Items that use all versions",
+	        "size": 68456
+	    }]
+	}]
+}

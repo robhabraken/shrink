@@ -1,0 +1,67 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  background-color: #f0f0f0;
+  margin: auto;
+  position: relative;
+  width: 1405px;
+}
+
+#main-canvas {
+}
+
+#left-canvas, #right-canvas {
+  float: left;
+  overflow: hidden;
+  padding-bottom: 15px;
+}
+
+#left-canvas {
+  width: 795px;
+}
+
+.chart-panel {
+  background-color: #fff;
+  float: left;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.chart-title {
+  border-bottom: 1px solid #ccc;
+  color: #474747;
+  font-size: 1.5em;
+  line-height: 46px;
+  padding-left: 15px;
+}
+
+.donut-chart {
+  position: relative;
+}
+
+.donut-chart path {
+  stroke: #fff;
+}
+
+.donut-fact {
+  position: absolute;
+  top: 95px;
+  left: 55px;
+  width: 140px;
+  text-align: center;
+  color: #666;
+}
+
+.donut-fact-highlight {
+  font-size: 2.5em;
+}
+
+.sunburst-chart path {
+  stroke: #fff;
+  fill-rule: evenodd;
+}
+
+.tree-view {
+  height: 876px;
+  width: 580px;
+}
