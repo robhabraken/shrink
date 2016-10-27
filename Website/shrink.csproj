@@ -917,6 +917,7 @@
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.css" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.js" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.test.js" />
+    <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\ShrinkMediaDashboard.js" />
     <Content Include="webedit.css" />
     <Content Include="xsl\sample rendering.xslt" />
     <Content Include="xsl\system\WebEdit\Hidden Rendering.xslt" />
