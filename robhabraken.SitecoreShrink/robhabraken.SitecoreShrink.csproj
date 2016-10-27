@@ -53,7 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\PropertyController.cs" />
+    <Compile Include="Controllers\MediaDashboardController.cs" />
     <Compile Include="Entities\ChartStats.cs" />
     <Compile Include="Entities\ReportCategory.cs" />
     <Compile Include="Entities\ExtensionMethods.cs" />
