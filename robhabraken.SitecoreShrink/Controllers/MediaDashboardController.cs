@@ -3,6 +3,7 @@
     using Sitecore.Data;
     using System;
     using System.Web.Mvc;
+    using Tasks;
 
     public class MediaDashboardController : Controller
     {
@@ -11,6 +12,24 @@
             name += " Scanning!";
 
             return Json(name, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// If a job of the Sitecore Shrink module is currently running, this method returns the friendly job description of that job.
+        /// When no jobs are running, an empty string is returned.
+        /// </summary>
+        /// <returns>The friendly name of the active Shrink job, or an empty string when it is not running.</returns>
+        public ActionResult GetActiveJobDescription()
+        {
+            var activeJobName = string.Empty;
+
+            var jobs = JobInfo.Jobs;
+            if(jobs.Count > 0)
+            {
+                activeJobName =  JobInfo.GetFriendlyJobName(jobs[0]);
+            }
+
+            return Json(activeJobName, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ZoomIn(Guid id)
