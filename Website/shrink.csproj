@@ -5829,6 +5829,7 @@
     <Folder Include="sitecore\shell\client\Business Component Library\version 2\Assets\stylesheets\Components\Renderings\Navigation\Breadcrumbs\" />
     <Folder Include="sitecore\shell\client\Business Component Library\version 2\Assets\stylesheets\Components\Renderings\Navigation\Menus\" />
     <Folder Include="sitecore\shell\client\Business Component Library\version 2\Layouts\Renderings\Mixins\src\" />
+    <Folder Include="sitecore\shell\client\YourApps\SitecoreShrink\DataStorage\" />
     <Folder Include="sitecore\shell\Controls\debug\" />
     <Folder Include="sitecore\shell\Controls\Lib\YUIupload\element\" />
     <Folder Include="sitecore\shell\Controls\Lib\YUIupload\yahoo-dom-event\" />
