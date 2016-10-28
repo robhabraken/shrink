@@ -1,6 +1,6 @@
 ﻿List of files that should be included in this module, but are not present in this namespace / project:
-- sitecore modules/Shell/robhabraken/SitecoreShrink/.
-- sitecore/shell/client/YourApps/ViewSitecoreJobs/. (this is a temp name, please change to final one)
+- sitecore modules/Shell/robhabraken/SitecoreShrink/. (this folder may be unnecessary and seems to be deprecated, check and remove if applicable)
+- sitecore/shell/client/YourApps/SitecoreShrink/.
 
 Items:
 - core/sitecore/client/Your Apps/SitecoreShrink/.
