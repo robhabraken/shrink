@@ -31,7 +31,7 @@
                 "ScanMediaLibrary",
                 new object[0])
             {
-                AfterLife = TimeSpan.FromMinutes(30)
+                AfterLife = TimeSpan.FromMinutes(5)
             };
 
             var job = JobManager.Start(jobOptions);
