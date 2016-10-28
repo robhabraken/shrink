@@ -11,6 +11,8 @@
     /// </summary>
     public class TidyJobManager : ITidy
     {
+        public const string JobCategory = "cleaning";
+
         private TidyUp tidyUp;
 
         public TidyJobManager(string databaseName)
@@ -54,7 +56,7 @@
 
             var jobOptions = new JobOptions(
                 jobName,
-                "cleaning",
+                TidyJobManager.JobCategory,
                 Context.Site.Name,
                 this.tidyUp,
                 action,

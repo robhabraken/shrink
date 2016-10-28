@@ -9,6 +9,8 @@
     /// </summary>
     public class AnalyzeJobManager : IAnalyze
     {
+        public const string JobCategory = "analyzing";
+
         private MediaAnalyzer mediaAnalyzer;
 
         public AnalyzeJobManager(string databaseName)
@@ -23,7 +25,7 @@
 
             var jobOptions = new JobOptions(
                 jobName,
-                "analyzing",
+                AnalyzeJobManager.JobCategory,
                 Context.Site.Name,
                 this.mediaAnalyzer,
                 action,
