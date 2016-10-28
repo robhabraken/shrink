@@ -23,7 +23,7 @@
 
             var jobOptions = new JobOptions(
                 jobName,
-                "Analyzing media library",
+                "analyzing",
                 Context.Site.Name,
                 this.mediaAnalyzer,
                 action,

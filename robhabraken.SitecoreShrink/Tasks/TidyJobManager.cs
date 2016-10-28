@@ -54,7 +54,7 @@
 
             var jobOptions = new JobOptions(
                 jobName,
-                "Batch clean up",
+                "cleaning",
                 Context.Site.Name,
                 this.tidyUp,
                 action,
