@@ -20,15 +20,15 @@
 
         public void ScanMediaLibrary()
         {
-            var action = "ScanMediaLibrary";
-            var jobName = string.Format("{0}_{1}", this.GetType(), action);
+            var action = "Scanning_media_library";
+            var jobName = string.Format(JobInfo.JobNameFormat, JobInfo.JobType, action);
 
             var jobOptions = new JobOptions(
                 jobName,
                 AnalyzeJobManager.JobCategory,
                 Context.Site.Name,
                 this.mediaAnalyzer,
-                action,
+                "ScanMediaLibrary",
                 new object[0])
             {
                 AfterLife = TimeSpan.FromMinutes(30)

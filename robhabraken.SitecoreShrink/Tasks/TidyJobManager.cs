@@ -23,36 +23,36 @@
         public void Archive(List<MediaItemReport> items, bool archiveChildren)
         {
             var args = new object[] { items, archiveChildren };
-            this.StartJob("Archive", args);
+            this.StartJob("Archiving_media", "Archive", args);
         }
 
         public void Delete(List<MediaItemReport> items, bool deleteChildren)
         {
             var args = new object[] { items, deleteChildren };
-            this.StartJob("Delete", args);
+            this.StartJob("Deleting_media", "Delete", args);
         }
 
         public void DeleteOldVersions(List<MediaItemReport> items)
         {
             var args = new object[] { items };
-            this.StartJob("DeleteOldVersions", args);
+            this.StartJob("Deleting_old_versions", "DeleteOldVersions", args);
         }
 
         public void Download(List<MediaItemReport> items, string targetPath, bool deleteAfterwards)
         {
             var args = new object[] { items, targetPath, deleteAfterwards };
-            this.StartJob("Download", args);
+            this.StartJob("Downloading_media", "Download", args);
         }
 
         public void Recycle(List<MediaItemReport> items, bool recycleChildren)
         {
             var args = new object[] { items, recycleChildren };
-            this.StartJob("Recycle", args);
+            this.StartJob("Recycling_media", "Recycle", args);
         }
 
-        private void StartJob(string action, object[] args)
+        private void StartJob(string name, string action, object[] args)
         {
-            var jobName = string.Format("{0}_{1}_Media", this.tidyUp.GetType(), action);
+            var jobName = string.Format(JobInfo.JobNameFormat, JobInfo.JobType, name);
 
             var jobOptions = new JobOptions(
                 jobName,
