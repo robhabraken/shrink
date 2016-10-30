@@ -9,7 +9,11 @@
         public const string JobNameFormat = "{0}:{1}";
         public const string JobType = "robhabraken.SitecoreShrink.Jobs";
 
-        // WIP
+        /// <summary>
+        /// Returns the most important job info for the SPEAK interface to display the job description and progress bar (if applicable).
+        /// </summary>
+        /// <param name="job">The Sitecore job to get the info of.</param>
+        /// <returns>A object array that contains the friendly job name as a string and two long values for the processed and total item count.</returns>
         public static List<object> GetJobInfo(Job job)
         {
             return new List<object>()

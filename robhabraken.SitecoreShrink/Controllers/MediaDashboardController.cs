@@ -4,6 +4,7 @@
     using Sitecore.Configuration;
     using Sitecore.Data;
     using System;
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using Tasks;
 
@@ -16,17 +17,21 @@
         /// <returns>The friendly name of the active Shrink job, or an empty string when it is not running.</returns>
         public ActionResult GetActiveJobDescription()
         {
-            var activeJobName = string.Empty;
+            var activeJobInfo = new List<object>();
 
             var jobs = JobInfo.Jobs;
             if(jobs.Count > 0)
             {
-                activeJobName =  JobInfo.GetFriendlyJobName(jobs[0]);
+                activeJobInfo =  JobInfo.GetJobInfo(jobs[0]);
             }
 
-            return Json(activeJobName, JsonRequestBehavior.AllowGet);
+            return Json(activeJobInfo, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Starts the scanning of the media library as a Sitecore job.
+        /// </summary>
+        /// <returns>The boolean value true if the scanning has started.</returns>
         public ActionResult ScanMedia()
         {
             var mediaScanner = new AnalyzeJobManager();
