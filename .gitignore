@@ -199,3 +199,7 @@ FakesAssemblies/
 Data/
 Website/temp/
 Website/App_Data/
+
+# Shrink data storage files
+libraryreport.json
+mediaitems.json

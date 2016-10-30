@@ -33,11 +33,18 @@
     <Reference Include="Sitecore.Kernel">
       <HintPath>..\Referenced assemblies\Sitecore.Kernel.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.Mvc">
+      <HintPath>..\Referenced assemblies\Sitecore.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Referenced assemblies\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,13 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\MediaDashboardController.cs" />
     <Compile Include="Entities\ChartStats.cs" />
     <Compile Include="Entities\ReportCategory.cs" />
     <Compile Include="Entities\ExtensionMethods.cs" />
     <Compile Include="Entities\MediaConstants.cs" />
     <Compile Include="Entities\MediaLibraryReport.cs" />
-    <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Tasks\AnalyzeJobManager.cs" />
+    <Compile Include="Tasks\JobInfo.cs" />
     <Compile Include="Tasks\IAnalyze.cs" />
     <Compile Include="Tasks\MediaAnalyzer.cs" />
     <Compile Include="Deprecated\DatabaseHelper.cs" />
@@ -68,9 +76,7 @@
   <ItemGroup>
     <Content Include="files.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

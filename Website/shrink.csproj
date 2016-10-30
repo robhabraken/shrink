@@ -889,7 +889,6 @@
     <Content Include="Default.aspx" />
     <Content Include="default.css" />
     <Content Include="default.js" />
-    <Content Include="index.aspx" />
     <Content Include="layouts\QueryableRulesRunner.ascx" />
     <Content Include="layouts\Sample Datasource Sublayout.ascx" />
     <Content Include="layouts\Sample Inner Sublayout.ascx" />
@@ -913,6 +912,11 @@
     <Content Include="layouts\xmlcontrol.aspx" />
     <Content Include="packages.config" />
     <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\job.aspx" />
+    <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\d3.v3.min.js" />
+    <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.css" />
+    <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.js" />
+    <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.test.js" />
+    <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\ShrinkMediaDashboard.js" />
     <Content Include="webedit.css" />
     <Content Include="xsl\sample rendering.xslt" />
     <Content Include="xsl\system\WebEdit\Hidden Rendering.xslt" />
@@ -1432,6 +1436,7 @@
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery-ui\js\jquery-ui-1.10.3.custom.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery-ui\js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery-ui\js\jquery-ui-culture.js" />
+    <Content Include="App_Config\Include\Shrink.config" />
     <None Include="sitecore\shell\Applications\Buckets\libs\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery\jquery-1.10.2.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery\jquery-1.10.2.min.js" />
@@ -5749,13 +5754,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="index.aspx.designer.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sitecore\shell\Templates\CSharp.cs" />
     <Compile Include="sitecore\shell\Templates\layout.aspx.cs">
@@ -5824,6 +5822,7 @@
     <Folder Include="sitecore\shell\client\Business Component Library\version 2\Assets\stylesheets\Components\Renderings\Navigation\Breadcrumbs\" />
     <Folder Include="sitecore\shell\client\Business Component Library\version 2\Assets\stylesheets\Components\Renderings\Navigation\Menus\" />
     <Folder Include="sitecore\shell\client\Business Component Library\version 2\Layouts\Renderings\Mixins\src\" />
+    <Folder Include="sitecore\shell\client\YourApps\SitecoreShrink\DataStorage\" />
     <Folder Include="sitecore\shell\Controls\debug\" />
     <Folder Include="sitecore\shell\Controls\Lib\YUIupload\element\" />
     <Folder Include="sitecore\shell\Controls\Lib\YUIupload\yahoo-dom-event\" />
@@ -6495,6 +6494,7 @@
     <Content Include="sitecore\shell\Controls\Rich Text Editor\Dictionaries\ru-RU.tdf" />
     <Content Include="sitecore\shell\Controls\Rich Text Editor\Dictionaries\sl-SI.tdf" />
     <Content Include="sitecore\shell\DialogPage.Master" />
+    <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.cshtml" />
     <None Include="sitecore\shell\Schemas\Sitecore xhtml.xsd">
       <SubType>Designer</SubType>
     </None>

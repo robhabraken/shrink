@@ -1,10 +1,16 @@
-﻿List of files (and items) that should be included in this module, but are not present in this namespace / project:
-- sitecore modules/Shell/robhabraken/SitecoreShrink/.
+﻿List of files that should be included in this module, but are not present in this namespace / project:
+- sitecore modules/Shell/robhabraken/SitecoreShrink/. (this folder may be unnecessary and seems to be deprecated, check and remove if applicable)
+- sitecore/shell/client/YourApps/SitecoreShrink/.
+- Website/App_Config/Include/Shrink.config
+
+Items:
+- core/sitecore/client/Your Apps/SitecoreShrink/.
+- core/sitecore/client/Applications/Launchpad/PageSettings/Buttons/Tools/Shrink
 
 Texts / advise
 - Archive data that you want to keep (for example, for audit purposes); recycle data that you may want to restore; delete data that you want to remove. For optimal performance and usability, recycle or remove as much data as you can, and archive whatever else you do not need in the Master database.
 	http://www.sitecore.net/learn/blogs/technical-blogs/john-west-sitecore-blog/posts/2013/08/archiving-recycling-restoring-and-deleting-items-and-versions-in-the-sitecore-aspnet-cms.aspx
-- mind that you need to publish the media library after archiving, recycling or deleting items.
+- mind that you need to publish the media library after archiving, recycling or deleting items to clean up the web database as well.
 
 THIS SHIZZLE BELOW MAY BE REDUNDANT OR UNNECESSARY, BECAUSE CLEANING UP ORPHANS IN A DATABASE IS ALREADY POSSIBLE WITH SITECORE AND THE CODE BELOW TAKES WAY TO LONG TO EXECUTE
 AND ALSO REQUIRES SOME SPECIFIC USER RIGHTS, SO I MIGHT RETARGET MY MODULE TOWARDS MANAGING DATA USAGE IN THE MEDIA LIBRARY AND CLEANING UP CONTENT IN GENERAL
