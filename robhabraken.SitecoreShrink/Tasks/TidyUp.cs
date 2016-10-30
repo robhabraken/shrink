@@ -25,7 +25,7 @@
         /// </summary>
         public TidyUp()
         {
-            var databaseName = ConfigurationHelper.ReadSetting("DatabaseToScan");
+            var databaseName = ConfigurationHelper.ReadSetting("Shrink.DatabaseToScan");
             this.database = Factory.GetDatabase(databaseName);
         }
 

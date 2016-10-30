@@ -22,7 +22,7 @@
         /// </summary>
         public MediaAnalyzer()
         {
-            var databaseName = ConfigurationHelper.ReadSetting("DatabaseToScan");
+            var databaseName = ConfigurationHelper.ReadSetting("Shrink.DatabaseToScan");
             this.database = Factory.GetDatabase(databaseName);
         }
 
@@ -50,7 +50,7 @@
 
             this.ScanItemsOf(root, this.MediaItemRoot);
 
-            var path = ConfigurationHelper.ReadSetting("MediaItemReportPath");
+            var path = ConfigurationHelper.ReadSetting("Shrink.MediaItemReportPath");
             if(!string.IsNullOrEmpty(path))
             {
                 var json = new JsonStorage(path);
