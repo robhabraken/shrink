@@ -13,9 +13,9 @@
 
         private MediaAnalyzer mediaAnalyzer;
 
-        public AnalyzeJobManager(string databaseName)
+        public AnalyzeJobManager()
         {
-            this.mediaAnalyzer = new MediaAnalyzer(databaseName);
+            this.mediaAnalyzer = new MediaAnalyzer();
         }
 
         public void ScanMediaLibrary()

@@ -15,9 +15,9 @@
 
         private TidyUp tidyUp;
 
-        public TidyJobManager(string databaseName)
+        public TidyJobManager()
         {
-            this.tidyUp = new TidyUp(databaseName);
+            this.tidyUp = new TidyUp();
         }
 
         public void Archive(List<MediaItemReport> items, bool archiveChildren)

@@ -9,6 +9,18 @@
         public const string JobNameFormat = "{0}:{1}";
         public const string JobType = "robhabraken.SitecoreShrink.Jobs";
 
+        // WIP
+        public static List<object> GetJobInfo(Job job)
+        {
+            return new List<object>()
+            {
+                JobInfo.GetFriendlyJobName(job),
+                job.Status.Processed,
+                job.Status.Total
+            };
+        }
+
+
         /// <summary>
         /// Formats the job name of a JobInfo.JobType type job into a friendly name that can be used to display the current job status.
         /// </summary>

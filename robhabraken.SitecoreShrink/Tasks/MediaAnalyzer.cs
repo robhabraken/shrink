@@ -18,6 +18,15 @@
         private Database database;
 
         /// <summary>
+        /// Constructs an analyzer object to scan the media library of the database configured in the App.config.
+        /// </summary>
+        public MediaAnalyzer()
+        {
+            var databaseName = ConfigurationHelper.ReadSetting("DatabaseToScan");
+            this.database = Factory.GetDatabase(databaseName);
+        }
+
+        /// <summary>
         /// Constructs an analyzer object to scan the media library of the given database.
         /// </summary>
         /// <param name="databaseName">The name of the database of which to scan the media library of.</param>

@@ -1,6 +1,7 @@
 ﻿namespace robhabraken.SitecoreShrink.Tasks
 {
     using Entities;
+    using Helpers;
     using Sitecore;
     using Sitecore.Configuration;
     using Sitecore.Data;
@@ -18,6 +19,15 @@
     public class TidyUp : ITidy
     {
         private Database database;
+
+        /// <summary>
+        /// Constructs a clean up class for the database configured in the App.config.
+        /// </summary>
+        public TidyUp()
+        {
+            var databaseName = ConfigurationHelper.ReadSetting("DatabaseToScan");
+            this.database = Factory.GetDatabase(databaseName);
+        }
 
         /// <summary>
         /// Constructs a clean up class for the given database.

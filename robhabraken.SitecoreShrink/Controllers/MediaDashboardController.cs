@@ -7,13 +7,6 @@
 
     public class MediaDashboardController : Controller
     {
-        public ActionResult ScanMedia(string name)
-        {
-            name += " Scanning!";
-
-            return Json(name, JsonRequestBehavior.AllowGet);
-        }
-
         /// <summary>
         /// If a job of the Sitecore Shrink module is currently running, this method returns the friendly job description of that job.
         /// When no jobs are running, an empty string is returned.
@@ -32,13 +25,21 @@
             return Json(activeJobName, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult ScanMedia()
+        {
+            var mediaScanner = new AnalyzeJobManager();
+            mediaScanner.ScanMediaLibrary();
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ZoomIn(Guid id)
         {
             // mock code
             var itemName = string.Empty;
             if (ID.IsID(id.ToString()))
             {
-                var db = Sitecore.Configuration.Factory.GetDatabase("master");
+                var db = Sitecore.Configuration.Factory.GetDatabase("master"); // mock code!
                 var item = db.GetItem(new ID(id));
                 itemName = item.Name;
             }
