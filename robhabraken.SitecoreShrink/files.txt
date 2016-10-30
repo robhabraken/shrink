@@ -5,6 +5,7 @@
 
 Items:
 - core/sitecore/client/Your Apps/SitecoreShrink/.
+- core/sitecore/client/Applications/Launchpad/PageSettings/Buttons/Tools/Shrink
 
 Texts / advise
 - Archive data that you want to keep (for example, for audit purposes); recycle data that you may want to restore; delete data that you want to remove. For optimal performance and usability, recycle or remove as much data as you can, and archive whatever else you do not need in the Master database.
