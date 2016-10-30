@@ -49,13 +49,7 @@
             this.MediaItemRoot = new MediaItemReport(root);
 
             this.ScanItemsOf(root, this.MediaItemRoot);
-
-            var path = ConfigurationHelper.ReadSetting("Shrink.MediaItemReportPath");
-            if(!string.IsNullOrEmpty(path))
-            {
-                var json = new JsonStorage(path);
-                json.Serialize(this.MediaItemRoot);
-            }
+            this.WriteReportsToDataStorage();
         }
 
         /// <summary>
@@ -150,5 +144,24 @@
             return false;
         }
 
+        /// <summary>
+        /// Writes the resulting report data to the configured JSON files.
+        /// </summary>
+        private void WriteReportsToDataStorage()
+        {
+            var mediaItemPath = ConfigurationHelper.ReadSetting("Shrink.MediaItemReportPath");
+            if (!string.IsNullOrEmpty(mediaItemPath))
+            {
+                var json = new JsonStorage(mediaItemPath);
+                json.Serialize(this.MediaItemRoot);
+            }
+
+            var libraryReportPath = ConfigurationHelper.ReadSetting("Shrink.MediaLibraryReportPath");
+            if (!string.IsNullOrEmpty(libraryReportPath))
+            {
+                var json = new JsonStorage(libraryReportPath);
+                json.Serialize(new MediaLibraryReport(this.MediaItemRoot));
+            }
+        }
     }
 }
