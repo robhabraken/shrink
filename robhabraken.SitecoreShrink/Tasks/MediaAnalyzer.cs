@@ -22,7 +22,7 @@
         /// </summary>
         public MediaAnalyzer()
         {
-            var databaseName = ConfigurationHelper.ReadSetting("Shrink.DatabaseToScan");
+            var databaseName = Settings.GetSetting("Shrink.DatabaseToScan");
             this.database = Factory.GetDatabase(databaseName);
         }
 
@@ -149,14 +149,14 @@
         /// </summary>
         private void WriteReportsToDataStorage()
         {
-            var mediaItemPath = ConfigurationHelper.ReadSetting("Shrink.MediaItemReportPath");
+            var mediaItemPath = Settings.GetSetting("Shrink.MediaItemReportPath");
             if (!string.IsNullOrEmpty(mediaItemPath))
             {
                 var json = new JsonStorage(mediaItemPath);
                 json.Serialize(this.MediaItemRoot);
             }
 
-            var libraryReportPath = ConfigurationHelper.ReadSetting("Shrink.MediaLibraryReportPath");
+            var libraryReportPath = Settings.GetSetting("Shrink.MediaLibraryReportPath");
             if (!string.IsNullOrEmpty(libraryReportPath))
             {
                 var json = new JsonStorage(libraryReportPath);

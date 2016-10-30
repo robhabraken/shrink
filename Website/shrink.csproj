@@ -1436,6 +1436,7 @@
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery-ui\js\jquery-ui-1.10.3.custom.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery-ui\js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery-ui\js\jquery-ui-culture.js" />
+    <Content Include="App_Config\Include\Shrink.config" />
     <None Include="sitecore\shell\Applications\Buckets\libs\jquery\jquery-1.10.2-vsdoc.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery\jquery-1.10.2.js" />
     <Content Include="sitecore\shell\Applications\Buckets\libs\jquery\jquery-1.10.2.min.js" />

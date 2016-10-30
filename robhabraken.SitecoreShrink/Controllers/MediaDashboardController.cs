@@ -1,6 +1,7 @@
 ﻿namespace robhabraken.SitecoreShrink.Controllers
 {
     using Helpers;
+    using Sitecore.Configuration;
     using Sitecore.Data;
     using System;
     using System.Web.Mvc;
@@ -80,7 +81,7 @@
         {
             name += " Downloading!";
 
-            var downloadPath = ConfigurationHelper.ReadSetting("Shrink.DownloadPath");
+            var downloadPath = Settings.GetSetting("Shrink.DownloadPath");
 
             return Json(name, JsonRequestBehavior.AllowGet);
         }

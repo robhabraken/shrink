@@ -59,7 +59,6 @@
     <Compile Include="Entities\ExtensionMethods.cs" />
     <Compile Include="Entities\MediaConstants.cs" />
     <Compile Include="Entities\MediaLibraryReport.cs" />
-    <Compile Include="Helpers\ConfigurationHelper.cs" />
     <Compile Include="Tasks\AnalyzeJobManager.cs" />
     <Compile Include="Tasks\JobInfo.cs" />
     <Compile Include="Tasks\IAnalyze.cs" />
