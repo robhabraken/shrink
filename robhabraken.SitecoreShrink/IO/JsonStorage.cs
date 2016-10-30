@@ -3,6 +3,7 @@
     using Entities;
     using System.IO;
     using System.Runtime.Serialization.Json;
+    using System.Web;
 
     /// <summary>
     /// Generic class to store serializable objects as a JSON file on disk.
@@ -14,10 +15,10 @@
         /// <summary>
         /// Constructs a new JSON storage object referring to the given file path.
         /// </summary>
-        /// <param name="path">The file path indicating where to store the object on disk.</param>
+        /// <param name="path">The file path indicating where to store the object on disk, relative to the webroot.</param>
         public JsonStorage(string path)
         {
-            this.jsonFilePath = path;
+            this.jsonFilePath = HttpRuntime.AppDomainAppPath + path;
         }
         
         /// <summary>
