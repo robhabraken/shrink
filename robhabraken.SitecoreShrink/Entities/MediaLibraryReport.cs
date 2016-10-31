@@ -68,12 +68,30 @@
         }
 
         /// <summary>
+        /// Returns a list of all items that are referenced, not including media folders.
+        /// </summary>
+        /// <returns>A list of all items that are referenced.</returns>
+        public List<MediaItemReport> ReferencedItems()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && x.IsReferenced.Value).ToList<MediaItemReport>();
+        }
+
+        /// <summary>
         /// Returns a list of all items that are not referenced, not including media folders.
         /// </summary>
         /// <returns>A list of all items that are not referenced.</returns>
         public List<MediaItemReport> UnreferencedItems()
         {
             return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && !x.IsReferenced.Value).ToList<MediaItemReport>();
+        }
+
+        /// <summary>
+        /// Returns a list of all items where the references could not be determined.
+        /// </summary>
+        /// <returns>A list of all items of which the references could not be determined.</returns>
+        public List<MediaItemReport> ItemsReferencesUnknown()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && !x.IsReferenced.HasValue).ToList<MediaItemReport>();
         }
 
         /// <summary>
@@ -104,10 +122,28 @@
         }
 
         /// <summary>
+        /// Returns a list of all items that are published, not including media folders.
+        /// </summary>
+        /// <returns>A list of all items that are published.</returns>
+        public List<MediaItemReport> PublishedItems()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value).ToList<MediaItemReport>();
+        }
+
+        /// <summary>
         /// Returns a list of all items that are not published, not including media folders.
         /// </summary>
         /// <returns>A list of all items that are not published.</returns>
         public List<MediaItemReport> UnpublishedItems()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).ToList<MediaItemReport>();
+        }
+
+        /// <summary>
+        /// Returns a list of all items where the publishing status could not be determined.
+        /// </summary>
+        /// <returns>A list of all items of which the publishing status could not be determined.</returns>
+        public List<MediaItemReport> ItemsPublishingStateUnknown()
         {
             return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).ToList<MediaItemReport>();
         }
@@ -137,6 +173,24 @@
         public List<MediaItemReport> ItemsWithOldVersions()
         {
             return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value).ToList<MediaItemReport>();
+        }
+
+        /// <summary>
+        /// Returns a list of all items that use all available versions, not including media folders.
+        /// </summary>
+        /// <returns>A list of all items that use all available versions.</returns>
+        public List<MediaItemReport> ItemsUsingAllVersions()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && !x.HasOldVersions.Value).ToList<MediaItemReport>();
+        }
+
+        /// <summary>
+        /// Returns a list of all items where the version status could not be determined.
+        /// </summary>
+        /// <returns>A list of all items of which the version status could not be determined.</returns>
+        public List<MediaItemReport> ItemsVersionsUnknown()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && !x.HasOldVersions.HasValue).ToList<MediaItemReport>();
         }
 
         /// <summary>
