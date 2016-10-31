@@ -1,6 +1,8 @@
 ﻿namespace robhabraken.SitecoreShrink.Controllers
 {
+    using Entities;
     using Helpers;
+    using IO;
     using Sitecore.Configuration;
     using System;
     using System.Collections.Generic;
@@ -59,9 +61,22 @@
 
         public ActionResult SelectSubset(string selection)
         {
-            selection = "Will select " + selection;
+            var subset = string.Empty;
 
-            return Json(selection, JsonRequestBehavior.AllowGet);
+            // reload the JSON report file to reconstruct the media item report
+            var mediaItemPath = Settings.GetSetting("Shrink.MediaItemReportPath");
+            if (!string.IsNullOrEmpty(mediaItemPath))
+            {
+                var json = new JsonStorage(mediaItemPath);
+                var mediaItemRoot = json.Deserialize<MediaItemReport>();
+                var libraryReport = new MediaLibraryReport(mediaItemRoot);
+
+                var items = libraryReport.UnreferencedItems(); // AND THIS SHOULD BE SWITCHED
+
+                subset = ItemHelper.ItemListToPipedString(items);
+            }            
+
+            return Json(subset, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ArchiveMedia(string name)

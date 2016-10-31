@@ -5,6 +5,8 @@
     using Sitecore.Data;
     using Sitecore.Data.Items;
     using System;
+    using System.Collections.Generic;
+    using System.Text;
 
     /// <summary>
     /// Helper class with some generic Sitecore Item magic.
@@ -51,6 +53,22 @@
                 }
             }
             return path;
+        }
+
+        /// <summary>
+        /// Returns a string of Sitecore IDs, separated by pipes, representing a list of Sitecore items.
+        /// This method uses the MediaItemReport enumeration as a flat list, so it doesn't respect its hierarchy and ignores any children if present.
+        /// </summary>
+        /// <param name="flatList">A list of MediaItemReport objects.</param>
+        /// <returns>A string of Sitecore IDs, separated by pipes.</returns>
+        public static string ItemListToPipedString(List<MediaItemReport> flatList)
+        {
+            var stringBuilder = new StringBuilder();
+            foreach(var item in flatList)
+            {
+                stringBuilder.AppendFormat("{{{0}}}|", item.ID.ToString());
+            }
+            return stringBuilder.ToString().TrimEnd('|');
         }
     }
 }
