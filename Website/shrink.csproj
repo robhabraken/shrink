@@ -913,6 +913,7 @@
     <Content Include="packages.config" />
     <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\job.aspx" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\d3.v3.min.js" />
+    <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\SelectableTreeView.js" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.css" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.js" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.test.js" />
@@ -6495,6 +6496,7 @@
     <Content Include="sitecore\shell\Controls\Rich Text Editor\Dictionaries\sl-SI.tdf" />
     <Content Include="sitecore\shell\DialogPage.Master" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.cshtml" />
+    <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\SelectableTreeView.cshtml" />
     <None Include="sitecore\shell\Schemas\Sitecore xhtml.xsd">
       <SubType>Designer</SubType>
     </None>
