@@ -59,7 +59,12 @@
             return Json(itemPath, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult SelectSubset(string selection)
+        /// <summary>
+        /// Returns a subset of the total media library based on the given category (see MediaConstants class for all categories)
+        /// </summary>
+        /// <param name="category">The category to get the items off.</param>
+        /// <returns>A pipe separated list of Sitecore IDs representing all items that fall within the given category.</returns>
+        public ActionResult SelectSubset(string category)
         {
             var subset = string.Empty;
 
@@ -70,18 +75,38 @@
                 var json = new JsonStorage(mediaItemPath);
                 var mediaItemRoot = json.Deserialize<MediaItemReport>();
                 var libraryReport = new MediaLibraryReport(mediaItemRoot);
+                
+                List<MediaItemReport> items = null;
 
-                var items = libraryReport.UnreferencedItems(); // AND THIS SHOULD BE SWITCHED
+                switch(category)
+                {
+                    case MediaConstants.CategoryInUse:
+                        break;
+                    case MediaConstants.CategoryNotReferenced:
+                        items = libraryReport.UnreferencedItems();
+                        break;
+                    case MediaConstants.CategoryReferencedUnknown:
+                        break;
+                    case MediaConstants.CategoryPublished:
+                        break;
+                    case MediaConstants.CategoryUnpublished:
+                        items = libraryReport.UnpublishedItems();
+                        break;
+                    case MediaConstants.CategoryPublishedUnknown:
+                        break;
+                    case MediaConstants.CategoryItemsWithOldVersions:
+                        items = libraryReport.ItemsWithOldVersions();
+                        break;
+                    case MediaConstants.CategoryItemsUsingAllVersions:
+                        break;
+                    case MediaConstants.CategoryVersionsUnknown:
+                        break;
+                }
 
-
-                //            public const string CategoryInUse = "Items in use";
-                //public const string CategoryNotReferenced = "Items not referenced";
-                //public const string CategoryPublished = "Published items";
-                //public const string CategoryUnpublished = "Unpublished items";
-                //public const string CategoryItemsWithOldVersions = "Items with old versions";
-                //public const string CategoryItemsUsingAllVersions = "Items that use all versions";
-
-                subset = ItemHelper.ItemListToPipedString(items);
+                if (items != null)
+                {
+                    subset = ItemHelper.ItemListToPipedString(items);
+                }
             }            
 
             return Json(subset, JsonRequestBehavior.AllowGet);
