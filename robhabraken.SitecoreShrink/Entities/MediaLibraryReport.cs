@@ -134,24 +134,24 @@
             this.Stats.Add(new ChartStats()
             {
                 Children = new List<ReportCategory>() {
-                    new ReportCategory("Items in use", referencedItems),
-                    new ReportCategory("Items not referenced", totalSize - referencedItems)
+                    new ReportCategory(MediaConstants.CategoryInUse, referencedItems),
+                    new ReportCategory(MediaConstants.CategoryNotReferenced, totalSize - referencedItems)
                 }
             });
 
             this.Stats.Add(new ChartStats()
             {
                 Children = new List<ReportCategory>() {
-                    new ReportCategory("Published items", publishedItems),
-                    new ReportCategory("Unpublished items", totalSize - publishedItems)
+                    new ReportCategory(MediaConstants.CategoryPublished, publishedItems),
+                    new ReportCategory(MediaConstants.CategoryUnpublished, totalSize - publishedItems)
                 }
             });
 
             this.Stats.Add(new ChartStats()
             {
                 Children = new List<ReportCategory>() {
-                    new ReportCategory("Items with old versions", itemsOldVersions),
-                    new ReportCategory("Items that use all versions", totalCount - itemsOldVersions)
+                    new ReportCategory(MediaConstants.CategoryItemsWithOldVersions, itemsOldVersions),
+                    new ReportCategory(MediaConstants.CategoryItemsUsingAllVersions, totalCount - itemsOldVersions)
                 }
             });
         }

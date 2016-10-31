@@ -73,6 +73,14 @@
 
                 var items = libraryReport.UnreferencedItems(); // AND THIS SHOULD BE SWITCHED
 
+
+                //            public const string CategoryInUse = "Items in use";
+                //public const string CategoryNotReferenced = "Items not referenced";
+                //public const string CategoryPublished = "Published items";
+                //public const string CategoryUnpublished = "Unpublished items";
+                //public const string CategoryItemsWithOldVersions = "Items with old versions";
+                //public const string CategoryItemsUsingAllVersions = "Items that use all versions";
+
                 subset = ItemHelper.ItemListToPipedString(items);
             }            
 
