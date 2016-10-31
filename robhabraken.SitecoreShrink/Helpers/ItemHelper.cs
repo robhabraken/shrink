@@ -42,15 +42,7 @@
             while(!item.ParentID.IsNull && !item.ID.ToString().Equals(MediaConstants.MediaLibraryItemID))
             {
                 path = string.Format("{0}/{1}", item.ParentID.ToString(), path);
-
-                if(item.ParentID.ToString().Equals(MediaConstants.MediaLibraryItemID))
-                {
-                    break;
-                }
-                else
-                {
-                    item = item.Parent;
-                }
+                item = item.Parent;
             }
             return path;
         }
