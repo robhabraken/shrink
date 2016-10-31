@@ -7,9 +7,14 @@
 
         public const string CategoryInUse = "Items in use";
         public const string CategoryNotReferenced = "Items not referenced";
+        public const string CategoryReferencedUnknown = "Unknown if referenced";
+
         public const string CategoryPublished = "Published items";
         public const string CategoryUnpublished = "Unpublished items";
+        public const string CategoryPublishedUnknown = "Unknown if published";
+
         public const string CategoryItemsWithOldVersions = "Items with old versions";
         public const string CategoryItemsUsingAllVersions = "Items that use all versions";
+        public const string CategoryVersionsUnknown = "Unknown if old versions";
     }
 }

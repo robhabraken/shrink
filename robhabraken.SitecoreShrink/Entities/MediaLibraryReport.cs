@@ -59,6 +59,15 @@
         }
 
         /// <summary>
+        /// Returns the total size of all unreferenced items in bytes, not including the media folders.
+        /// </summary>
+        /// <returns>The total size of all unreferenced items in bytes.</returns>
+        public long UnreferencedMediaSize()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && !x.IsReferenced.Value).Sum(x => x.Size);
+        }
+
+        /// <summary>
         /// Returns a list of all items that are not referenced, not including media folders.
         /// </summary>
         /// <returns>A list of all items that are not referenced.</returns>
@@ -86,6 +95,15 @@
         }
 
         /// <summary>
+        /// Returns the total size of all unpublished items in bytes, not including media folders.
+        /// </summary>
+        /// <returns>The total size of all unpublished items in bytes.</returns>
+        public long UnpublishedMediaSize()
+        {
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).Sum(x => x.Size);
+        }
+
+        /// <summary>
         /// Returns a list of all items that are not published, not including media folders.
         /// </summary>
         /// <returns>A list of all items that are not published.</returns>
@@ -101,6 +119,15 @@
         public int OldVersionsItemCount()
         {
             return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value);
+        }
+
+        /// <summary>
+        /// Returns the number of media items that do not contain more than one version, not including media folders.
+        /// </summary>
+        /// <returns>The number of media items that do not contain more than one version.</returns>
+        public int UsingAllVersionsItemCount()
+        {
+            return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && !x.HasOldVersions.Value);
         }
 
         /// <summary>
@@ -128,14 +155,18 @@
             var totalCount = this.MediaItemCount();
             var totalSize = this.MediaLibrarySize();
             var referencedItems = this.ReferencedMediaSize();
+            var unreferencedItems = this.UnreferencedMediaSize();
             var publishedItems = this.PublishedMediaSize();
+            var unpublishedItems = this.UnpublishedMediaSize();
             var itemsOldVersions = this.OldVersionsItemCount();
+            var usingAllVersions = this.UsingAllVersionsItemCount();
 
             this.Stats.Add(new ChartStats()
             {
                 Children = new List<ReportCategory>() {
                     new ReportCategory(MediaConstants.CategoryInUse, referencedItems),
-                    new ReportCategory(MediaConstants.CategoryNotReferenced, totalSize - referencedItems)
+                    new ReportCategory(MediaConstants.CategoryNotReferenced, unreferencedItems),
+                    new ReportCategory(MediaConstants.CategoryReferencedUnknown, totalSize - referencedItems - unreferencedItems)
                 }
             });
 
@@ -143,7 +174,8 @@
             {
                 Children = new List<ReportCategory>() {
                     new ReportCategory(MediaConstants.CategoryPublished, publishedItems),
-                    new ReportCategory(MediaConstants.CategoryUnpublished, totalSize - publishedItems)
+                    new ReportCategory(MediaConstants.CategoryUnpublished, unpublishedItems),
+                    new ReportCategory(MediaConstants.CategoryPublishedUnknown, totalSize - publishedItems - unpublishedItems)
                 }
             });
 
@@ -151,7 +183,8 @@
             {
                 Children = new List<ReportCategory>() {
                     new ReportCategory(MediaConstants.CategoryItemsWithOldVersions, itemsOldVersions),
-                    new ReportCategory(MediaConstants.CategoryItemsUsingAllVersions, totalCount - itemsOldVersions)
+                    new ReportCategory(MediaConstants.CategoryItemsUsingAllVersions, usingAllVersions),
+                    new ReportCategory(MediaConstants.CategoryVersionsUnknown, totalCount - itemsOldVersions - usingAllVersions)
                 }
             });
         }
