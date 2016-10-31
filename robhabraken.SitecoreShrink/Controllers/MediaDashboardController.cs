@@ -2,7 +2,6 @@
 {
     using Helpers;
     using Sitecore.Configuration;
-    using Sitecore.Data;
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
@@ -40,18 +39,22 @@
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Returns the string Item path in Guids to the selected item.
+        /// This is used by the sunburst chart to send the path to select to the treeview component.
+        /// </summary>
+        /// <param name="id">The ID of the Item to select.</param>
+        /// <returns>A string representation of the ID item path, of which the item IDs are separated by slashes.</returns>
         public ActionResult ZoomIn(Guid id)
         {
-            // mock code
-            var itemName = string.Empty;
-            if (ID.IsID(id.ToString()))
+            var itemPath = string.Empty;
+            var item = ItemHelper.GetItem(id);
+            if (item != null)
             {
-                var db = Sitecore.Configuration.Factory.GetDatabase("master"); // mock code!
-                var item = db.GetItem(new ID(id));
-                itemName = item.Name;
+                itemPath = ItemHelper.GetItemPathInGuids(item);
             }
 
-            return Json(itemName, JsonRequestBehavior.AllowGet);
+            return Json(itemPath, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SelectSubset(string selection)
