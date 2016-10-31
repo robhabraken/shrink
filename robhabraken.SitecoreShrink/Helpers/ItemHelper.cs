@@ -39,7 +39,7 @@
         public static string GetItemPathInGuids(Item item)
         {
             var path = item.ID.ToString();
-            while(!item.ParentID.IsNull)
+            while(!item.ParentID.IsNull && !item.ID.ToString().Equals(MediaConstants.MediaLibraryItemID))
             {
                 path = string.Format("{0}/{1}", item.ParentID.ToString(), path);
 
