@@ -118,41 +118,40 @@
             return Json(subset, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ArchiveMedia(string name)
+        public ActionResult ArchiveMedia(string itemList)
         {
-            name += " Archiving!";
+            new TidyJobManager().Archive(null, false);
 
-            return Json(name, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult RecycleMedia(string name)
+        public ActionResult RecycleMedia(string itemList)
         {
-            name += " Recycling!";
+            new TidyJobManager().Recycle(null, false);
 
-            return Json(name, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult DeleteMedia(string name)
+        public ActionResult DeleteMedia(string itemList)
         {
-            name += " Deleting!";
+            new TidyJobManager().Delete(null, false);
 
-            return Json(name, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult DownloadMedia(string name)
+        public ActionResult DownloadMedia(string itemList, bool deleteAfterwards)
         {
-            name += " Downloading!";
-
             var downloadPath = Settings.GetSetting("Shrink.DownloadPath");
+            new TidyJobManager().Download(null, downloadPath, deleteAfterwards);
 
-            return Json(name, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult DeleteOldVersions(string name)
+        public ActionResult DeleteOldVersions(string itemList)
         {
-            name += " Deleting old versions!";
+            new TidyJobManager().DeleteOldVersions(null);
 
-            return Json(name, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }
