@@ -118,6 +118,11 @@
             return Json(subset, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Starts a TidyUp job to archive all media items in the given item list.
+        /// </summary>
+        /// <param name="itemList">A pipe-separated list of Sitecore IDs of the items to archive.</param>
+        /// <returns>The boolean value true if the job has started.</returns>
         public ActionResult ArchiveMedia(string itemList)
         {
             new TidyJobManager().Archive(itemList.Split('|'), false);
@@ -125,6 +130,11 @@
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Starts a TidyUp job to recycle all media items in the given item list.
+        /// </summary>
+        /// <param name="itemList">A pipe-separated list of Sitecore IDs of the items to recycle.</param>
+        /// <returns>The boolean value true if the job has started.</returns>
         public ActionResult RecycleMedia(string itemList)
         {
             new TidyJobManager().Recycle(itemList.Split('|'), false);
@@ -132,6 +142,11 @@
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Starts a TidyUp job to delete all media items in the given item list.
+        /// </summary>
+        /// <param name="itemList">A pipe-separated list of Sitecore IDs of the items to delete.</param>
+        /// <returns>The boolean value true if the job has started.</returns>
         public ActionResult DeleteMedia(string itemList)
         {
             new TidyJobManager().Delete(itemList.Split('|'), false);
@@ -139,6 +154,12 @@
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Starts a TidyUp job to download all media items in the given item list.
+        /// </summary>
+        /// <param name="itemList">A pipe-separated list of Sitecore IDs of the items to download.</param>
+        /// <param name="deleteAfterwards">If true, the media items will be deleted directly after downloading them.</param>
+        /// <returns>The boolean value true if the job has started.</returns>
         public ActionResult DownloadMedia(string itemList, bool deleteAfterwards)
         {
             var downloadPath = Settings.GetSetting("Shrink.DownloadPath");
@@ -147,6 +168,11 @@
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// Starts a TidyUp job to delete the old versions of all media items in the given item list.
+        /// </summary>
+        /// <param name="itemList">A pipe-separated list of Sitecore IDs of the items to delete the old versions of.</param>
+        /// <returns>The boolean value true if the job has started.</returns>
         public ActionResult DeleteOldVersions(string itemList)
         {
             new TidyJobManager().DeleteOldVersions(itemList.Split('|'));
