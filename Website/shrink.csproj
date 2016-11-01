@@ -911,7 +911,6 @@
     <Content Include="layouts\system\VisitorIdentificationCss.aspx" />
     <Content Include="layouts\xmlcontrol.aspx" />
     <Content Include="packages.config" />
-    <Content Include="sitecore modules\Shell\robhabraken\SitecoreShrink\job.aspx" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\d3.v3.min.js" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\SelectableTreeView.js" />
     <Content Include="sitecore\shell\client\YourApps\SitecoreShrink\Renderings\MediaUsageCharts.css" />
@@ -5772,6 +5771,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="sitecore modules\Shell\" />
     <Folder Include="sitecore\samples\Quick Action Bar\" />
     <Folder Include="sitecore\shell\Applications\Analytics\AuthoringFeedback\" />
     <Folder Include="sitecore\shell\Applications\Analytics\Personalization\Cards\" />
