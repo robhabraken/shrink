@@ -12,6 +12,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Web;
 
     /// <summary>
     /// Utility class that offers multiple ways of cleaning up unused items.
@@ -50,6 +51,8 @@
             {
                 Context.Job.Status.Total = items.Length;
             }
+            
+            targetPath = string.Format("{0}{1}", HttpRuntime.AppDomainAppPath, targetPath);
 
             foreach (var item in items)
             {
