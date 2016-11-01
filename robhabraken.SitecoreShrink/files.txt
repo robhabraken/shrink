@@ -1,5 +1,4 @@
 ﻿List of files that should be included in this module, but are not present in this namespace / project:
-- sitecore modules/Shell/robhabraken/SitecoreShrink/. (this folder may be unnecessary and seems to be deprecated, check and remove if applicable)
 - sitecore/shell/client/YourApps/SitecoreShrink/.
 - Website/App_Config/Include/Shrink.config
 
