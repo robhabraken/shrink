@@ -20,31 +20,31 @@
             this.tidyUp = new TidyUp();
         }
 
-        public void Archive(List<MediaItemReport> items, bool archiveChildren)
+        public void Archive(string[] items, bool archiveChildren)
         {
             var args = new object[] { items, archiveChildren };
             this.StartJob("Archiving_media", "Archive", args);
         }
 
-        public void Delete(List<MediaItemReport> items, bool deleteChildren)
+        public void Delete(string[] items, bool deleteChildren)
         {
             var args = new object[] { items, deleteChildren };
             this.StartJob("Deleting_media", "Delete", args);
         }
 
-        public void DeleteOldVersions(List<MediaItemReport> items)
+        public void DeleteOldVersions(string[] items)
         {
             var args = new object[] { items };
             this.StartJob("Deleting_old_versions", "DeleteOldVersions", args);
         }
 
-        public void Download(List<MediaItemReport> items, string targetPath, bool deleteAfterwards)
+        public void Download(string[] items, string targetPath, bool deleteAfterwards)
         {
             var args = new object[] { items, targetPath, deleteAfterwards };
             this.StartJob("Downloading_media", "Download", args);
         }
 
-        public void Recycle(List<MediaItemReport> items, bool recycleChildren)
+        public void Recycle(string[] items, bool recycleChildren)
         {
             var args = new object[] { items, recycleChildren };
             this.StartJob("Recycling_media", "Recycle", args);

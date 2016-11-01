@@ -44,17 +44,17 @@
         /// <param name="items">A list of items to download.</param>
         /// <param name="targetPath">The target location for the items to be downloaded to.</param>
         /// <param name="deleteAfterwards">If set to true, the items will be deleted from the Sitecore database after the download is completed.</param>
-        public void Download(List<MediaItemReport> items, string targetPath, bool deleteAfterwards)
+        public void Download(string[] items, string targetPath, bool deleteAfterwards)
         {
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Count;
+                Context.Job.Status.Total = items.Length;
             }
 
             foreach (var item in items)
             {
-                var scItem = item.GetSitecoreItem(this.database);
-                if (scItem != null)
+                var scItem = this.database.GetItem(new ID(item));
+                if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                 {
                     if (Context.Job != null)
                     {
@@ -111,12 +111,12 @@
         /// </remarks>
         /// <param name="items">A list of items to archive.</param>
         /// <param name="archiveChildren">If set to true, child items will be archived as well; if set to false, items with children will be left untouched.</param>
-        public void Archive(List<MediaItemReport> items, bool archiveChildren)
+        public void Archive(string[] items, bool archiveChildren)
         {
             var archive = ArchiveManager.GetArchive("archive", database);
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Count;
+                Context.Job.Status.Total = items.Length;
             }
 
             if (archive != null)
@@ -125,8 +125,8 @@
                 {
                     foreach (var item in items)
                     {
-                        var scItem = item.GetSitecoreItem(this.database);
-                        if (scItem != null)
+                        var scItem = this.database.GetItem(new ID(item));
+                        if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                         {
                             if (Context.Job != null)
                             {
@@ -152,19 +152,19 @@
         /// </remarks>
         /// <param name="items">A list of items to recycle.</param>
         /// <param name="recycleChildren">If set to true, child items will be recycled as well; if set to false, items with children will be left untouched.</param>
-        public void Recycle(List<MediaItemReport> items, bool recycleChildren)
+        public void Recycle(string[] items, bool recycleChildren)
         {
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Count;
+                Context.Job.Status.Total = items.Length;
             }
 
             using (new SecurityDisabler())
             {
                 foreach (var item in items)
                 {
-                    var scItem = item.GetSitecoreItem(this.database);
-                    if (scItem != null)
+                    var scItem = this.database.GetItem(new ID(item));
+                    if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                     {
                         if (Context.Job != null)
                         {
@@ -193,19 +193,19 @@
         /// </remarks>
         /// <param name="items">A list of items to delete.</param>
         /// <param name="deleteChildren">If set to true, the underlying child items of each item will be deleted too.</param>
-        public void Delete(List<MediaItemReport> items, bool deleteChildren)
+        public void Delete(string[] items, bool deleteChildren)
         {
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Count;
+                Context.Job.Status.Total = items.Length;
             }
 
             using (new SecurityDisabler())
             {
                 foreach (var item in items)
                 {
-                    var scItem = item.GetSitecoreItem(this.database);
-                    if (scItem != null)
+                    var scItem = this.database.GetItem(new ID(item));
+                    if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                     {
                         if (Context.Job != null)
                         {
@@ -279,19 +279,19 @@
         /// we do not want to delete it, and if there isn't a valid version _at all_ we can ignore the publishing settings and delete all versions but the last.
         /// </remarks>
         /// <param name="items">A list of items to delete the old versions of.</param>
-        public void DeleteOldVersions(List<MediaItemReport> items)
+        public void DeleteOldVersions(string[] items)
         {
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Count;
+                Context.Job.Status.Total = items.Length;
             }
 
             using (new SecurityDisabler())
             {
                 foreach (var item in items)
                 {
-                    var scItem = item.GetSitecoreItem(this.database);
-                    if (scItem != null)
+                    var scItem = this.database.GetItem(new ID(item));
+                    if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                     {
                         if (Context.Job != null)
                         {

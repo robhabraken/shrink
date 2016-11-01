@@ -120,21 +120,21 @@
 
         public ActionResult ArchiveMedia(string itemList)
         {
-            new TidyJobManager().Archive(null, false);
+            new TidyJobManager().Archive(itemList.Split('|'), false);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult RecycleMedia(string itemList)
         {
-            new TidyJobManager().Recycle(null, false);
+            new TidyJobManager().Recycle(itemList.Split('|'), false);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DeleteMedia(string itemList)
         {
-            new TidyJobManager().Delete(null, false);
+            new TidyJobManager().Delete(itemList.Split('|'), false);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
@@ -142,14 +142,14 @@
         public ActionResult DownloadMedia(string itemList, bool deleteAfterwards)
         {
             var downloadPath = Settings.GetSetting("Shrink.DownloadPath");
-            new TidyJobManager().Download(null, downloadPath, deleteAfterwards);
+            new TidyJobManager().Download(itemList.Split('|'), downloadPath, deleteAfterwards);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DeleteOldVersions(string itemList)
         {
-            new TidyJobManager().DeleteOldVersions(null);
+            new TidyJobManager().DeleteOldVersions(itemList.Split('|'));
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
