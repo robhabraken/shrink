@@ -81,28 +81,28 @@
                 switch(category)
                 {
                     case MediaConstants.CategoryInUse:
-                        items = libraryReport.ReferencedItems();
+                        items = libraryReport.ItemsByReferenceState(true);
                         break;
                     case MediaConstants.CategoryNotReferenced:
-                        items = libraryReport.UnreferencedItems();
+                        items = libraryReport.ItemsByPublishingState(false);
                         break;
                     case MediaConstants.CategoryReferencedUnknown:
                         items = libraryReport.ItemsReferencesUnknown();
                         break;
                     case MediaConstants.CategoryPublished:
-                        items = libraryReport.PublishedItems();
+                        items = libraryReport.ItemsByPublishingState(true);
                         break;
                     case MediaConstants.CategoryUnpublished:
-                        items = libraryReport.UnpublishedItems();
+                        items = libraryReport.ItemsByPublishingState(false);
                         break;
                     case MediaConstants.CategoryPublishedUnknown:
                         items = libraryReport.ItemsPublishingStateUnknown();
                         break;
                     case MediaConstants.CategoryItemsWithOldVersions:
-                        items = libraryReport.ItemsWithOldVersions();
+                        items = libraryReport.ItemsByVersionState(true);
                         break;
                     case MediaConstants.CategoryItemsUsingAllVersions:
-                        items = libraryReport.ItemsUsingAllVersions();
+                        items = libraryReport.ItemsByVersionState(false);
                         break;
                     case MediaConstants.CategoryVersionsUnknown:
                         items = libraryReport.ItemsVersionsUnknown();

@@ -50,39 +50,23 @@
         }
 
         /// <summary>
-        /// Returns the total size of all referenced items in bytes, not including the media folders.
+        /// Returns the total size of all referenced or unreferenced items in bytes (depending on the boolean parameter), not including the media folders.
         /// </summary>
-        /// <returns>The total size of all referenced items in bytes.</returns>
-        public long ReferencedMediaSize()
+        /// <param name="referenced">A boolean indicating whether to select the referenced or the unreferenced items.</param>
+        /// <returns>The total size of all referenced or unreferenced items in bytes, depending on the input parameter of this method.</returns>
+        public long MediaSizeByReferenceState(bool referenced)
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && x.IsReferenced.Value).Sum(x => x.Size);
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && x.IsReferenced.Value == referenced).Sum(x => x.Size);
         }
 
         /// <summary>
-        /// Returns the total size of all unreferenced items in bytes, not including the media folders.
+        /// Returns a list of all items that are referenced or not (depending on the boolean parameter), not including media folders.
         /// </summary>
-        /// <returns>The total size of all unreferenced items in bytes.</returns>
-        public long UnreferencedMediaSize()
+        /// <param name="referenced">A boolean indicating whether to select the referenced or the unreferenced items.</param>
+        /// <returns>A list of all items that are either referenced or not referenced, depending on the input parameter of this method.</returns>
+        public List<MediaItemReport> ItemsByReferenceState(bool referenced)
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && !x.IsReferenced.Value).Sum(x => x.Size);
-        }
-
-        /// <summary>
-        /// Returns a list of all items that are referenced, not including media folders.
-        /// </summary>
-        /// <returns>A list of all items that are referenced.</returns>
-        public List<MediaItemReport> ReferencedItems()
-        {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && x.IsReferenced.Value).ToList<MediaItemReport>();
-        }
-
-        /// <summary>
-        /// Returns a list of all items that are not referenced, not including media folders.
-        /// </summary>
-        /// <returns>A list of all items that are not referenced.</returns>
-        public List<MediaItemReport> UnreferencedItems()
-        {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && !x.IsReferenced.Value).ToList<MediaItemReport>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && x.IsReferenced.Value == referenced).ToList<MediaItemReport>();
         }
 
         /// <summary>
@@ -104,39 +88,23 @@
         }
 
         /// <summary>
-        /// Returns the total size of all published items in bytes (to one or more publishing targets), not including media folders.
+        /// Returns the total size of all published or unpublished items (depending on the boolean parameter) in bytes, not including media folders.
         /// </summary>
-        /// <returns>The total size of all published items in bytes.</returns>
-        public long PublishedMediaSize()
+        /// <param name="published">A boolean indicating whether to select the published or the unpublished items.</param>
+        /// <returns>The total size of all published or unpublished items in bytes, depending on the input parameter of this method.</returns>
+        public long MediaSizeByPublishingState(bool published)
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value).Sum(x => x.Size);
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value == published).Sum(x => x.Size);
         }
 
         /// <summary>
-        /// Returns the total size of all unpublished items in bytes, not including media folders.
+        /// Returns a list of all items that are published or not (depending on the boolean parameter), not including media folders.
         /// </summary>
-        /// <returns>The total size of all unpublished items in bytes.</returns>
-        public long UnpublishedMediaSize()
+        /// <param name="published">A boolean indicating whether to select the published or the unpublished items.</param>
+        /// <returns>A list of all items that are either published or not published, depending on the input parameter of this method.</returns>
+        public List<MediaItemReport> ItemsByPublishingState(bool published)
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).Sum(x => x.Size);
-        }
-
-        /// <summary>
-        /// Returns a list of all items that are published, not including media folders.
-        /// </summary>
-        /// <returns>A list of all items that are published.</returns>
-        public List<MediaItemReport> PublishedItems()
-        {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value).ToList<MediaItemReport>();
-        }
-
-        /// <summary>
-        /// Returns a list of all items that are not published, not including media folders.
-        /// </summary>
-        /// <returns>A list of all items that are not published.</returns>
-        public List<MediaItemReport> UnpublishedItems()
-        {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).ToList<MediaItemReport>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value == published).ToList<MediaItemReport>();
         }
 
         /// <summary>
@@ -149,39 +117,23 @@
         }
 
         /// <summary>
-        /// Returns the number of media items that contain more than one version, not including media folders.
+        /// Returns the number of media items that contain more than one version or that use all versions (depending on the boolean parameter), not including media folders.
         /// </summary>
-        /// <returns>The number of media items that contain more than one version.</returns>
-        public int OldVersionsItemCount()
+        /// <param name="hasOldVersions">A boolean indicating whether to select the items with old versions or the items that use all versions.</param>
+        /// <returns>The number of media items that contain either old versions or not, depending on the input parameter of this method.</returns>
+        public int ItemCountByVersionState(bool hasOldVersions)
         {
-            return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value);
+            return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value == hasOldVersions);
         }
 
         /// <summary>
-        /// Returns the number of media items that do not contain more than one version, not including media folders.
+        /// Returns a list of all items that contain more than one version or not (depending on the boolean parameter), not including media folders.
         /// </summary>
-        /// <returns>The number of media items that do not contain more than one version.</returns>
-        public int UsingAllVersionsItemCount()
+        /// <param name="hasOldVersions">A boolean indicating whether to select the items with old versions or the items that use all versions.</param>
+        /// <returns>A list of all items that contain either old versions or not, depending on the input parameter of this method.</returns>
+        public List<MediaItemReport> ItemsByVersionState(bool hasOldVersions)
         {
-            return flatList.Count(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && !x.HasOldVersions.Value);
-        }
-
-        /// <summary>
-        /// Returns a list of all items that contain more than one version, not including media folders.
-        /// </summary>
-        /// <returns>A list of all items that contain more than one version.</returns>
-        public List<MediaItemReport> ItemsWithOldVersions()
-        {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value).ToList<MediaItemReport>();
-        }
-
-        /// <summary>
-        /// Returns a list of all items that use all available versions, not including media folders.
-        /// </summary>
-        /// <returns>A list of all items that use all available versions.</returns>
-        public List<MediaItemReport> ItemsUsingAllVersions()
-        {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && !x.HasOldVersions.Value).ToList<MediaItemReport>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value == hasOldVersions).ToList<MediaItemReport>();
         }
 
         /// <summary>
@@ -208,12 +160,12 @@
 
             var totalCount = this.MediaItemCount();
             var totalSize = this.MediaLibrarySize();
-            var referencedItems = this.ReferencedMediaSize();
-            var unreferencedItems = this.UnreferencedMediaSize();
-            var publishedItems = this.PublishedMediaSize();
-            var unpublishedItems = this.UnpublishedMediaSize();
-            var itemsOldVersions = this.OldVersionsItemCount();
-            var usingAllVersions = this.UsingAllVersionsItemCount();
+            var referencedItems = this.MediaSizeByReferenceState(true);
+            var unreferencedItems = this.MediaSizeByReferenceState(false);
+            var publishedItems = this.MediaSizeByPublishingState(true);
+            var unpublishedItems = this.MediaSizeByPublishingState(false);
+            var itemsOldVersions = this.ItemCountByVersionState(true);
+            var usingAllVersions = this.ItemCountByVersionState(false);
 
             this.Stats.Add(new ChartStats()
             {
