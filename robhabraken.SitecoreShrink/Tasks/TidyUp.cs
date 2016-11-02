@@ -410,6 +410,7 @@
         /// </summary>
         /// <param name="mediaItemReport">The media item report object to delete the children of.</param>
         /// <param name="itemIDs">A list of Sitecore item ID strings of the items to remove.</param>
+        /// <param name="actionType">An ActionType enum object to indicate whether to delete the items in the list, or to remove the old versions from them.</param>
         private void RemoveChildren(MediaItemReport mediaItemReport, List<string> itemIDs, ActionType actionType)
         {
             var itemsToDelete = new List<MediaItemReport>();
