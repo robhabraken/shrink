@@ -22,6 +22,8 @@
     {
         private Database database;
 
+        private enum ActionType { DeleteItem, DeleteVersions }
+
         /// <summary>
         /// Constructs a clean up class for the database configured in the App.config.
         /// </summary>
@@ -91,7 +93,7 @@
 
             if(deleteAfterwards)
             {
-                this.UpdateStorageAfterCleanUp(itemIDs);
+                this.UpdateStorageAfterCleanUp(itemIDs, ActionType.DeleteItem);
             }
         }
 
@@ -152,7 +154,7 @@
                 }
             }
 
-            this.UpdateStorageAfterCleanUp(itemIDs);
+            this.UpdateStorageAfterCleanUp(itemIDs, ActionType.DeleteItem);
         }
 
         /// <summary>
@@ -192,7 +194,7 @@
                 }
             }
 
-            this.UpdateStorageAfterCleanUp(itemIDs);
+            this.UpdateStorageAfterCleanUp(itemIDs, ActionType.DeleteItem);
         }
 
         /// <summary>
@@ -231,7 +233,7 @@
                 }
             }
 
-            this.UpdateStorageAfterCleanUp(itemIDs);
+            this.UpdateStorageAfterCleanUp(itemIDs, ActionType.DeleteItem);
         }
 
         /// <summary>
@@ -318,6 +320,8 @@
                     }
                 }
             }
+
+            this.UpdateStorageAfterCleanUp(itemIDs, ActionType.DeleteVersions);
         }
 
         /// <summary>
@@ -354,8 +358,9 @@
         /// The backlog of this module contains an idea to create a pipeline processor for the onSave handler of all items,
         /// so the JSON storage could be updated continuously, never requiring a re-scan after the initial media library scan!
         /// </remarks>
-        /// <param name="itemIDs">A list of Sitecore item ID strings of the items to remove from the JSON storage.</param>
-        private void UpdateStorageAfterCleanUp(List<string> itemIDs)
+        /// <param name="itemIDs">A list of Sitecore item ID strings of the items to update in the JSON storage.</param>
+        /// <param name="actionType">An ActionType enum object to indicate whether to delete the items in the list, or to remove the old versions from them.</param>
+        private void UpdateStorageAfterCleanUp(List<string> itemIDs, ActionType actionType)
         {
             MediaItemReport mediaItemRoot = null;
             JsonStorage mediaItemReportStorage = null;
@@ -371,7 +376,7 @@
             if (mediaItemRoot != null)
             {
                 // remove any children as supplied in the list of Sitecore item IDs
-                this.RemoveChildren(mediaItemRoot, itemIDs);
+                this.RemoveChildren(mediaItemRoot, itemIDs, actionType);
 
                 // write the updated JSON file to disk
                 mediaItemReportStorage.Serialize(mediaItemRoot);
@@ -391,7 +396,7 @@
         /// </summary>
         /// <param name="mediaItemReport">The media item report object to delete the children of.</param>
         /// <param name="itemIDs">A list of Sitecore item ID strings of the items to remove.</param>
-        private void RemoveChildren(MediaItemReport mediaItemReport, List<string> itemIDs)
+        private void RemoveChildren(MediaItemReport mediaItemReport, List<string> itemIDs, ActionType actionType)
         {
             var itemsToDelete = new List<MediaItemReport>();
             foreach (var item in mediaItemReport.Children)
@@ -400,13 +405,21 @@
                 var sitecoreItemIdString = string.Format("{{{0}}}", item.ID.ToString().ToUpper());
                 if(item.IsMediaFolder.HasValue && !item.IsMediaFolder.Value && itemIDs.Contains(sitecoreItemIdString))
                 {
-                    itemsToDelete.Add(item);
+                    // either stage the item for removal or just mark the old versions flag false, depending on the action type
+                    if(actionType == ActionType.DeleteItem)
+                    {
+                        itemsToDelete.Add(item);
+                    }
+                    else if(actionType == ActionType.DeleteVersions)
+                    {
+                        item.HasOldVersions = false;
+                    }
                 }
 
                 // check out the children of this item (recursively)
                 if(item.Children != null)
                 {
-                    this.RemoveChildren(item, itemIDs);
+                    this.RemoveChildren(item, itemIDs, actionType);
                 }
             }
 
