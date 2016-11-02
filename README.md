@@ -17,7 +17,7 @@ This module requires write access to the following folder:
 Also, to initiate the scanning process of the media library, you have to open the SPEAK application once after installing the module.
 
 ## Features
-Check my blog at http://sitecore.robhabraken.nl for more info on how to install and how to use this module. A quick overview of the features of this module:
+Check my blog at http://sitecore.robhabraken.nl for more info on how to install and how to use this module.
   
 ### Sunburst chart
 The sunburst chart shows you the relative file sizes of the different folders in your media libarry. You can hover over folders and files to see their item name and file size, and you can zoom in on folders too. Clicking on a folder does not only zoom in your view, but also opens up the corresponding folder in the tree view, to show you the actual items and folder structure for that part.
