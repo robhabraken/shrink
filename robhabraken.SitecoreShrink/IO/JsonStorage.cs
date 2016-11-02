@@ -48,10 +48,15 @@
         /// <returns>The deserialized object of the given type.</returns>
         public T Deserialize<T>()
         {
-            var streamReader = new StreamReader(this.jsonFilePath);            
+            T result = default(T);        
             var serializer = new DataContractJsonSerializer(typeof(MediaItemReport));
 
-            return (T)serializer.ReadObject(streamReader.BaseStream);
+            using(var streamReader = new StreamReader(this.jsonFilePath))
+            {
+                result = (T)serializer.ReadObject(streamReader.BaseStream);
+            }
+
+            return result;
         }
     }
 }
