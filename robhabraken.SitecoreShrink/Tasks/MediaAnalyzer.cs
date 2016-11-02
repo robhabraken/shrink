@@ -7,6 +7,7 @@
     using Sitecore.Configuration;
     using Sitecore.Data;
     using Sitecore.Data.Items;
+    using Sitecore.Diagnostics;
     using Sitecore.Links;
     using System;
 
@@ -45,11 +46,14 @@
         /// </summary>
         public void ScanMediaLibrary()
         {
-            var root = database.Items["/sitecore/media library"];
-            this.MediaItemRoot = new MediaItemReport(root);
+            if (database != null)
+            {
+                var root = database.Items["/sitecore/media library"];
+                this.MediaItemRoot = new MediaItemReport(root);
 
-            this.ScanItemsOf(root, this.MediaItemRoot);
-            this.WriteReportsToDataStorage();
+                this.ScanItemsOf(root, this.MediaItemRoot);
+                this.WriteReportsToDataStorage();
+            }
         }
 
         /// <summary>
@@ -85,7 +89,7 @@
         /// <param name="reportItem">The media item report object to store the results in.</param>
         private void Analyze(Item sitecoreItem, MediaItemReport reportItem)
         {
-            if (reportItem.IsMediaFolder.HasValue && !reportItem.IsMediaFolder.Value)
+            if (sitecoreItem != null && reportItem.IsMediaFolder.HasValue && !reportItem.IsMediaFolder.Value)
             {
                 // update and get referrers
                 Globals.LinkDatabase.UpdateReferences(sitecoreItem);
@@ -112,8 +116,9 @@
                 }
                 catch (Exception exception)
                 {
-                    // TO DO: add exception handling because getting the referrers doesn't always seem to go flawless
-                    return;
+                    // exception handling because getting the referrers doesn't always seem to go flawless
+                    // if getting teh referrers fails, the nullable IsReferenced boolean of the report object will stay null
+                    Log.Error(string.Format("Shrink: exception during getting the referrers for item {{{0}}}", reportItem.ID), exception, this);
                 }
 
                 // add other meta data as well

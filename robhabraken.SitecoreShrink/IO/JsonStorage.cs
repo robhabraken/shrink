@@ -1,6 +1,8 @@
 ﻿namespace robhabraken.SitecoreShrink.IO
 {
     using Entities;
+    using Sitecore.Diagnostics;
+    using System;
     using System.IO;
     using System.Runtime.Serialization.Json;
     using System.Web;
@@ -30,14 +32,24 @@
         {
             var memoryStream = new MemoryStream();
             var serializer = new DataContractJsonSerializer(typeof(T));
-            serializer.WriteObject(memoryStream, objectToStore);
 
-            memoryStream.Position = 0;
-            var streamReader = new StreamReader(memoryStream);
-
-            using (var file = new StreamWriter(this.jsonFilePath, false))
+            try
             {
-                file.WriteLine(streamReader.ReadToEnd());
+                serializer.WriteObject(memoryStream, objectToStore);
+
+                memoryStream.Position = 0;
+                var streamReader = new StreamReader(memoryStream);
+
+                using (var file = new StreamWriter(this.jsonFilePath, false))
+                {
+                    file.WriteLine(streamReader.ReadToEnd());
+                }
+            }
+            catch(Exception exception)
+            {
+                // due to the vast range of specific exceptions than can occur during file IO we catch all exceptions here,
+                // because we do not want to take different action upon the different exception types, just log what went wrong
+                Log.Error("Shrink: exception during serializing objects to disk in JSON format", exception, this);
             }
         }
 
@@ -51,9 +63,18 @@
             T result = default(T);        
             var serializer = new DataContractJsonSerializer(typeof(MediaItemReport));
 
-            using(var streamReader = new StreamReader(this.jsonFilePath))
+            try
             {
-                result = (T)serializer.ReadObject(streamReader.BaseStream);
+                using (var streamReader = new StreamReader(this.jsonFilePath))
+                {
+                    result = (T)serializer.ReadObject(streamReader.BaseStream);
+                }
+            }
+            catch(Exception exception)
+            {
+                // due to the vast range of specific exceptions than can occur during file IO we catch all exceptions here,
+                // because we do not want to take different action upon the different exception types, just log what went wrong
+                Log.Error("Shrink: exception during deserializing objects from disk in JSON format", exception, this);
             }
 
             return result;

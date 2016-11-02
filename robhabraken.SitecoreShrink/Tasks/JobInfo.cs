@@ -16,6 +16,11 @@
         /// <returns>A object array that contains the friendly job name as a string and two long values for the processed and total item count.</returns>
         public static List<object> GetJobInfo(Job job)
         {
+            if(job == null)
+            {
+                return null;
+            }
+
             return new List<object>()
             {
                 JobInfo.GetFriendlyJobName(job),
@@ -30,7 +35,7 @@
         /// </summary>
         /// <param name="jobName">The Sitecore job to get the name of.</param>
         /// <returns>A formatted friendly job description.</returns>
-        public static string GetFriendlyJobName(Job job)
+        private static string GetFriendlyJobName(Job job)
         {
             return job.Name
                 .Replace(JobInfo.JobType, string.Empty)
@@ -41,7 +46,7 @@
         /// <summary>
         /// Returns all active jobs that belong to the Sitecore Shrink module, ordered by queue time.
         /// </summary>
-        public static List<Job> Jobs
+        public static List<Job> MyJobs
         {
             get
             {

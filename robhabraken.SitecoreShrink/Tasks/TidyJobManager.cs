@@ -1,6 +1,5 @@
 ﻿namespace robhabraken.SitecoreShrink.Tasks
 {
-    using Entities;
     using Sitecore;
     using Sitecore.Jobs;
     using System;

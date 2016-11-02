@@ -1,13 +1,13 @@
 ﻿namespace robhabraken.SitecoreShrink.Tasks
 {
     using Entities;
-    using Helpers;
     using IO;
     using Sitecore;
     using Sitecore.Configuration;
     using Sitecore.Data;
     using Sitecore.Data.Archiving;
     using Sitecore.Data.Items;
+    using Sitecore.Diagnostics;
     using Sitecore.Resources.Media;
     using Sitecore.SecurityModel;
     using System;
@@ -76,11 +76,20 @@
                     {
                         var fullPath = this.MediaToFilePath(targetPath, mediaItem.MediaPath, mediaItem.Extension);
 
-                        Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-                        using (var targetStream = File.OpenWrite(fullPath))
+                        try
                         {
-                            stream.CopyTo(targetStream);
-                            targetStream.Flush();
+                            Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+                            using (var targetStream = File.OpenWrite(fullPath))
+                            {
+                                stream.CopyTo(targetStream);
+                                targetStream.Flush();
+                            }
+                        }
+                        catch (Exception exception)
+                        {
+                            // due to the vast range of specific exceptions than can occur during file IO we catch all exceptions here,
+                            // because we do not want to take different action upon the different exception types, just log what went wrong
+                            Log.Error(string.Format("Shrink: exception during downloading media item {0} to disk", itemId), exception, this);
                         }
                     }
 
@@ -279,7 +288,12 @@
             item.ChangeTemplate(mediaFolder);
             if (item.Fields["__Icon"] != null)
             {
-                item.Fields["__Icon"].Reset();
+                try
+                {
+                    // try resetting the icon field back to a folder icon after changing the media item to a folder
+                    item.Fields["__Icon"].Reset();
+                }
+                catch { }
             }
             item.Editing.EndEdit();
         }

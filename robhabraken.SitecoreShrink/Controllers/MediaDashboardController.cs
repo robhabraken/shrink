@@ -21,7 +21,7 @@
         {
             var activeJobInfo = new List<object>();
 
-            var jobs = JobInfo.Jobs;
+            var jobs = JobInfo.MyJobs;
             if(jobs.Count > 0)
             {
                 activeJobInfo =  JobInfo.GetJobInfo(jobs[0]);

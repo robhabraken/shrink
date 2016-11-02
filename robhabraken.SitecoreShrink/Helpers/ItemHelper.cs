@@ -25,7 +25,10 @@
             {
                 var databaseName = Settings.GetSetting("Shrink.DatabaseToScan");
                 var database = Factory.GetDatabase(databaseName);
-                item = database.GetItem(new ID(id));
+                if (database != null)
+                {
+                    item = database.GetItem(new ID(id));
+                }
             }
             return item;
         }
