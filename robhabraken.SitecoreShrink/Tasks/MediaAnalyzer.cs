@@ -102,6 +102,9 @@ namespace robhabraken.SitecoreShrink.Tasks
 
                 try
                 {
+                    // start with the assumption that the item isn't referenced
+                    reportItem.IsReferenced = false;
+
                     var itemReferrers = Globals.LinkDatabase.GetReferrers(sitecoreItem);
 
                     // check validity of all referrers
@@ -122,8 +125,11 @@ namespace robhabraken.SitecoreShrink.Tasks
                 catch (Exception exception)
                 {
                     // exception handling because getting the referrers doesn't always seem to go flawless
-                    // if getting teh referrers fails, the nullable IsReferenced boolean of the report object will stay null
                     Log.Error($"Shrink: exception during getting the referrers for item {{{reportItem.ID}}}", exception, this);
+
+                    // if getting the referrers fails, the nullable IsReferenced boolean of the report object is set to null
+                    // to indicate that the reference state couldn't be determined
+                    reportItem.IsReferenced = null;
                 }
 
                 // if the item is referenced from code, always mark it as being referenced
