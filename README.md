@@ -63,4 +63,4 @@ If you encounter an issue with this module, I would like to know what you've fou
 ## Important notes!
 **_Please note that this module is rather new and only tested on a small number of databases and Sitecore instances. Please backup your original database before using this module and preferably test the module for your situation on any other than your production environemnt , to make sure no data is lost unintentionally upon using it._**
 
-**_Please DO NOT INSTALL THIS MODULE ON A CONTENT DELIVERY SERVER. It is intended for the Content Management server role only and the different API calls to delete items could be potentially harmful on an exposed Content Delivery server._**
+**_Please DO NOT INSTALL THIS MODULE ON A CONTENT DELIVERY SERVER. It is intended for the Content Management server role only and the different Web API calls to delete items could be potentially harmful on an exposed Content Delivery server._**
