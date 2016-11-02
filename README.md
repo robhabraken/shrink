@@ -28,7 +28,7 @@ The donut charts show you the most important metrics of the analysis, showing yo
 Clicking on one of the slices of the donut charts filters the tree view to only show you the items of that category. So if you want to browse through all unreferenced items, just click on that slice of the corresponding donut chart!
 
 ### Archive, Recycle, Delete 
-The best explanation on the different options for cleaning up your items comes from John West in his blog post https://community.sitecore.net/technical_blogs/b/sitecorejohn_blog/posts/archiving-recycling-deleting-and-restoring-items-and-versions-in-the-sitecore-asp-net-cms: *"Achive data that you want to keep (for example, for audit purposes); recycle data that you may want to restore; delete data that you want to remove. For optimal performance and usability, recycle or remove as much data as you can, and archive whatever else you do not need in the Master database."*
+The best explanation on the different options for cleaning up your items comes from John West in his blog post https://community.sitecore.net/technical_blogs/b/sitecorejohn_blog/posts/archiving-recycling-deleting-and-restoring-items-and-versions-in-the-sitecore-asp-net-cms: *"Archive data that you want to keep (for example, for audit purposes); recycle data that you may want to restore; delete data that you want to remove. For optimal performance and usability, recycle or remove as much data as you can, and archive whatever else you do not need in the Master database."*
 
 Please keep in mind, that archiving and recycling only speeds up your queries, because it makes your indexes smaller, but if you really want to cut down the size of your database, only deleting items is going to help you out.
 
