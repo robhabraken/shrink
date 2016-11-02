@@ -2,6 +2,7 @@
 {
     using Entities;
     using Helpers;
+    using IO;
     using Sitecore;
     using Sitecore.Configuration;
     using Sitecore.Data;
@@ -330,6 +331,78 @@
                         version.Versions.RemoveVersion();
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// To avoid completely re-scanning the whole media library after a change, we could simply update the current JSON storage
+        /// with the items that were cleaned up by our module. But take in mind that external changes are still being ignored by this module.
+        /// So for an accurate rendition of the media library data usage, a re-scan is necessary once in a while.
+        /// </summary>
+        /// <remarks>
+        /// The backlog of this module contains an idea to create a pipeline processor for the onSave handler of all items,
+        /// so the JSON storage could be updated continuously, never requiring a re-scan after the initial media library scan!
+        /// </remarks>
+        /// <param name="itemIDs">A list of Sitecore item ID strings of the items to remove from the JSON storage.</param>
+        private void UpdateStorageAfterCleanUp(List<string> itemIDs)
+        {
+            MediaItemReport mediaItemRoot = null;
+            JsonStorage mediaItemReportStorage = null;
+
+            // read the media item report object from the JSON storage
+            var mediaItemPath = Settings.GetSetting("Shrink.MediaItemReportPath");
+            if (!string.IsNullOrEmpty(mediaItemPath))
+            {
+                mediaItemReportStorage = new JsonStorage(mediaItemPath);
+                mediaItemRoot = mediaItemReportStorage.Deserialize<MediaItemReport>();
+            }
+
+            if (mediaItemRoot != null)
+            {
+                // remove any children as supplied in the list of Sitecore item IDs
+                this.RemoveChildren(mediaItemRoot, itemIDs);
+
+                // write the updated JSON file to disk
+                mediaItemReportStorage.Serialize(mediaItemRoot);
+
+                // update the corresponding media library report JSON storage file with the updated info
+                var libraryReportPath = Settings.GetSetting("Shrink.MediaLibraryReportPath");
+                if (!string.IsNullOrEmpty(libraryReportPath))
+                {
+                    var json = new JsonStorage(libraryReportPath);
+                    json.Serialize(new MediaLibraryReport(mediaItemRoot));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Recursively deletes items from the media item report object that are present in the given list of item IDs.
+        /// </summary>
+        /// <param name="mediaItemReport">The media item report object to delete the children of.</param>
+        /// <param name="itemIDs">A list of Sitecore item ID strings of the items to remove.</param>
+        private void RemoveChildren(MediaItemReport mediaItemReport, List<string> itemIDs)
+        {
+            var itemsToDelete = new List<MediaItemReport>();
+            foreach (var item in mediaItemReport.Children)
+            {
+                // collect item references to delete
+                var sitecoreItemIdString = string.Format("{{{0}}}", item.ID.ToString().ToUpper());
+                if(item.IsMediaFolder.HasValue && !item.IsMediaFolder.Value && itemIDs.Contains(sitecoreItemIdString))
+                {
+                    itemsToDelete.Add(item);
+                }
+
+                // check out the children of this item (recursively)
+                if(item.Children != null)
+                {
+                    this.RemoveChildren(item, itemIDs);
+                }
+            }
+
+            // remove the items to delete from the children object list
+            foreach(var item in itemsToDelete)
+            {
+                mediaItemReport.Children.Remove(item);
             }
         }
     }
