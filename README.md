@@ -45,7 +45,7 @@ Displays the items and folder structure of your media library and lets you selec
 Because all of the actions mentioned above potentially require a long time to execute, all actions of this module are actually executed as a Sitecore Job. The SPEAK application will show you a progress bar if applicable and if possible.
 
 ### Don't forget!
-Mind that you need to publish (parts of) the media library after cleaning up to also clean up your web database or other publishing targets. And next to that, you might want to clean up your database by removing orphaned blobs and run a database File Shrink to released the freed and now unallocated space within your SQL database.
+Mind that you need to publish (parts of) the media library after cleaning up to also clean up your web database or other publishing targets. And next to that, you might want to clean up your database by removing orphaned blobs (via the Sitecore Control Panel or using a SQL query) and run do a database file shrink from your SQL Server Management Studio to release the freed and now unallocated space within your SQL database.
 
 ## Future releases
 For future releases, next to improving the existing media library usage statistics and clean up actions, I may extend this module with additional utilities to enhance the performance of your Sitecore implementations, by offering additional analyzing or clean up features like optimizing the templates, content structure or maybe even the size of your rendered Sitecore pages.
