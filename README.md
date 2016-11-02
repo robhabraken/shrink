@@ -9,6 +9,12 @@ Of course, other solutions exist to keep your database small, like storing your 
 ## Installation
 The module is installed as a regular Sitecore package. It is build using SPEAK and the Shrink application can be accessed via the launchpad in the Tools column. The first time you start it, it will automatically start scanning your database. Depending on the size of your database, this can take up to several hours. Meanwhile, a processing message is being shown.
 
+## Configuration
+Mind that Shrink determines if an item is being referenced by checking its referrers in the Sitecore link database, which means, if you're referencing an item from within your code only, Shrink would mark the item as not being used! To prevent deleting items referenced from code, add the ID's of the concerning items to the Shrink.CodeReferencedItems setting in the Shrink.config file like this: 
+
+`<!-- Populate this setting with a pipe-separated list of Sitecore ID's of the items you are referencing from code -->
+<setting name="Shrink.CodeReferencedItems" value="{04DAD0FD-DB66-4070-881F-17264CA257E1}|{094AED03-02E7-4868-80CB-19926661FB77}" />`
+
 ## Requirements
 This module requires write access to the following folder:
 
