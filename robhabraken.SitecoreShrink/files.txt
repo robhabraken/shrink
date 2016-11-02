@@ -5,18 +5,3 @@
 Items:
 - core/sitecore/client/Your Apps/SitecoreShrink/.
 - core/sitecore/client/Applications/Launchpad/PageSettings/Buttons/Tools/Shrink
-
-Texts / advise
-- Archive data that you want to keep (for example, for audit purposes); recycle data that you may want to restore; delete data that you want to remove. For optimal performance and usability, recycle or remove as much data as you can, and archive whatever else you do not need in the Master database.
-	http://www.sitecore.net/learn/blogs/technical-blogs/john-west-sitecore-blog/posts/2013/08/archiving-recycling-restoring-and-deleting-items-and-versions-in-the-sitecore-aspnet-cms.aspx
-- mind that you need to publish the media library after archiving, recycling or deleting items to clean up the web database as well.
-
-THIS SHIZZLE BELOW MAY BE REDUNDANT OR UNNECESSARY, BECAUSE CLEANING UP ORPHANS IN A DATABASE IS ALREADY POSSIBLE WITH SITECORE AND THE CODE BELOW TAKES WAY TO LONG TO EXECUTE
-AND ALSO REQUIRES SOME SPECIFIC USER RIGHTS, SO I MIGHT RETARGET MY MODULE TOWARDS MANAGING DATA USAGE IN THE MEDIA LIBRARY AND CLEANING UP CONTENT IN GENERAL
-
-Texts / advise
-- advise to run orphan clean up after deleting items but before archiving or recycling, thus also warn that orphan method invalidates recycled items
-
-Ideas:
-- You now have 2951 MB of unallocated space, you might want to shrink your database files to release this unused space. (Display if more than 500 MB)
-- You will need db_owner rights (?) for this operation. Please login with your admin account first or skip this step if you gave your site account this permission (note that this is not recommended).
