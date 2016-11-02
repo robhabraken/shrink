@@ -1,4 +1,6 @@
-﻿namespace robhabraken.SitecoreShrink.Tasks
+﻿using System.Linq;
+
+namespace robhabraken.SitecoreShrink.Tasks
 {
     using Entities;
     using Helpers;
@@ -9,6 +11,7 @@
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Utility class that scans the media library, analyzing its usage and size.
@@ -16,6 +19,7 @@
     public class MediaAnalyzer : IAnalyze
     {
         private readonly Database database;
+        private readonly List<string> codeReferencedItemList;
 
         /// <summary>
         /// Constructs an analyzer object to scan the media library of the database configured in the App.config.
@@ -24,6 +28,9 @@
         {
             var databaseName = Settings.GetSetting("Shrink.DatabaseToScan");
             this.database = Factory.GetDatabase(databaseName);
+
+            var codeReferencedItemIDs = Settings.GetSetting("Shrink.CodeReferencedItems");
+            this.codeReferencedItemList = codeReferencedItemIDs.Split('|').ToList();
         }
 
         /// <summary>
@@ -117,6 +124,12 @@
                     // exception handling because getting the referrers doesn't always seem to go flawless
                     // if getting teh referrers fails, the nullable IsReferenced boolean of the report object will stay null
                     Log.Error($"Shrink: exception during getting the referrers for item {{{reportItem.ID}}}", exception, this);
+                }
+
+                // if the item is referenced from code, always mark it as being referenced
+                if (this.codeReferencedItemList.Contains(sitecoreItem.ID.ToString()))
+                {
+                    reportItem.IsReferenced = true;
                 }
 
                 // add other meta data as well
