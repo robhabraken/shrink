@@ -6,6 +6,7 @@
     using Sitecore.Configuration;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using Tasks;
 
@@ -125,7 +126,7 @@
         /// <returns>The boolean value true if the job has started.</returns>
         public ActionResult ArchiveMedia(string itemList)
         {
-            new TidyJobManager().Archive(itemList.Split('|'), false);
+            new TidyJobManager().Archive(this.PipedStringToList(itemList), false);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
@@ -137,7 +138,7 @@
         /// <returns>The boolean value true if the job has started.</returns>
         public ActionResult RecycleMedia(string itemList)
         {
-            new TidyJobManager().Recycle(itemList.Split('|'), false);
+            new TidyJobManager().Recycle(this.PipedStringToList(itemList), false);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
@@ -149,7 +150,7 @@
         /// <returns>The boolean value true if the job has started.</returns>
         public ActionResult DeleteMedia(string itemList)
         {
-            new TidyJobManager().Delete(itemList.Split('|'), false);
+            new TidyJobManager().Delete(this.PipedStringToList(itemList), false);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
@@ -163,7 +164,7 @@
         public ActionResult DownloadMedia(string itemList, bool deleteAfterwards)
         {
             var downloadPath = Settings.GetSetting("Shrink.DownloadPath");
-            new TidyJobManager().Download(itemList.Split('|'), downloadPath, deleteAfterwards);
+            new TidyJobManager().Download(this.PipedStringToList(itemList), downloadPath, deleteAfterwards);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
@@ -175,9 +176,19 @@
         /// <returns>The boolean value true if the job has started.</returns>
         public ActionResult DeleteOldVersions(string itemList)
         {
-            new TidyJobManager().DeleteOldVersions(itemList.Split('|'));
+            new TidyJobManager().DeleteOldVersions(this.PipedStringToList(itemList));
 
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Converts a pipe-separated string to a string object list.
+        /// </summary>
+        /// <param name="pipedString">A pipe-separated string.</param>
+        /// <returns>A List of string objects.</returns>
+        private List<string> PipedStringToList(string pipedString)
+        {
+            return pipedString.Split('|').ToList();
         }
     }
 }

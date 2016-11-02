@@ -20,33 +20,33 @@
             this.tidyUp = new TidyUp();
         }
 
-        public void Archive(string[] items, bool archiveChildren)
+        public void Archive(List<string> itemIDs, bool archiveChildren)
         {
-            var args = new object[] { items, archiveChildren };
+            var args = new object[] { itemIDs, archiveChildren };
             this.StartJob("Archiving_media", "Archive", args);
         }
 
-        public void Delete(string[] items, bool deleteChildren)
+        public void Delete(List<string> itemIDs, bool deleteChildren)
         {
-            var args = new object[] { items, deleteChildren };
+            var args = new object[] { itemIDs, deleteChildren };
             this.StartJob("Deleting_media", "Delete", args);
         }
 
-        public void DeleteOldVersions(string[] items)
+        public void DeleteOldVersions(List<string> itemIDs)
         {
-            var args = new object[] { items };
+            var args = new object[] { itemIDs };
             this.StartJob("Deleting_old_versions", "DeleteOldVersions", args);
         }
 
-        public void Download(string[] items, string targetPath, bool deleteAfterwards)
+        public void Download(List<string> itemIDs, string targetPath, bool deleteAfterwards)
         {
-            var args = new object[] { items, targetPath, deleteAfterwards };
+            var args = new object[] { itemIDs, targetPath, deleteAfterwards };
             this.StartJob("Downloading_media", "Download", args);
         }
 
-        public void Recycle(string[] items, bool recycleChildren)
+        public void Recycle(List<string> itemIDs, bool recycleChildren)
         {
-            var args = new object[] { items, recycleChildren };
+            var args = new object[] { itemIDs, recycleChildren };
             this.StartJob("Recycling_media", "Recycle", args);
         }
 

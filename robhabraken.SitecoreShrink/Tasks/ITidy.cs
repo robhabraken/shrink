@@ -5,14 +5,14 @@
 
     public interface ITidy
     {
-        void Download(string[] items, string targetPath, bool deleteAfterwards);
+        void Download(List<string> itemIDs, string targetPath, bool deleteAfterwards);
 
-        void Archive(string[] items, bool archiveChildren);
+        void Archive(List<string> itemIDs, bool archiveChildren);
 
-        void Recycle(string[] items, bool recycleChildren);
+        void Recycle(List<string> itemIDs, bool recycleChildren);
 
-        void Delete(string[] items, bool deleteChildren);
+        void Delete(List<string> itemIDs, bool deleteChildren);
 
-        void DeleteOldVersions(string[] items);
+        void DeleteOldVersions(List<string> itemIDs);
     }
 }

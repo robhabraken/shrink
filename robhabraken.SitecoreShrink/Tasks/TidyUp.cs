@@ -42,21 +42,21 @@
         /// <summary>
         /// Saves the media files of the given items to disk, using the folder structure of the media library.
         /// </summary>
-        /// <param name="items">A list of items to download.</param>
+        /// <param name="itemIDs">A list of Sitecore item ID strings of the items to download.</param>
         /// <param name="targetPath">The target location for the items to be downloaded to.</param>
         /// <param name="deleteAfterwards">If set to true, the items will be deleted from the Sitecore database after the download is completed.</param>
-        public void Download(string[] items, string targetPath, bool deleteAfterwards)
+        public void Download(List<string> itemIDs, string targetPath, bool deleteAfterwards)
         {
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Length;
+                Context.Job.Status.Total = itemIDs.Count;
             }
             
             targetPath = string.Format("{0}{1}", HttpRuntime.AppDomainAppPath, targetPath);
 
-            foreach (var item in items)
+            foreach (var itemId in itemIDs)
             {
-                var scItem = this.database.GetItem(new ID(item));
+                var scItem = this.database.GetItem(new ID(itemId));
                 if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                 {
                     if (Context.Job != null)
@@ -112,23 +112,23 @@
         /// <remarks>
         /// This applies to all versions and all languages of these items.
         /// </remarks>
-        /// <param name="items">A list of items to archive.</param>
+        /// <param name="itemIDs">A list of Sitecore item ID strings of the items to archive.</param>
         /// <param name="archiveChildren">If set to true, child items will be archived as well; if set to false, items with children will be left untouched.</param>
-        public void Archive(string[] items, bool archiveChildren)
+        public void Archive(List<string> itemIDs, bool archiveChildren)
         {
             var archive = ArchiveManager.GetArchive("archive", database);
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Length;
+                Context.Job.Status.Total = itemIDs.Count;
             }
 
             if (archive != null)
             {
                 using (new SecurityDisabler())
                 {
-                    foreach (var item in items)
+                    foreach (var itemId in itemIDs)
                     {
-                        var scItem = this.database.GetItem(new ID(item));
+                        var scItem = this.database.GetItem(new ID(itemId));
                         if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                         {
                             if (Context.Job != null)
@@ -153,20 +153,20 @@
         /// <remarks>
         /// This applies to all versions and all languages of these items.
         /// </remarks>
-        /// <param name="items">A list of items to recycle.</param>
+        /// <param name="itemIDs">A list of Sitecore item ID strings of the items to recycle.</param>
         /// <param name="recycleChildren">If set to true, child items will be recycled as well; if set to false, items with children will be left untouched.</param>
-        public void Recycle(string[] items, bool recycleChildren)
+        public void Recycle(List<string> itemIDs, bool recycleChildren)
         {
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Length;
+                Context.Job.Status.Total = itemIDs.Count;
             }
 
             using (new SecurityDisabler())
             {
-                foreach (var item in items)
+                foreach (var itemId in itemIDs)
                 {
-                    var scItem = this.database.GetItem(new ID(item));
+                    var scItem = this.database.GetItem(new ID(itemId));
                     if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                     {
                         if (Context.Job != null)
@@ -194,20 +194,20 @@
         /// Note that deleting an item without deleting its children will result in the item being transformed to a media folder;
         /// this orphans the media blob (which was the goal of deleting the item), without breaking the path to underlying items.
         /// </remarks>
-        /// <param name="items">A list of items to delete.</param>
+        /// <param name="itemIDs">A list of Sitecore item ID strings of the items to delete.</param>
         /// <param name="deleteChildren">If set to true, the underlying child items of each item will be deleted too.</param>
-        public void Delete(string[] items, bool deleteChildren)
+        public void Delete(List<string> itemIDs, bool deleteChildren)
         {
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Length;
+                Context.Job.Status.Total = itemIDs.Count;
             }
 
             using (new SecurityDisabler())
             {
-                foreach (var item in items)
+                foreach (var itemId in itemIDs)
                 {
-                    var scItem = this.database.GetItem(new ID(item));
+                    var scItem = this.database.GetItem(new ID(itemId));
                     if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                     {
                         if (Context.Job != null)
@@ -281,19 +281,19 @@
         /// Getting the valid version can be done without consulting each separate publishing target, because if there _is_ a valid version for one of more targets,
         /// we do not want to delete it, and if there isn't a valid version _at all_ we can ignore the publishing settings and delete all versions but the last.
         /// </remarks>
-        /// <param name="items">A list of items to delete the old versions of.</param>
-        public void DeleteOldVersions(string[] items)
+        /// <param name="itemIDs">A list of Sitecore item ID strings of the items to delete the old versions of.</param>
+        public void DeleteOldVersions(List<string> itemIDs)
         {
             if (Context.Job != null)
             {
-                Context.Job.Status.Total = items.Length;
+                Context.Job.Status.Total = itemIDs.Count;
             }
 
             using (new SecurityDisabler())
             {
-                foreach (var item in items)
+                foreach (var itemId in itemIDs)
                 {
-                    var scItem = this.database.GetItem(new ID(item));
+                    var scItem = this.database.GetItem(new ID(itemId));
                     if (scItem != null && !scItem.TemplateID.ToString().Equals(MediaConstants.MediaFolderTemplateID))
                     {
                         if (Context.Job != null)
