@@ -88,6 +88,11 @@
                     }
                 }
             }
+
+            if(deleteAfterwards)
+            {
+                this.UpdateStorageAfterCleanUp(itemIDs);
+            }
         }
 
         /// <summary>
@@ -146,6 +151,8 @@
                     }
                 }
             }
+
+            this.UpdateStorageAfterCleanUp(itemIDs);
         }
 
         /// <summary>
@@ -183,7 +190,9 @@
                         }
                     }
                 }
-            }            
+            }
+
+            this.UpdateStorageAfterCleanUp(itemIDs);
         }
 
         /// <summary>
@@ -221,6 +230,8 @@
                     }
                 }
             }
+
+            this.UpdateStorageAfterCleanUp(itemIDs);
         }
 
         /// <summary>
