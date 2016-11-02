@@ -23,7 +23,7 @@
 
             return new List<object>()
             {
-                JobInfo.GetFriendlyJobName(job),
+                GetFriendlyJobName(job),
                 job.Status.Processed,
                 job.Status.Total
             };
@@ -33,12 +33,12 @@
         /// <summary>
         /// Formats the job name of a JobInfo.JobType type job into a friendly name that can be used to display the current job status.
         /// </summary>
-        /// <param name="jobName">The Sitecore job to get the name of.</param>
+        /// <param name="job">The Sitecore job to get the name of.</param>
         /// <returns>A formatted friendly job description.</returns>
         private static string GetFriendlyJobName(Job job)
         {
             return job.Name
-                .Replace(JobInfo.JobType, string.Empty)
+                .Replace(JobType, string.Empty)
                 .Replace(":", string.Empty)
                 .Replace("_", " ");
         }
@@ -50,7 +50,7 @@
         {
             get
             {
-                return JobManager.GetJobs().Where(job => !job.IsDone && job.Name.StartsWith(JobInfo.JobType)).OrderBy(job => job.QueueTime).ToList<Job>();
+                return JobManager.GetJobs().Where(job => !job.IsDone && job.Name.StartsWith(JobType)).OrderBy(job => job.QueueTime).ToList();
             }
         }
     }

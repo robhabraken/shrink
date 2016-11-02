@@ -21,7 +21,7 @@ namespace robhabraken.SitecoreShrink.Deprecated
     /// </remarks>
     public class DatabaseHelper
     {
-        private const string BLOBS_REPORT_QUERY = @"
+        private const string BlobsReportQuery = @"
             DECLARE @UsableBlobs TABLE(ID UNIQUEIDENTIFIER);
             DECLARE @VersionedBlobField VARCHAR(36) = '40E50ED9-BA07-4702-992E-A912738D32DC';
             DECLARE @UnversionedBlobField VARCHAR(36) = 'DBBE7D99-1388-4357-BB34-AD71EDF18ED3';
@@ -37,7 +37,7 @@ namespace robhabraken.SitecoreShrink.Deprecated
             WHERE [BlobId] NOT IN (SELECT * FROM @UsableBlobs)
                 ";
 
-        private const string CLEAN_BLOBS_QUERY = @"
+        private const string CleanBlobsQuery = @"
             DECLARE @UsableBlobs TABLE(ID UNIQUEIDENTIFIER);
             DECLARE @VersionedBlobField VARCHAR(36) = '40E50ED9-BA07-4702-992E-A912738D32DC';
             DECLARE @UnversionedBlobField VARCHAR(36) = 'DBBE7D99-1388-4357-BB34-AD71EDF18ED3';
@@ -49,14 +49,14 @@ namespace robhabraken.SitecoreShrink.Deprecated
             DELETE FROM [Blobs] WHERE [BlobId] NOT IN(SELECT * FROM @UsableBlobs)
                 ";
 
-        private const string SHRINK_DATABASE_QUERY = @"
+        private const string ShrinkDatabaseQuery = @"
             DBCC SHRINKDATABASE(0, NOTRUNCATE)
             DBCC SHRINKDATABASE(0, TRUNCATEONLY)
                 ";
 
-        private const string SPACE_USED_QUERY = "EXEC sp_spaceused";
+        private const string SpaceUsedQuery = "EXEC sp_spaceused";
 
-        private ConnectionStringSettings connectionStringSettings;
+        private readonly ConnectionStringSettings connectionStringSettings;
 
         public DatabaseHelper(string databaseName)
         {
@@ -72,8 +72,8 @@ namespace robhabraken.SitecoreShrink.Deprecated
         /// </remarks>
         public void CleanUpOrphanedBlobs()
         {
-            var jobName = string.Format("{0}_{1}", this.GetType(), "Clean_up_orphaned_media_blobs");
-            var args = new object[] { DatabaseHelper.CLEAN_BLOBS_QUERY, "cleaning up orphaned blobs" };
+            var jobName = $"{this.GetType()}_Clean_up_orphaned_media_blobs";
+            var args = new object[] { CleanBlobsQuery, "cleaning up orphaned blobs" };
 
             var jobOptions = new JobOptions(
                 jobName,
@@ -83,7 +83,7 @@ namespace robhabraken.SitecoreShrink.Deprecated
                 "ExecuteNonQuery",
                 args);
 
-            var job = JobManager.Start(jobOptions);
+            JobManager.Start(jobOptions);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace robhabraken.SitecoreShrink.Deprecated
         /// </remarks>
         public void ShrinkDatabase()
         {
-            this.ExecuteNonQuery(DatabaseHelper.SHRINK_DATABASE_QUERY, "shrinking the database");
+            this.ExecuteNonQuery(ShrinkDatabaseQuery, "shrinking the database");
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace robhabraken.SitecoreShrink.Deprecated
 
             using (var connection = new SqlConnection(this.connectionStringSettings.ConnectionString))
             {
-                var command = new SqlCommand(DatabaseHelper.BLOBS_REPORT_QUERY, connection);
+                var command = new SqlCommand(BlobsReportQuery, connection);
 
                 try
                 {
@@ -160,7 +160,7 @@ namespace robhabraken.SitecoreShrink.Deprecated
 
             using (var connection = new SqlConnection(this.connectionStringSettings.ConnectionString))
             {
-                var command = new SqlCommand(DatabaseHelper.SPACE_USED_QUERY, connection);
+                var command = new SqlCommand(SpaceUsedQuery, connection);
 
                 try
                 {
@@ -226,7 +226,7 @@ namespace robhabraken.SitecoreShrink.Deprecated
                 }
                 catch (SqlException exception)
                 {
-                    Log.Error(string.Format("Shrink: SqlException during {0}", description), exception, this);
+                    Log.Error($"Shrink: SqlException during {description}", exception, this);
                 }
             }
         }

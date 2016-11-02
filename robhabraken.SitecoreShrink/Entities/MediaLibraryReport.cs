@@ -10,7 +10,7 @@
     [DataContract]
     public class MediaLibraryReport
     {
-        private IEnumerable<MediaItemReport> flatList;
+        private readonly IEnumerable<MediaItemReport> flatList;
 
         /// <summary>
         /// Constructs a media library report object based on (a part of) the media library tree, represented by a media item report object.
@@ -66,7 +66,7 @@
         /// <returns>A list of all items that are either referenced or not referenced, depending on the input parameter of this method.</returns>
         public List<MediaItemReport> ItemsByReferenceState(bool referenced)
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && x.IsReferenced.Value == referenced).ToList<MediaItemReport>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsReferenced.HasValue && x.IsReferenced.Value == referenced).ToList();
         }
 
         /// <summary>
@@ -75,7 +75,7 @@
         /// <returns>A list of all items of which the references could not be determined.</returns>
         public List<MediaItemReport> ItemsReferencesUnknown()
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && !x.IsReferenced.HasValue).ToList<MediaItemReport>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && !x.IsReferenced.HasValue).ToList();
         }
 
         /// <summary>
@@ -104,7 +104,7 @@
         /// <returns>A list of all items that are either published or not published, depending on the input parameter of this method.</returns>
         public List<MediaItemReport> ItemsByPublishingState(bool published)
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value == published).ToList<MediaItemReport>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && x.IsPublished.Value == published).ToList();
         }
 
         /// <summary>
@@ -113,7 +113,7 @@
         /// <returns>A list of all items of which the publishing status could not be determined.</returns>
         public List<MediaItemReport> ItemsPublishingStateUnknown()
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).ToList<MediaItemReport>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.IsPublished.HasValue && !x.IsPublished.Value).ToList();
         }
 
         /// <summary>
@@ -133,7 +133,7 @@
         /// <returns>A list of all items that contain either old versions or not, depending on the input parameter of this method.</returns>
         public List<MediaItemReport> ItemsByVersionState(bool hasOldVersions)
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value == hasOldVersions).ToList<MediaItemReport>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && x.HasOldVersions.HasValue && x.HasOldVersions.Value == hasOldVersions).ToList();
         }
 
         /// <summary>
@@ -142,7 +142,7 @@
         /// <returns>A list of all items of which the version status could not be determined.</returns>
         public List<MediaItemReport> ItemsVersionsUnknown()
         {
-            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && !x.HasOldVersions.HasValue).ToList<MediaItemReport>();
+            return flatList.Where(x => x.IsMediaFolder.HasValue && !x.IsMediaFolder.Value && !x.HasOldVersions.HasValue).ToList();
         }
 
         /// <summary>

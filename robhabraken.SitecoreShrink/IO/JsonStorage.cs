@@ -12,7 +12,7 @@
     /// </summary>
     public class JsonStorage
     {
-        private string jsonFilePath;
+        private readonly string jsonFilePath;
 
         /// <summary>
         /// Constructs a new JSON storage object referring to the given file path.
@@ -20,7 +20,7 @@
         /// <param name="path">The file path indicating where to store the object on disk, relative to the webroot.</param>
         public JsonStorage(string path)
         {
-            this.jsonFilePath = HttpRuntime.AppDomainAppPath + path;
+            this.jsonFilePath = $"{HttpRuntime.AppDomainAppPath}{path}";
         }
         
         /// <summary>

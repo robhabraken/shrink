@@ -8,7 +8,6 @@
     using Sitecore.Data;
     using Sitecore.Data.Items;
     using Sitecore.Diagnostics;
-    using Sitecore.Links;
     using System;
 
     /// <summary>
@@ -16,7 +15,7 @@
     /// </summary>
     public class MediaAnalyzer : IAnalyze
     {
-        private Database database;
+        private readonly Database database;
 
         /// <summary>
         /// Constructs an analyzer object to scan the media library of the database configured in the App.config.
@@ -94,10 +93,9 @@
                 // update and get referrers
                 Globals.LinkDatabase.UpdateReferences(sitecoreItem);
 
-                ItemLink[] itemReferrers = null;
                 try
                 {
-                    itemReferrers = Globals.LinkDatabase.GetReferrers(sitecoreItem);
+                    var itemReferrers = Globals.LinkDatabase.GetReferrers(sitecoreItem);
 
                     // check validity of all referrers
                     foreach (var itemLink in itemReferrers)
@@ -118,7 +116,7 @@
                 {
                     // exception handling because getting the referrers doesn't always seem to go flawless
                     // if getting teh referrers fails, the nullable IsReferenced boolean of the report object will stay null
-                    Log.Error(string.Format("Shrink: exception during getting the referrers for item {{{0}}}", reportItem.ID), exception, this);
+                    Log.Error($"Shrink: exception during getting the referrers for item {{{reportItem.ID}}}", exception, this);
                 }
 
                 // add other meta data as well

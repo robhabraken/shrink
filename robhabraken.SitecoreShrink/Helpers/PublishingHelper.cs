@@ -111,14 +111,7 @@
                 var remoteItem = database.GetItem(item.ID, item.Language, item.Version);
                 if (remoteItem != null)
                 {
-                    if (item.Statistics.Revision.Equals(remoteItem.Statistics.Revision))
-                    {
-                        state = PublishState.Published;
-                    }
-                    else
-                    {
-                        state = PublishState.Changed;
-                    }
+                    state = item.Statistics.Revision.Equals(remoteItem.Statistics.Revision) ? PublishState.Published : PublishState.Changed;
                 }
                 targets.Add(database.Name, state);
             }

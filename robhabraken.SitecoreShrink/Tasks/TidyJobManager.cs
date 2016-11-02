@@ -12,7 +12,7 @@
     {
         public const string JobCategory = "cleaning";
 
-        private TidyUp tidyUp;
+        private readonly TidyUp tidyUp;
 
         public TidyJobManager()
         {
@@ -55,7 +55,7 @@
 
             var jobOptions = new JobOptions(
                 jobName,
-                TidyJobManager.JobCategory,
+                JobCategory,
                 Context.Site.Name,
                 this.tidyUp,
                 action,
@@ -64,7 +64,7 @@
                 AfterLife = TimeSpan.FromMinutes(5)
             };
 
-            var job = JobManager.Start(jobOptions);
+            JobManager.Start(jobOptions);
         }
     }
 }

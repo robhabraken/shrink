@@ -44,7 +44,7 @@
 
             this.IsMediaFolder = item.Template.ID.ToString().Equals(MediaConstants.MediaFolderTemplateID);
 
-            if (this.IsMediaFolder.HasValue && !this.IsMediaFolder.Value && item.Paths.IsMediaItem)
+            if (!this.IsMediaFolder.Value && item.Paths.IsMediaItem)
             {
                 var mediaItem = (MediaItem)item;
                 this.Size = mediaItem.Size;
@@ -74,7 +74,7 @@
         public Item GetSitecoreItem(string databaseName)
         {
             var database = Factory.GetDatabase(databaseName);
-            return database != null ? database.Items[new ID(this.ID)] : null;
+            return database?.Items[new ID(this.ID)];
         }
 
         /// <summary>
@@ -84,11 +84,11 @@
         /// and to always get the latest version of the Sitecore item, even if the report is generated in an earlier point of time),
         /// but the item is retrieved from the given database on execution time.
         /// </summary>
-        /// <param name="databaseName">The Sitecore database object to get the corresponding Sitecore item from.</param>
+        /// <param name="database">The Sitecore database object to get the corresponding Sitecore item from.</param>
         /// <returns>The original Sitecore media item that this report object is referring to.</returns>
         public Item GetSitecoreItem(Database database)
         {
-            return database != null ? database.Items[new ID(this.ID)] : null;
+            return database?.Items[new ID(this.ID)];
         }
 
         [DataMember(Name = "id", Order = 4)]

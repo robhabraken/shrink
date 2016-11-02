@@ -44,7 +44,7 @@
             var path = item.ID.ToString();
             while(!item.ParentID.IsNull && !item.ID.ToString().Equals(MediaConstants.MediaLibraryItemID))
             {
-                path = string.Format("{0}/{1}", item.ParentID.ToString(), path);
+                path = $"{item.ParentID}/{path}";
                 item = item.Parent;
             }
             return path;
@@ -61,7 +61,7 @@
             var stringBuilder = new StringBuilder();
             foreach(var item in flatList)
             {
-                stringBuilder.AppendFormat("{{{0}}}|", item.ID.ToString());
+                stringBuilder.AppendFormat("{{{0}}}|", item.ID);
             }
             return stringBuilder.ToString().TrimEnd('|');
         }

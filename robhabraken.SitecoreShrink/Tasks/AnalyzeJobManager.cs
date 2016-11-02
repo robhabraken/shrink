@@ -11,7 +11,7 @@
     {
         public const string JobCategory = "analyzing";
 
-        private MediaAnalyzer mediaAnalyzer;
+        private readonly MediaAnalyzer mediaAnalyzer;
 
         public AnalyzeJobManager()
         {
@@ -25,7 +25,7 @@
 
             var jobOptions = new JobOptions(
                 jobName,
-                AnalyzeJobManager.JobCategory,
+                JobCategory,
                 Context.Site.Name,
                 this.mediaAnalyzer,
                 "ScanMediaLibrary",
@@ -34,7 +34,7 @@
                 AfterLife = TimeSpan.FromMinutes(5)
             };
 
-            var job = JobManager.Start(jobOptions);
+            JobManager.Start(jobOptions);
         }
     }
 }

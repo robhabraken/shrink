@@ -20,7 +20,7 @@
     /// </summary>
     public class TidyUp : ITidy
     {
-        private Database database;
+        private readonly Database database;
 
         private enum ActionType { DeleteItem, DeleteVersions }
 
@@ -55,7 +55,7 @@
                 Context.Job.Status.Total = itemIDs.Count;
             }
             
-            targetPath = string.Format("{0}{1}", HttpRuntime.AppDomainAppPath, targetPath);
+            targetPath = $"{HttpRuntime.AppDomainAppPath}{targetPath}";
 
             foreach (var itemId in itemIDs)
             {
@@ -64,7 +64,7 @@
                 {
                     if (Context.Job != null)
                     {
-                        Context.Job.Status.Messages.Add(string.Format("Downloading media of item ", scItem.Paths.FullPath));
+                        Context.Job.Status.Messages.Add($"Downloading media of item {scItem.Paths.FullPath}");
                         Context.Job.Status.Processed++;
                     }
 
@@ -78,18 +78,22 @@
 
                         try
                         {
-                            Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
-                            using (var targetStream = File.OpenWrite(fullPath))
+                            var path = Path.GetDirectoryName(fullPath);
+                            if (path != null)
                             {
-                                stream.CopyTo(targetStream);
-                                targetStream.Flush();
+                                Directory.CreateDirectory(path);
+                                using (var targetStream = File.OpenWrite(fullPath))
+                                {
+                                    stream.CopyTo(targetStream);
+                                    targetStream.Flush();
+                                }
                             }
                         }
                         catch (Exception exception)
                         {
                             // due to the vast range of specific exceptions than can occur during file IO we catch all exceptions here,
                             // because we do not want to take different action upon the different exception types, just log what went wrong
-                            Log.Error(string.Format("Shrink: exception during downloading media item {0} to disk", itemId), exception, this);
+                            Log.Error($"Shrink: exception during downloading media item {itemId} to disk", exception, this);
                         }
                     }
 
@@ -120,7 +124,7 @@
                 mediaPath = mediaPath.Substring(1);
             }
             
-            return Path.Combine(targetPath, string.Format("{0}.{1}", mediaPath, extension));
+            return Path.Combine(targetPath, $"{mediaPath}.{extension}");
         }
 
         /// <summary>
@@ -150,7 +154,7 @@
                         {
                             if (Context.Job != null)
                             {
-                                Context.Job.Status.Messages.Add(string.Format("Archiving item ", scItem.Paths.FullPath));
+                                Context.Job.Status.Messages.Add($"Archiving item {scItem.Paths.FullPath}");
                                 Context.Job.Status.Processed++;
                             }
 
@@ -190,7 +194,7 @@
                     {
                         if (Context.Job != null)
                         {
-                            Context.Job.Status.Messages.Add(string.Format("Recycling item ", scItem.Paths.FullPath));
+                            Context.Job.Status.Messages.Add($"Recycling item {scItem.Paths.FullPath}");
                             Context.Job.Status.Processed++;
                         }
 
@@ -233,7 +237,7 @@
                     {
                         if (Context.Job != null)
                         {
-                            Context.Job.Status.Messages.Add(string.Format("Deleting item ", scItem.Paths.FullPath));
+                            Context.Job.Status.Messages.Add($"Deleting item {scItem.Paths.FullPath}");
                             Context.Job.Status.Processed++;
                         }
 
@@ -293,7 +297,10 @@
                     // try resetting the icon field back to a folder icon after changing the media item to a folder
                     item.Fields["__Icon"].Reset();
                 }
-                catch { }
+                catch
+                {
+                    // if the resetting of the icon field didn't succeed, just leave it alone
+                }
             }
             item.Editing.EndEdit();
         }
@@ -326,7 +333,7 @@
                     {
                         if (Context.Job != null)
                         {
-                            Context.Job.Status.Messages.Add(string.Format("Deleting old versions of item ", scItem.Paths.FullPath));
+                            Context.Job.Status.Messages.Add($"Deleting old versions of item {scItem.Paths.FullPath}");
                             Context.Job.Status.Processed++;
                         }
 
@@ -417,7 +424,7 @@
             foreach (var item in mediaItemReport.Children)
             {
                 // collect item references to delete
-                var sitecoreItemIdString = string.Format("{{{0}}}", item.ID.ToString().ToUpper());
+                var sitecoreItemIdString = $"{{{item.ID.ToString().ToUpper()}}}";
                 if(item.IsMediaFolder.HasValue && !item.IsMediaFolder.Value && itemIDs.Contains(sitecoreItemIdString))
                 {
                     // either stage the item for removal or just mark the old versions flag false, depending on the action type
