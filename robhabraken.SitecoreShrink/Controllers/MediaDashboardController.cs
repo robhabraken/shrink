@@ -85,7 +85,7 @@
                         items = libraryReport.ItemsByReferenceState(true);
                         break;
                     case MediaConstants.CategoryNotReferenced:
-                        items = libraryReport.ItemsByPublishingState(false);
+                        items = libraryReport.ItemsByReferenceState(false);
                         break;
                     case MediaConstants.CategoryReferencedUnknown:
                         items = libraryReport.ItemsReferencesUnknown();
