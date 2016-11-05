@@ -198,6 +198,7 @@ FakesAssemblies/
 # Sitecore stuff
 Data/
 Referenced assemblies/
+Website/App_Browsers/
 Website/temp/
 Website/App_Data/
 
