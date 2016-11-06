@@ -204,8 +204,9 @@ Website/App_Config/
 Website/Areas/
 Website/Artifacts/
 Website/Properties/
-Website/Views/
+Website/sitecore modules/
 Website/temp/
+Website/Views/
 
 # Shrink data storage files
 libraryreport.json
