@@ -12,6 +12,19 @@
   width: 33.33%;
 }
 
+canvas {
+    display: block;
+    visibility: hidden;
+    width: 100%;
+}
+
+.svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
 .chart-background {
   margin-right: 15px;
   background-color: #fff;
@@ -26,7 +39,7 @@
   white-space: nowrap;
 }
 
-.donut-chart {
+.donut-chart, .sunburst-chart {
   position: relative;
 }
 
@@ -44,7 +57,7 @@
 
 .donut-fact-highlight {
   font-size: 2.5em;
-}   
+}
 
 .sunburst-chart path {
   stroke: #fff;

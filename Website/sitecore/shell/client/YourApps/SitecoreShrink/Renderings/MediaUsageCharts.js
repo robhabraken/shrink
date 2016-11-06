@@ -54,8 +54,9 @@
                 var svg = d3.select("#" + chartId).append("svg")
                     .attr("preserveAspectRatio", "xMinYMin meet")
                     .attr("viewBox", "0 0 " + width + " " + height)
+                    .attr("class", "svg")
                   .append("g")
-                    .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 10) + ")");
+                    .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
 
                 var partition = d3.layout.partition()
                     .sort(null)
@@ -129,6 +130,7 @@
                 var svg = d3.select("#" + chartId).append("svg")
                     .attr("preserveAspectRatio", "xMinYMin meet")
                     .attr("viewBox", "0 0 " + width + " " + height)
+                    .attr("class", "svg")
                   .append("g")
                     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
