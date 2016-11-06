@@ -1,7 +1,0 @@
-﻿List of files that should be included in this module, but are not present in this namespace / project:
-- sitecore/shell/client/YourApps/SitecoreShrink/.
-- Website/App_Config/Include/Shrink.config
-
-Items:
-- core/sitecore/client/Your Apps/SitecoreShrink/.
-- core/sitecore/client/Applications/Launchpad/PageSettings/Buttons/Tools/Shrink

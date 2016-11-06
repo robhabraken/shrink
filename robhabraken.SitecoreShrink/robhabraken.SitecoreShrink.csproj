@@ -74,9 +74,6 @@
     <Compile Include="Tasks\TidyJobManager.cs" />
     <Compile Include="Tasks\TidyUp.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="files.txt" />
-  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
