@@ -23,7 +23,7 @@ This module requires write access to the following folder:
 Also, to initiate the scanning process of the media library, you have to open the SPEAK application once after installing the module.
 
 ## Features
-Check my blog at http://sitecore.robhabraken.nl for more info on how to install and how to use this module.
+Check my blog at http://sitecore.robhabraken.nl/index.php/2554/sitecore-shrink for more info on how this module is built up.
   
 ### Sunburst chart
 The sunburst chart shows you the relative file sizes of the different folders in your media libarry. You can hover over folders and files to see their item name and file size, and you can zoom in on folders too. Clicking on a folder does not only zoom in your view, but also opens up the corresponding folder in the tree view, to show you the actual items and folder structure for that part.
@@ -51,7 +51,7 @@ Displays the items and folder structure of your media library and lets you selec
 Because all of the actions mentioned above potentially require a long time to execute, all actions of this module are actually executed as a Sitecore Job. The SPEAK application will show you a progress bar if applicable and if possible.
 
 ### Don't forget!
-Mind that you need to publish (parts of) the media library after cleaning up to also clean up your web database or other publishing targets. And next to that, you might want to clean up your database by removing orphaned blobs (via the Sitecore Control Panel or using a SQL query) and run do a database file shrink from your SQL Server Management Studio to release the freed and now unallocated space within your SQL database.
+Mind that you need to publish (parts of) the media library after cleaning up to also clean up your web database or other publishing targets. And next to that, you might want to clean up your database by removing orphaned blobs (via the Sitecore Control Panel or using a SQL query) and do a database file shrink from your SQL Server Management Studio to release the freed and now unallocated space within your SQL database.
 
 ## Future releases
 For future releases, next to improving the existing media library usage statistics and clean up actions, I may extend this module with additional utilities to enhance the performance of your Sitecore implementations, by offering additional analyzing or clean up features like optimizing the templates, content structure or maybe even the size of your rendered Sitecore pages.
