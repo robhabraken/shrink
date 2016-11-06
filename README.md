@@ -61,7 +61,7 @@ If you have ideas or suggestions that I can use to improve my module, please do 
 
 ## Known issues
 The following issues are known and are part of the backlog for future releases:
-* You cannot click on the left and right center parts of the donut charts, because the div highlighting the most important metric for that chart is blocking the chart element.
+* You cannot click on the left and right center parts of the donut charts when using Chrome, because the div highlighting the most important metric for that chart is blocking the chart element. Firefox and IE are okay.
 * The default behavior of the TreeView component which I've extended is to not select items in folded folders. So a checked but folded folder does not mean you have selected anything within that folder. You would actually have to expand it and then it automatically selects everything in it. I want to see if I can either change this behavior, or if I can run a script that folds out everything, but the latter could impose a performance issue as well as a UI challenge.
 
 If you encounter an issue with this module, I would like to know what you've found and I would be more than happy if I can help you out or if I can improve my module in any way. Best way to contact me is via my Twitter account @rhabraken.
