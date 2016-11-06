@@ -211,7 +211,7 @@ Website/sitecore/images/
 Website/sitecore/login/
 Website/sitecore/portal/
 Website/sitecore/service/
-
+Website/sitecore/shell/
 Website/sitecore/blocked.aspx
 Website/sitecore/default.aspx
 Website/sitecore/no.css
@@ -221,7 +221,7 @@ Website/temp/
 Website/upload/
 Website/Views/
 Website/xsl/
-Website/default.*
+Website/[Dd]efault.*
 Website/Web.config
 Website/webedit.css
 

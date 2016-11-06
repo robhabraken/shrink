@@ -1,0 +1,69 @@
+﻿@using Sitecore.Mvc
+@using Sitecore.Mvc.Presentation
+@using Sitecore.Web.UI.Controls.Common.JqueryUiUserControls
+@model RenderingModel
+@{
+    var rendering = this.Html.Sitecore().Controls().GetJqueryUiUserControl(this.Model.Rendering);
+    rendering.Class = "sc-mediausagecharts";
+    rendering.Requires.Script("client", "d3.v3.min.js");
+    rendering.Requires.Script("client", "MediaUsageCharts.js");
+    rendering.Requires.Css("client", "MediaUsageCharts.css");
+
+    rendering.SetAttribute("data-sc-appcontext", rendering.GetString("AppContext"));
+
+    var htmlAttributes = rendering.HtmlAttributes;
+}
+<div @htmlAttributes>
+    <!-- sunburst chart -->
+    <div class="chart-panel full-width">
+        <div class="chart-background">
+            <div class="chart-title">
+                Media library usage
+            </div>
+            <div class="sunburst-chart" id="media-usage">
+            </div>
+        </div>
+    </div>
+    <!-- donut chart referenced items -->
+    <div class="chart-panel third">
+        <div class="chart-background">
+            <div class="chart-title">
+                Referenced items
+            </div>
+            <div class="donut-chart" id="referenced-chart">
+                <div class="donut-fact">
+                    <span class="donut-fact-highlight" id="size-referenced"></span><br />
+                    is not being referenced
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- donut chart published items -->
+    <div class="chart-panel third">
+        <div class="chart-background">
+            <div class="chart-title">
+                Published items
+            </div>
+            <div class="donut-chart" id="published-chart">
+                <div class="donut-fact">
+                    <span class="donut-fact-highlight" id="size-published"></span><br />
+                    is not published at all
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- donut chart old versions -->
+    <div class="chart-panel third">
+        <div class="chart-background">
+            <div class="chart-title">
+                Items with old versions
+            </div>
+            <div class="donut-chart" id="versions-chart">
+                <div class="donut-fact">
+                    <span class="donut-fact-highlight" id="size-versions"></span><br />
+                    items have old versions
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

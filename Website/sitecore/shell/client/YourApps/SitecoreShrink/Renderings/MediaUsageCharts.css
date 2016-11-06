@@ -1,0 +1,52 @@
+﻿.chart-panel {
+  float: left;
+  margin-bottom: 15px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.third {
+  min-width: 225px;
+  width: 33.33%;
+}
+
+.chart-background {
+  margin-right: 15px;
+  background-color: #fff;
+}
+
+.chart-title {
+  border-bottom: 1px solid #ccc;
+  color: #474747;
+  font-size: 1.5em;
+  line-height: 46px;
+  padding-left: 15px;
+  white-space: nowrap;
+}
+
+.donut-chart {
+  position: relative;
+}
+
+.donut-chart path {
+  stroke: #fff;
+}
+
+.donut-fact {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 35%;
+  color: #666;
+}
+
+.donut-fact-highlight {
+  font-size: 2.5em;
+}   
+
+.sunburst-chart path {
+  stroke: #fff;
+  fill-rule: evenodd;
+}

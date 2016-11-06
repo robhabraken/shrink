@@ -1,0 +1,94 @@
+﻿@using Sitecore
+@using Sitecore.Data.Items
+@using Sitecore.Globalization
+@using Sitecore.Mvc
+@using Sitecore.Mvc.Presentation
+@using Sitecore.Resources
+@using Sitecore.Data
+@using Sitecore.Web.UI
+@using Sitecore.Web.UI.Controls.Common.JqueryUiUserControls
+@model RenderingModel
+@{
+    var userControl = this.Html.Sitecore().Controls().GetJqueryUiUserControl(this.Model.Rendering);
+    userControl.Attributes["data-bind"] = "css: { 'hide-images': !showIconImage() }, visible: isVisible";
+    userControl.Class = "sc-itemtreeview";
+
+    // switch to own JavaScript file
+    userControl.Requires.Script("client", "SelectableTreeView.js");
+
+    var rootItemId = userControl.GetString("RootItem");
+    var contentLanguage = userControl.GetString("ContentLanguage");
+    var selectedItems = userControl.GetString("SelectedItemId");
+    var preLoadPath = userControl.GetString("PreLoadPath");
+
+    var checkedItems = userControl.GetString("CheckedItems");
+    var clickFolderMode = userControl.GetInt("ClickFolderMode");
+    var checkboxEnabled = userControl.GetBool("IsCheckboxEnabled");
+    var showScIcons = userControl.GetBool("ShowSitecoreIcons");
+    var selectMode = userControl.GetInt("SelectMode");
+    var showIconImage = userControl.GetBool("ShowIconImage");
+    var template = userControl.GetString("Template");
+    var baseTemplates = userControl.GetString("Base Templates");
+    var databaseName = userControl.GetString("Database");
+    databaseName = string.IsNullOrEmpty(databaseName) ? "$context_contentdatabase" : databaseName;
+    var database = ClientHost.Databases.ContentDatabase;
+
+    if (!string.IsNullOrEmpty(databaseName))
+    {
+        if (string.Compare(databaseName, "$context_database", StringComparison.InvariantCultureIgnoreCase) == 0)
+        {
+            database = ClientHost.Databases.Database;
+        }
+        else if (string.Compare(databaseName, "$context_contentdatabase", StringComparison.InvariantCultureIgnoreCase) == 0)
+        {
+            database = ClientHost.Databases.ContentDatabase;
+        }
+        else
+        {
+            database = Database.GetDatabase(databaseName);
+        }
+    }
+
+    var templates = new TemplateHelper().GetRelatedTemplatesString(baseTemplates, database);
+    if (!string.IsNullOrEmpty(template))
+    {
+        templates = string.IsNullOrEmpty(templates) ? template : string.Concat(template, "|", templates);
+    }
+
+    Item rootItem = null;
+    if (!string.IsNullOrEmpty(rootItemId))
+    {
+        rootItem = database.GetItem(rootItemId, Language.Parse(contentLanguage));
+    }
+
+    if (rootItem == null)
+    {
+        rootItem = database.GetRootItem();
+    }
+
+    var rootItemIcon = Images.GetThemedImageSource(!string.IsNullOrEmpty(rootItem.Appearance.Icon) ? rootItem.Appearance.Icon : "Applications/16x16/documents.png", ImageDimension.id16x16);
+    userControl.SetAttribute("data-sc-rootitem", rootItem.DisplayName + "," + rootItem.Database.Name + "," + rootItem.ID + "," + rootItemIcon);
+    userControl.SetAttribute("data-sc-rootitempath", rootItem.Paths.Path);
+    userControl.SetAttribute("data-sc-loadpath", preLoadPath);
+    userControl.SetAttribute("data-sc-contentlanguage", contentLanguage);
+    userControl.SetAttribute("data-sc-templates", templates);
+    userControl.SetAttribute("data-sc-database", databaseName);
+
+    // SelectableTreeView addition
+    userControl.SetAttribute("data-sc-itemstodisplay", userControl.GetString("ItemsToDisplay"));
+
+    userControl.AddOptionAttribute("selectedItems");
+    userControl.AddOptionAttribute("checkedItems");
+    userControl.AddOptionAttribute("clickFolderMode");
+    userControl.AddOptionAttribute("selectMode");
+    userControl.AddBoolOptionAttribute("IsCheckboxEnabled", "checkbox");
+    userControl.AddBoolOptionAttribute("ShowSitecoreIcons");
+    userControl.AddBoolOptionAttribute("ShowHiddenItems", "showhiddenitems");
+    userControl.AddBoolOptionAttribute("ShowIconImage", "showiconimage");
+
+    var htmlAttributes = userControl.HtmlAttributes;
+}
+<div @htmlAttributes>
+  <div>Please select a root folder or category within the charts to load the corresponding items:</div>
+  <ul></ul>
+</div>             
