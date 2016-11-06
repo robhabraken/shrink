@@ -208,6 +208,13 @@ Website/Properties/
 Website/sitecore/admin/
 Website/sitecore/Copyrights/
 Website/sitecore/images/
+Website/sitecore/login/
+Website/sitecore/portal/
+Website/sitecore/service/
+
+Website/sitecore/blocked.aspx
+Website/sitecore/default.aspx
+Website/sitecore/no.css
 Website/sitecore modules/
 Website/sitecore_files/
 Website/temp/
