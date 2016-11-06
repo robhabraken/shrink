@@ -198,13 +198,14 @@ FakesAssemblies/
 # Sitecore stuff
 Data/
 Referenced assemblies/
+Website/App_Data/
 Website/App_Browsers/
 Website/App_Config/
 Website/Areas/
 Website/Artifacts/
 Website/Properties/
+Website/Views/
 Website/temp/
-Website/App_Data/
 
 # Shrink data storage files
 libraryreport.json
