@@ -210,6 +210,9 @@ Website/temp/
 Website/upload/
 Website/Views/
 Website/xsl/
+Website/default.*
+Website/Web.config
+Website/webedit.css
 
 # Shrink data storage files
 libraryreport.json
