@@ -207,7 +207,9 @@ Website/layouts/
 Website/Properties/
 Website/sitecore modules/
 Website/temp/
+Website/upload/
 Website/Views/
+Website/xsl/
 
 # Shrink data storage files
 libraryreport.json
