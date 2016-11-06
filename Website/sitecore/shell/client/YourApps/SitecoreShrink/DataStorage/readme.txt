@@ -1,0 +1,1 @@
+# This is the default location where Shrink stores its JSON files
