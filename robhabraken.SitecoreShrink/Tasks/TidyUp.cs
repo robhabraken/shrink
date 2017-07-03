@@ -54,8 +54,6 @@
             {
                 Context.Job.Status.Total = itemIDs.Count;
             }
-            
-            targetPath = $"{HttpRuntime.AppDomainAppPath}{targetPath}";
 
             foreach (var itemId in itemIDs)
             {

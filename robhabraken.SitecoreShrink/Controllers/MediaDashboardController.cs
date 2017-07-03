@@ -6,7 +6,9 @@
     using Sitecore.Configuration;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
     using Tasks;
 
@@ -164,6 +166,16 @@
         public ActionResult DownloadMedia(string itemList, bool deleteAfterwards)
         {
             var downloadPath = Settings.GetSetting("Shrink.DownloadPath");
+            //first, we need to check, if our path is absolute or relative
+            //bring up downloadpath to one path separator
+            downloadPath = downloadPath.Contains("\\") ? downloadPath.Replace('/', '\\') : downloadPath;
+            //check if we can get full path via Path - if it is, then we have absolute path, else - it was relative
+            downloadPath = Path.GetFullPath(downloadPath) == downloadPath ? downloadPath : $"{HttpRuntime.AppDomainAppPath}{downloadPath}";
+
+            if (!Directory.Exists(downloadPath))
+            {
+                Directory.CreateDirectory(downloadPath);
+            }
             new TidyJobManager().Download(this.PipedStringToList(itemList), downloadPath, deleteAfterwards);
 
             return Json(true, JsonRequestBehavior.AllowGet);
