@@ -132,16 +132,44 @@ namespace robhabraken.SitecoreShrink.Tasks
                     reportItem.IsReferenced = null;
                 }
 
-                // if the item is referenced from code, always mark it as being referenced
-                if (this.codeReferencedItemList.Contains(sitecoreItem.ID.ToString()))
+                if (reportItem.IsReferenced != null && !reportItem.IsReferenced.Value)
                 {
-                    reportItem.IsReferenced = true;
+                    //check, if item or it's parents are in code reference list
+                    //we shall not check if it is already referenced
+                    reportItem.IsReferenced = this.CheckSelfAndParents(sitecoreItem);
                 }
 
                 // add other meta data as well
                 reportItem.IsPublished = new PublishingHelper().ListPublishedTargets(sitecoreItem).Count > 0;
                 reportItem.HasOldVersions = this.HasMultipleVersions(sitecoreItem);
             }
+        }
+
+        private bool CheckSelfAndParents(Item item)
+        {
+            if (item == null)
+            {
+                //absent parent could not be referenced
+                return false;
+            }
+
+            if (this.codeReferencedItemList.Contains(item.ID.ToString()))
+            {
+                return true;
+            }
+
+            if (item.Parent == null)
+            {
+                //absent parent could not be referenced
+                return false;
+            }
+            if (item.ParentID.ToGuid() == this.MediaItemRoot.ID)
+            {
+                //we shall not check media library itself for references
+                return false;
+            }
+
+            return this.CheckSelfAndParents(item.Parent);
         }
 
         /// <summary>
