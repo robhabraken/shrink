@@ -132,11 +132,10 @@ namespace robhabraken.SitecoreShrink.Tasks
                     reportItem.IsReferenced = null;
                 }
 
-                if (reportItem.IsReferenced != null && !reportItem.IsReferenced.Value)
+                // if the item is referenced from code (as indicated by code reference list in config), always mark it as being referenced
+                if ((reportItem.IsReferenced.HasValue && !reportItem.IsReferenced.Value) || !reportItem.IsReferenced.HasValue)
                 {
-                    //check, if item or it's parents are in code reference list
-                    //we shall not check if it is already referenced
-                    reportItem.IsReferenced = this.CheckSelfAndParents(sitecoreItem);
+                    reportItem.IsReferenced = this.ItemOrParentIsReferencedFromCode(sitecoreItem);
                 }
 
                 // add other meta data as well
@@ -145,31 +144,37 @@ namespace robhabraken.SitecoreShrink.Tasks
             }
         }
 
-        private bool CheckSelfAndParents(Item item)
+        /// <summary>
+        /// Checks if the given item is being referenced by code, or any of its parent folders.
+        /// The list of referenced items from code can be managed in the Shrink config file, where you can either enter the IDs of individual items,
+        /// or the IDs of folders, which are then being ignored completely, including all of its content (and thus marked as being referenced).
+        /// </summary>
+        /// <param name="item">The Sitecore item to check if it is being referenced from code.</param>
+        /// <returns>True if the given Sitecore item or any of its parent folders is being referenced by code.</returns>
+        private bool ItemOrParentIsReferencedFromCode(Item item)
         {
-            if (item == null)
-            {
-                //absent parent could not be referenced
-                return false;
-            }
-
+            if (item == null) return false;
+            
+            // check if the item ID occurs in the exclude list, which indicates usage from code
             if (this.codeReferencedItemList.Contains(item.ID.ToString()))
             {
                 return true;
             }
 
+            // if the item has no parent, the parent cannot be referenced, so we can abort
             if (item.Parent == null)
             {
-                //absent parent could not be referenced
-                return false;
-            }
-            if (item.ParentID.ToGuid() == this.MediaItemRoot.ID)
-            {
-                //we shall not check media library itself for references
                 return false;
             }
 
-            return this.CheckSelfAndParents(item.Parent);
+            // we should not check the media item root itself for references, so if we hit this, we're ready
+            if (item.ParentID.ToGuid() == this.MediaItemRoot.ID)
+            {
+                return false;
+            }
+
+            // if the item isn't referenced itself, check the parent for references
+            return this.ItemOrParentIsReferencedFromCode(item.Parent);
         }
 
         /// <summary>
